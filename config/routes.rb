@@ -10,5 +10,4 @@ Rails.application.routes.draw do
     resources :messages
   end
 
-  get "/dashboard", to: "dashboard#show"
 end
