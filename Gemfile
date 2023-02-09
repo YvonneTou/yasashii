@@ -77,4 +77,10 @@ group :test do
   gem "webdrivers"
 end
 
+# Custom gems
 gem "pundit", "~> 2.3"
+gem "pg_search"
+gem "faker"
+gem "cloudinary"
+gem "dotenv-rails", groups: [:development, :test]
+gem "geocoder"
