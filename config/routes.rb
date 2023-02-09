@@ -9,6 +9,6 @@ Rails.application.routes.draw do
     resources :reviews
   end
   resources :phone_calls do
-    resources :messages
+    resources :messages, only: :create
   end
 end
