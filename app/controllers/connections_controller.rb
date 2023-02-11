@@ -5,7 +5,7 @@ class ConnectionsController < ApplicationController
     @connection.clinic = @clinic
     @connection.user = current_user
     if @connection.save
-      redirect_to connection_path(@connection)
+      # redirect_to connection_path(@connection)
     else
       render :new, status: :unprocessable_entity
     end

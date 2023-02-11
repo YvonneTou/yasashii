@@ -1,9 +1,6 @@
-SYMS = [
-  'Headache', 'Fever', 'Muscle pain', 'Stiff neck', 'Stomachache'
-]
-<%= simple_form_for [@clinic, @connection] do |f| %>
-  <%= f.input :appt_date, placeholder: 'Proposed Appointment Date & Time', as: :datetime, html5: true %>
-  <%= f.input :symptoms, as: :radio_buttons, label: 'symptoms', collection: SYMS  %>
-  <%= f.input :info, Placeholer: 'Other information', as: :text %>
-  <%= f.button :submit, class: "btn btn-success" %>
+<%= simple_form_for [@connection] do |f| %>
+  <%= f.input :appt_date, label: 'Proposed Appointment Date Time', as: :datetime, html5: true %>
+  <%= f.input :symptoms, as: :radio_buttons, label: 'Symptoms', collection: ['Headache', 'Fever', 'Muscle pain', 'Stiff neck', 'Stomachache']  %>
+  <%= f.input :info, placeholder: 'Other information', label: false, as: :text %>
+  <%= f.button :submit, 'Submit & start call', class: "btn btn-success" %>
 <% end %>
