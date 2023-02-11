@@ -143,7 +143,7 @@ def create_clinics
 end
 
 clinics.each_with_index do |clinic, index|
-  create_listing(clinic)
+  create_clinics(clinic)
   puts "Created #{index + 1} clinic#{index.zero? ? '' : 's'}"
 end
 
