@@ -49,7 +49,7 @@ SYMPTOMS = [
 
 
 puts "Destroying existing records..."
-Connection.destroy_all
+Clinic.destroy_all
 User.destroy_all
 puts "Done deletion"
 
@@ -65,7 +65,7 @@ puts "Done creating users"
 puts "Creating 10 new Clinics..."
 
 derm = {
-  file: ,
+  file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098274/f8ohtzopvp39syrgiurl.jpg",
   name: 'Meguro Dermatology',
   location: '1F 3-10-49 Knot Hanabusayama.
   Kamiosaki, Shinagawa. 141-0021 Tokyo',
@@ -76,7 +76,7 @@ derm = {
 }
 
 mirai = {
-  file: ,
+  file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098571/b5pc0fz1xznoyjbf5c6n.png",
   name: 'Meguromirai Internal Medicine Clinic',
   location: '〒141-0021 2-13-26 Kamiosaki Shinagawa-ku, Tokyo Maple top building 3F',
   hours: '9:00-18:00',
@@ -89,7 +89,7 @@ mirai = {
 }
 
 ladies = {
-  file: ,
+  file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098430/tqehxzorgix6eygvqnlj.jpg",
   name: 'Meguro Ladies Clinic',
   location: '1-3-15 Meguro City, Tokyo REID-C Meguro West Building B1F',
   hours: '10:00-19:00',
@@ -99,7 +99,7 @@ ladies = {
 }
 
 ear = {
-  file: ,
+  file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098325/luxbijrgqhnaicuiphd1.jpg",
   name: 'Meguro Ear',
   location: '153-0063 Tokyo, Meguro City, Meguro, 2 Chome-9-5 Blossom Meguro 3F',
   hours: '9:30-17:30',
@@ -109,7 +109,7 @@ ear = {
 }
 
 sakurai = {
-  file: ,
+  file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098620/aepj0yo0b2tndmspkjbc.jpg",
   name: 'Sakurai Orthopedic Surgical Clinic',
   location: '1 Chome-15-6 Yutenji, Meguro City, Tokyo 153-0052',
   hours: '9:00-18:30',
@@ -119,7 +119,7 @@ sakurai = {
 }
 
 mental = {
-  file: ,
+  file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098517/ggkqixqzd0lxlewkidgs.jpg",
   name: 'Meguro Ekimae Mental Clinic',
   location: '141-0021 Tokyo, Shinagawa City, Kamiosaki, 4 Chome-4-6 Meguro MT Building',
   hours: '9:00-18:30',
@@ -129,7 +129,7 @@ mental = {
 }
 
 sakoda = {
-  file: ,
+  file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098682/fz8jcbrtkxsdsvxhonrp.jpg",
   name: 'Meguro Sakoda Orthopedics',
   location: '153-0063 Tokyo, Meguro City, Meguro, 3 Chome-10-13 Ootori Estate Building 3F',
   hours: '9:00-18:30',
@@ -139,7 +139,7 @@ sakoda = {
 }
 
 hira = {
-  file: ,
+  file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098393/zquhpwiksc8zt3rwoifi.jpg",
   name: 'Hiramoto Eye Clinic',
   location: '153-0064 Tokyo, Meguro City, Shimomeguro, 2 Chome-20-22 Sun Palace Meguro 101',
   hours: '10:00-18:30',
@@ -149,7 +149,7 @@ hira = {
 }
 
 utaan = {
-  file: ,
+  file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676097011/bkdtbp3vq8fj4znuqytw.jpg",
   name: 'Utaan Acupuncture Orthopedic Clinic',
   location: '153-0064 Tokyo, Meguro City, Shimomeguro, 2 Chome-16-11 Meguro Point 302',
   hours: '10:00-20:00',
@@ -159,7 +159,7 @@ utaan = {
 }
 
 kei = {
-  file: ,
+  file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676097047/ngen2jpcysdekyfuypwy.jpg",
   name: 'KEI Acupuncture',
   location: '153-0064 Tokyo, Meguro City, Shimomeguro, 1 Chome-4-6 Royal Meguro 203',
   hours: '10:00-18:00',
@@ -239,3 +239,54 @@ User.all.each do |user|
 end
 
 puts "Done creating connections"
+
+puts "Creating sample conversation for each connection (5 messages x #{Connection.all.count} connections = #{Connection.all.count * 5} messages)"
+
+Connection.all.each do |connection|
+  Message.create!(
+    {
+      connection: connection,
+      content: "Thank you reaching #{connection.clinic.name}. We can accept your appointment at that date and time.",
+      sender_type: "clinic",
+      sender: connection.clinic
+    }
+  )
+
+  Message.create!(
+    {
+      connection: connection,
+      content: "Great, thank you so much!",
+      sender_type: "user",
+      sender: connection.user
+    }
+  )
+
+  Message.create!(
+    {
+      connection: connection,
+      content: "Your appointment is confirmed for #{connection.appt_date.strftime("%A, %B%e at %H:%M")}",
+      sender_type: "clinic",
+      sender: connection.clinic
+    }
+  )
+
+  Message.create!(
+    {
+      connection: connection,
+      content: "I'll see you then. Thanks for your help!",
+      sender_type: "user",
+      sender: connection.user
+    }
+  )
+
+  Message.create!(
+    {
+      connection: connection,
+      content: "Thank you for your booking. Please take care. Excuse me.",
+      sender_type: "clinic",
+      sender: connection.clinic
+    }
+  )
+end
+
+puts "Done creating messages"
