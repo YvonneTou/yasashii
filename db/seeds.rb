@@ -49,7 +49,7 @@ SYMPTOMS = [
 
 
 puts "Destroying existing records..."
-Connection.destroy_all
+Clinic.destroy_all
 User.destroy_all
 puts "Done deletion"
 
@@ -239,3 +239,54 @@ User.all.each do |user|
 end
 
 puts "Done creating connections"
+
+puts "Creating sample conversation for each connection (5 messages x #{Connection.all.count} connections = #{Connection.all.count * 5} messages)"
+
+Connection.all.each do |connection|
+  Message.create!(
+    {
+      connection: connection,
+      content: "Thank you reaching #{connection.clinic.name}. We can accept your appointment at that date and time.",
+      sender_type: "clinic",
+      sender: connection.clinic
+    }
+  )
+
+  Message.create!(
+    {
+      connection: connection,
+      content: "Great, thank you so much!",
+      sender_type: "user",
+      sender: connection.user
+    }
+  )
+
+  Message.create!(
+    {
+      connection: connection,
+      content: "Your appointment is confirmed for #{connection.appt_date.strftime("%A, %B%e at %H:%M")}",
+      sender_type: "clinic",
+      sender: connection.clinic
+    }
+  )
+
+  Message.create!(
+    {
+      connection: connection,
+      content: "I'll see you then. Thanks for your help!",
+      sender_type: "user",
+      sender: connection.user
+    }
+  )
+
+  Message.create!(
+    {
+      connection: connection,
+      content: "Thank you for your booking. Please take care. Excuse me.",
+      sender_type: "clinic",
+      sender: connection.clinic
+    }
+  )
+end
+
+puts "Done creating messages"
