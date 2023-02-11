@@ -23,25 +23,25 @@ puts "Creating 8 connections..."
 
 User.all.each do |user|
     Connection.create!({
-      user: user
-      clinic: Clinic.all.sample
-      start_time:
-      end_time:
-      appointment_date:
-      symptoms: [ SYMPTOMS.sample, SYMPTOMS.sample ]
-      info: "I require wheelchair access."
-      status:
+      user: user,
+      clinic: Clinic.all.sample,
+      start_time: DateTime.new(2023,2,11,14,18,0),
+      end_time: DateTime.new(2023,2,11,14,23,0),
+      appointment_date: DateTime.new(2023,2,14,11,0,0),
+      symptoms: [SYMPTOMS.sample, SYMPTOMS.sample],
+      info: "I require wheelchair access.",
+      status: 1
     })
 
     Connection.create!({
-      user: user
-      clinic: Clinic.all.sample
-      start_time:
-      end_time:
-      appointment_date:
-      symptoms: [ SYMPTOMS.sample, SYMPTOMS.sample ]
-      info: INFO.sample
-      status:
+      user: user,
+      clinic: Clinic.all.sample,
+      start_time: DateTime.new(2023,2,8,14,18,0),
+      end_time: DateTime.new(2023,2,8,14,23,0),
+      appointment_date: DateTime.new(2023,2,9,8,30,0),
+      symptoms: [SYMPTOMS.sample, SYMPTOMS.sample],
+      info: "I am hard of hearing.",
+      status: 3
     })
 end
 
