@@ -1,1 +1,23 @@
-<h1>A page to show each clinic info</h1>
+<div>
+  <h1><%= @clinic.name[:en] %> (<%= @clinic.name[:jp] %>)</h1>
+  <%= cl_image_tag @clinic.photo.key, height: 300, width: 400, crop: :fill %>
+</div>
+
+<div>
+  <p><%= @clinic.location[:en] %> (<%= @clinic.location[:jp] %>)</p>
+  <% @clinic.specialty_list.each do |specialty| %>
+    <p><%= specialty %></p>
+  <% end %>
+  <p><%= @clinic.hours %></p>
+</div>
+
+<div>
+  <h2>About This Clinic</h2>
+  <p><%= @clinic.description %></p>
+</div>
+
+<div>
+  <h2>Contact Information</h2>
+  <p><%= @clinic.phone_number %></p>
+  <p><%= @clinic.email %></p>
+</div>
