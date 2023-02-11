@@ -6,7 +6,8 @@
 
     <% @clinics.each do |clinic| %>
       <div>
-        <%= link_to clinic.name, clinic_path(clinic) %>
+        <%= link_to clinic.name, clinic_path(clinic) %> <br>
+        <%= cl_image_tag clinic.photo.key, height: 100, width: 150, crop: :fill %>
         <p>
           <small><%= clinic.location %></small>
         </p>

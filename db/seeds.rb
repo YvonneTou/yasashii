@@ -171,7 +171,7 @@ kei = {
 clinics = [derm, mirai, ladies, ear, sakurai, mental, sakoda, hira, utaan, kei]
 
 def create_clinics(clinic)
-  # file = URI.open(clinic[:file])
+  file = URI.open(clinic[:file])
 
   new_clinic = Clinic.new(
     {
@@ -184,7 +184,7 @@ def create_clinics(clinic)
     }
   )
 
-  # new_clinic.photo.attach(io: file, filename: "#{clinic[:name]}.jpg", content_type: "image/jpg")
+  new_clinic.photo.attach(io: file, filename: "#{clinic[:name]}.jpg", content_type: "image/jpg")
   new_clinic.save
 end
 
