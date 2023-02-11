@@ -4,11 +4,11 @@ Rails.application.routes.draw do
 
   get "/dashboard", to: "dashboard#dashboard", as: :dashboard
 
-  resources :clinics do
-    resources :phone_calls
+  resources :clinics, only: [:index, :show] do
     resources :reviews
   end
-  resources :phone_calls do
-    resources :messages, only: :create
+
+  resources :connections, except: [:delete] do
+    resources :messages, only: [:show, :new, :create]
   end
 end
