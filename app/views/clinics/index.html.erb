@@ -1,15 +1,18 @@
-<h1>Clinics</h1>
+<div class="container">
+  <h1>Clinics</h1>
 
-<div>
-  <h2><%= pluralize @clinics.count, "clinic" %> available</h2>
+  <div>
+    <h2><%= pluralize @clinics.count, "clinic" %> available</h2>
 
-  <% @clinics.each do |clinic| %>
-    <div>
-      <%= link_to clinic.name, clinic_path(clinic) %>
-      <p>
-        <small><%= clinic.location[:en] %></small>
-      </p>
-      <%= cl_image_tag @clinic.photo.key, height: 100, width: 150, crop: :fill %>
-    </div>
-  <% end %>
+    <% @clinics.each do |clinic| %>
+      <div>
+        <%= link_to clinic.name, clinic_path(clinic) %>
+        <p>
+          <small><%= clinic.location[:en] %></small>
+        </p>
+        <%= cl_image_tag @clinic.photo.key, height: 100, width: 150, crop: :fill %>
+      </div>
+    <% end %>
+  </div>
+
 </div>
