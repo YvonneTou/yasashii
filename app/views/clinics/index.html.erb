@@ -1,3 +1,18 @@
-<h1>A page showing all clinics</h1>
+<div class="container">
+  <h1>Clinics</h1>
 
-  <p>There's no clinics yet.</p>
+  <div class="my-4">
+    <h2><%= pluralize @clinics.count, "clinic" %> available</h2>
+
+    <% @clinics.each do |clinic| %>
+      <div>
+        <%= link_to clinic.name, clinic_path(clinic) %> <br>
+        <%= cl_image_tag clinic.photo.key, height: 100, width: 150, crop: :fill %>
+        <p>
+          <small><%= clinic.location %></small>
+        </p>
+      </div>
+    <% end %>
+  </div>
+
+</div>
