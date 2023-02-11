@@ -1,0 +1,9 @@
+SYMPTOMS = [
+  'Headache', 'Fever', 'Muscle pain', 'Stiff neck', 'Stomachache'
+]
+<%= simple_form_for [@clinic, @connection] do |f| %>
+  <%= f.input :appt_date, placeholder: 'Proposed Appointment Date & Time', as: :datetime, html5: true %>
+  <%= f.input :symptoms, as: :radio_buttons, label: 'symptoms', collection: SYMPTOMS  %>
+  <%= f.input :info, Placeholer: 'Other information', as: :text %>
+  <%= f.button :submit, class: "btn btn-success" %>
+<% end %>

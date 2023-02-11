@@ -7,5 +7,6 @@ class ClinicsController < ApplicationController
 
   def show
     # @clinic = Clinic.find(params[:id])
+    @connection = Connection.new
   end
 end
