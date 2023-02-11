@@ -62,6 +62,137 @@ User.create(username: "Eevie", email: "yvonne@email.com", password: "123456")
 
 puts "Done creating users"
 
+puts "Creating 10 new Clinics..."
+
+derm = {
+  file: ,
+  name: 'Meguro Dermatology',
+  location: '1F 3-10-49 Knot Hanabusayama.
+  Kamiosaki, Shinagawa. 141-0021 Tokyo',
+  hours: '9:30-19:00',
+  phone_number: '03-6409-6079',
+  email: 'info@meguro-derm.jp',
+  description: 'We are doing medical treatment for patients with general skin diseases such as atopic dermatitis, urticaria, eczema, athletes foot, acne, water warts, warts, herpes, herpes zoster, rash, moles, seborrheic dermatitis, and alopecia areata.',
+}
+
+mirai = {
+  file: ,
+  name: 'Meguromirai Internal Medicine Clinic',
+  location: '〒141-0021 2-13-26 Kamiosaki Shinagawa-ku, Tokyo Maple top building 3F',
+  hours: '9:00-18:00',
+  phone_number: '050-3146-4574',
+  email: 'info@meguro-clinic.net',
+  description: 'Regular internal medical issues starting from the common cold
+  Diabetes
+  Respiratory medicine COPD・Bronchial asthma・Sleep apnea syndrome etc
+  High blood pressure, Dyslipidemia, Hyperuricemia, Fatty liver disease and other lifestyle-related diseases/ illnesses',
+}
+
+ladies = {
+  file: ,
+  name: 'Meguro Ladies Clinic',
+  location: '1-3-15 Meguro City, Tokyo REID-C Meguro West Building B1F',
+  hours: '10:00-19:00',
+  phone_number: 'Line: 目黒レディースクリニック',
+  email: 'info@meguro-ladies.com',
+  description: 'We are doing timing therapy, artificial insemination, and in vitro fertilization. There are also ovary dogs such as ovarian age measurement. We are focusing on treating those who have few eggs such as premature menopause.',
+}
+
+ear = {
+  file: ,
+  name: 'Meguro Ear',
+  location: '153-0063 Tokyo, Meguro City, Meguro, 2 Chome-9-5 Blossom Meguro 3F',
+  hours: '9:30-17:30',
+  phone_number: '03-3490-4187',
+  email: 'info@meguro-jibika.com',
+  description: 'From babies and children to matures, if you are suffering from ear (external ear canalitis, otitis media, hearing loss), nose (allergenic rhin rhinitis, sinusitis), throat (amycitis, laryngitis, abnormality of vocal cords), please come to the hospital. Sign language is also possible."'
+}
+
+sakurai = {
+  file: ,
+  name: 'Sakurai Orthopedic Surgical Clinic',
+  location: '1 Chome-15-6 Yutenji, Meguro City, Tokyo 153-0052',
+  hours: '9:00-18:30',
+  phone_number: '03-5723-8166',
+  email: 'info@sakurai-ortho.jp',
+  description: 'Specializing in hyaluronic acid injection, steroid injections, and osteoarthritis treatment. Dr. Sakurai has amazing injection skills.'
+}
+
+mental = {
+  file: ,
+  name: 'Meguro Ekimae Mental Clinic',
+  location: '141-0021 Tokyo, Shinagawa City, Kamiosaki, 4 Chome-4-6 Meguro MT Building',
+  hours: '9:00-18:30',
+  phone_number: '03-3490-8699',
+  email: 'info@meguro-mental.jp',
+  description: ''
+}
+
+sakoda = {
+  file: ,
+  name: 'Meguro Sakoda Orthopedics',
+  location: '153-0063 Tokyo, Meguro City, Meguro, 3 Chome-10-13 Ootori Estate Building 3F',
+  hours: '9:00-18:30',
+  phone_number: '03-3760-3131',
+  email: 'info@sakoda-seikei.com',
+  description: 'We will provide medical care about the specialized fields of orthopedic and rehabilitation departments.'
+}
+
+hira = {
+  file: ,
+  name: 'Hiramoto Eye Clinic',
+  location: '153-0064 Tokyo, Meguro City, Shimomeguro, 2 Chome-20-22 Sun Palace Meguro 101',
+  hours: '10:00-18:30',
+  phone_number: '03-6420-0378',
+  email: 'info@hirmamoto-ganka.com',
+  description: 'If your eyes are not feeling well or if there is anything wrong with your appearance, please feel free to come. Thank you.'
+}
+
+utaan = {
+  file: ,
+  name: 'Utaan Acupuncture Orthopedic Clinic',
+  location: '153-0064 Tokyo, Meguro City, Shimomeguro, 2 Chome-16-11 Meguro Point 302',
+  hours: '10:00-20:00',
+  phone_number: '080-7391-8358',
+  email: 'info@shianshimoncare.com',
+  description: 'Based on thorough counseling, we approach not only the affected area but also the cause of the symptoms, so you can get a faster and reliable effect and maintain a good condition.'
+}
+
+kei = {
+  file: ,
+  name: 'KEI Acupuncture',
+  location: '153-0064 Tokyo, Meguro City, Shimomeguro, 1 Chome-4-6 Royal Meguro 203',
+  hours: '10:00-18:00',
+  phone_number: '03-6417-9774',
+  email: 'info@kei-acupuncture.com',
+  description: 'We will provide peace of mind and satisfactory treatment. Do you have any symptoms like this? ・Stubborn back pain, hip pain ・Stiff neck, stiff shoulders, ・Eye fatigue, headache, ・Insomnia, ups and downs in mood Please experience our hospitals acupuncture and chiropractic once, where you can graduate from many years of upset'
+}
+
+clinics = [derm, mirai, ladies, ear, sakurai, mental, sakoda, hira, utaan, kei]
+
+def create_clinics
+  file = URI.open(clinic[:file])
+
+  new_clinic = Clinic.new({
+    name: clinic[:name],
+    location: clinic[:location],
+    hours: clinic[:hours],
+    phone_number: clinic[:phone_number],
+    email: clinic[:email],
+    description: clinic[:description]
+  })
+
+  new_clinic.photo.attach(io: file, filename: "#{clinic[:name]}.jpg", content_type: "image/jpg")
+  new_clinic.save
+end
+
+clinics.each_with_index do |clinic, index|
+  create_listing(clinic)
+  puts "Created #{index + 1} clinic#{index.zero? ? '' : 's'}"
+end
+
+puts 'Done creating 10 clinics'
+
 puts "Creating two connections per user..."
 
 User.all.each do |user|
