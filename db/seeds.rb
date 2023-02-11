@@ -62,30 +62,34 @@ User.create(username: "Eevie", email: "yvonne@email.com", password: "123456")
 
 puts "Done creating users"
 
-puts "Creating 8 connections..."
+puts "Creating two connections per user..."
 
 User.all.each do |user|
-  Connection.create!({
-    user: user,
-    clinic: Clinic.all.sample,
-    start_time: DateTime.new(2023,2,11,14,18,0),
-    end_time: DateTime.new(2023,2,11,14,23,0),
-    appointment_date: DateTime.new(2023,2,14,11,0,0),
-    symptoms: [SYMPTOMS.sample, SYMPTOMS.sample],
-    info: "I require wheelchair access.",
-    status: 1
-  })
+  Connection.create!(
+    {
+      user: user,
+      clinic: Clinic.all.sample,
+      start_time: DateTime.new(2023, 2, 11, 14, 18, 0),
+      end_time: DateTime.new(2023, 2, 11, 14, 23, 0),
+      appointment_date: DateTime.new(2023, 2, 14, 11, 0, 0),
+      symptoms: [SYMPTOMS.sample, SYMPTOMS.sample, SYMPTOMS.sample],
+      info: "I require wheelchair access.",
+      status: 1
+    }
+  )
 
-  Connection.create!({
-    user: user,
-    clinic: Clinic.all.sample,
-    start_time: DateTime.new(2023,2,8,14,18,0),
-    end_time: DateTime.new(2023,2,8,14,23,0),
-    appointment_date: DateTime.new(2023,2,9,8,30,0),
-    symptoms: [SYMPTOMS.sample, SYMPTOMS.sample],
-    info: "I am hard of hearing.",
-    status: 3
-  })
+  Connection.create!(
+    {
+      user: user,
+      clinic: Clinic.all.sample,
+      start_time: DateTime.new(2023, 2, 8, 14, 18, 0),
+      end_time: DateTime.new(2023, 2, 8, 14, 23, 0),
+      appointment_date: DateTime.new(2023, 2, 9, 8, 30, 0),
+      symptoms: [SYMPTOMS.sample, SYMPTOMS.sample, SYMPTOMS.sample],
+      info: "I am hard of hearing.",
+      status: 3
+    }
+  )
 end
 
 puts "Done creating connections"
