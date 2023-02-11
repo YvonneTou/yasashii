@@ -1,4 +1,5 @@
 class ClinicsController < ApplicationController
+  skip_before_action :authenticate_user!
   # access specialities via `specialty_list: []`
 
   def index

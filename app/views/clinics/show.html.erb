@@ -1,4 +1,28 @@
 <div class="container">
+  <div class="my-4">
+    <h1><%= @clinic.name %></h1>
+    <%= cl_image_tag @clinic.photo.key, height: 300, width: 400, crop: :fill %>
+  </div>
+
+  <div class="my-4">
+    <p><i class="fa-solid fa-location-dot"></i> <%= @clinic.location %></p>
+    <% @clinic.specialty_list.each do |specialty| %>
+      <p><%= specialty %></p>
+    <% end %>
+    <p><i class="fa-regular fa-clock"></i> <%= @clinic.hours %></p>
+  </div>
+
+  <div class="my-5">
+    <h3>About This Clinic</h3>
+    <p><%= @clinic.description %></p>
+  </div>
+
+  <div class="my-4">
+    <h3>Contact Information</h3>
+    <p><i class="fa-solid fa-phone"></i> <%= @clinic.phone_number %></p>
+    <p><i class="fa-regular fa-envelope"></i> <%= @clinic.email %></p>
+  </div>
+  
   <div class="my-5">
     <h3>Make a phone call appointment with <strong><%= @clinic.name %></strong></h3>
   </div>
