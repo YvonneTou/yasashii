@@ -1,7 +1,9 @@
-<h1>A page to show each clinic info</h1>
+<div class="container">
+  <div class="my-5">
+    <h3>Make a phone call appointment with <strong><%= @clinic.name %></strong></h3>
+  </div>
 
-<div>
-  <%= simple_form_for [@clinic, @connection] do |f| %>
-    <%= render 'connections/form', article: [@listing, @booking] %>
+  <%= simple_form_for [@connection] do |f| %>
+    <%= render 'connections/form', article: [@connection] %>
   <% end %>
 </div>
