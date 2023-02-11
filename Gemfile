@@ -84,3 +84,4 @@ gem "faker"
 gem "cloudinary"
 gem "dotenv-rails", groups: [:development, :test]
 gem "geocoder"
+gem 'acts-as-taggable-on'
