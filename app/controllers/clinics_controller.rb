@@ -9,5 +9,6 @@ class ClinicsController < ApplicationController
   def show
     @clinic = Clinic.find(params[:id])
     authorize @clinic
+    @connection = Connection.new
   end
 end
