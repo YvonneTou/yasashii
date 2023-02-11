@@ -5,7 +5,51 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+SYMPTOMS = [
+  "back pain",
+  "chest pain",
+  "earache",
+  "headache",
+  "toothache",
+  "rash",
+  "Chills",
+  "Fever",
+  "Numbness",
+  "Light-headed",
+  "Dizzy",
+  "Dry mouth",
+  "Nausea",
+  "Sneezing",
+  "Coughing",
+  "Shortness of breath",
+  "Drowsiness",
+  "Cold sweats",
+  "Thirst",
+  "Tiredness",
+  "Trouble breathing",
+  "Trouble hearing",
+  "Hearing loss",
+  "sounds are too loud",
+  "Ringing ears",
+  "Unusual bowel movement",
+  "Hurts to pee",
+  "Foggy memory",
+  "Blurred vision",
+  "Double vision",
+  "Trouble sleeping",
+  "Loss of smell",
+  "Slurred speech",
+  "Itchy",
+  "Difficulty swallowing",
+  "Loss of taste",
+  "Difficulty walking",
+  "Difficulting writing"
+]
+
+
 puts "Destroying existing records..."
+Connection.destroy_all
 User.destroy_all
 puts "Done deletion"
 
@@ -126,25 +170,72 @@ kei = {
 
 clinics = [derm, mirai, ladies, ear, sakurai, mental, sakoda, hira, utaan, kei]
 
-def create_clinics
-  file = URI.open(clinic[:file])
+def create_clinics(clinic)
+  # file = URI.open(clinic[:file])
 
-  new_clinic = Clinic.new({
+  new_clinic = Clinic.new(
+    {
     name: clinic[:name],
     location: clinic[:location],
     hours: clinic[:hours],
     phone_number: clinic[:phone_number],
     email: clinic[:email],
     description: clinic[:description]
-  })
+    }
+  )
 
-  new_clinic.photo.attach(io: file, filename: "#{clinic[:name]}.jpg", content_type: "image/jpg")
+  # new_clinic.photo.attach(io: file, filename: "#{clinic[:name]}.jpg", content_type: "image/jpg")
   new_clinic.save
 end
 
 clinics.each_with_index do |clinic, index|
-  create_listing(clinic)
+  create_clinics(clinic)
   puts "Created #{index + 1} clinic#{index.zero? ? '' : 's'}"
 end
 
 puts 'Done creating 10 clinics'
+
+puts "Creating three connections per user (#{User.all.count * 3} connections)..."
+
+User.all.each do |user|
+  Connection.create!(
+    {
+      user: user,
+      clinic: Clinic.all.sample,
+      start_time: DateTime.new(2023, 2, 11, 14, 18, 0),
+      end_time: DateTime.new(2023, 2, 11, 14, 23, 0),
+      appt_date: DateTime.new(2023, 2, 14, 11, 0, 0),
+      symptoms: ["dizziness", "shortness of breath", "fatigue"],
+      info: "I require wheelchair access.",
+      status: 1
+    }
+  )
+
+  Connection.create!(
+    {
+      user: user,
+      clinic: Clinic.all.sample,
+      start_time: DateTime.new(2023, 2, 1, 14, 18, 0),
+      end_time: DateTime.new(2023, 2, 1, 14, 23, 0),
+      appt_date: DateTime.new(2023, 2, 2, 8, 30, 0),
+      symptoms: ["cough", "fever", "loss of taste"],
+      info: "I require wheelchair access.",
+      status: 3
+    }
+  )
+
+  Connection.create!(
+    {
+      user: user,
+      clinic: Clinic.all.sample,
+      start_time: DateTime.new(2023, 1, 6, 14, 18, 0),
+      end_time: DateTime.new(2023, 1, 6, 14, 23, 0),
+      appt_date: DateTime.new(2023, 1, 8, 8, 30, 0),
+      symptoms: ["stomach pain", "constipation", "fatigue"],
+      info: "I require wheelchair access.",
+      status: 3
+    }
+  )
+end
+
+puts "Done creating connections"
