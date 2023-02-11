@@ -7,7 +7,7 @@ class ClinicsController < ApplicationController
   end
 
   def show
-    authorize @clinic
     @clinic = Clinic.find(params[:id])
+    authorize @clinic
   end
 end
