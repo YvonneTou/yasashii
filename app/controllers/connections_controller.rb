@@ -4,6 +4,7 @@ class ConnectionsController < ApplicationController
   def show
     @connection = Connection.find(params[:id])
     authorize @connection
+    @user = current_user
   end
 
   def create
@@ -25,6 +26,6 @@ class ConnectionsController < ApplicationController
   end
 
   def connection_params
-    params.require(:connection).permit(:appt_date, :symptoms, :info, :clinic_id)
+    params.require(:connection).permit(:appt_date, {symptoms: [] }, :info, :clinic_id)
   end
 end

@@ -28,8 +28,6 @@
   </div>
 
   <%= simple_form_for [@connection] do |f| %>
-    <%# <% if policy(Connection).create? %>
-      <%= render 'connections/form', article: [@connection, @clinic] %>
-    <%# <% end %>
+    <%= render 'connections/form', article: [@connection, @clinic] %>
   <% end %>
 </div>
