@@ -1,3 +1,17 @@
 <div class="container">
-  <h5>This is a connection show page.</h5>
+  <div class="card-clinic border">
+    <div>
+      <h3><%= @connection.clinic.name %></h3>
+      <p><%= @connection.clinic.hours %></p>
+    </div>
+    <hr>
+    <div>
+    <p>Calling...</p>
+    </div>
+  </div>
+  <% @connection.messages.each do |message| %>
+    <div class="border m-3">
+      <%= message.content %>
+    </div>
+  <% end %>
 </div>

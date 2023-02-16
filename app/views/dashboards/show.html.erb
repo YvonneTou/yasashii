@@ -9,7 +9,9 @@
       <% end %>
     <h3>Past Appointments</h3>
       <% @user_connections.each do |connection| %>
-        <%= render "appt_card", connection: connection %>
+        <div>
+          <%= render "appt_card", connection: connection %>
+        </div>
       <% end %>
   </div>
   <div class="row m-3">
