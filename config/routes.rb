@@ -11,4 +11,8 @@ Rails.application.routes.draw do
   resources :connections, except: [:delete] do
     resources :messages, only: [:show, :new, :create]
   end
+
+  get '/answer', to: 'ivr#answer'
+  post '/event', to: 'ivr#event'
+  get '/voice', to: 'voice#trigger_call'
 end
