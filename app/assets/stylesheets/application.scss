@@ -10,3 +10,34 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+body {
+  font-weight: 300;
+}
+
+h1 {
+  font-family: 'Montserrat', 'sans-serif';
+}
+
+h2 {
+  font-weight: 600;
+}
+
+h3 {
+  font-weight: 300;
+}
+
+a {
+  text-decoration: none;
+  color: $gray;
+}
+
+.btn-primary {
+  color: rgb(255, 255, 255);
+  font-weight: 500;
+  border-radius: 7px;
+}
+
+.form-control {
+  background-color: #e4e4e4;
+}

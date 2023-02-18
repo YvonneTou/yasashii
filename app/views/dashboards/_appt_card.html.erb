@@ -1,11 +1,11 @@
-<div class="card-appt">
-  <%= cl_image_tag connection.clinic.photo.key, height: 200, width: 366, alt: connection.clinic.name, class: "appt-card-img" %>
-  <div class="appt-info">
+<div class="card-appt my-3">
+  <%= cl_image_tag connection.clinic.photo.key, height: 200, width: 366, crop: :fill, alt: connection.clinic.name %>
+  <div class="p-3">
     <div>
       <h3><%= connection.clinic.name %></h3>
       <p><%= connection.start_time.strftime("%m/%d/%Y") %></p>
       <p><%= connection.symptoms %></p>
     </div>
-    <p><%= connection.start_time.strftime("%I:%M%p") %></p>
+  <p><%= connection.start_time.strftime("%I:%M%p") %></p>
   </div>
 </div>
