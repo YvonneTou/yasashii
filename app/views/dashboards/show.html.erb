@@ -17,10 +17,16 @@
       <% end %>
   </div>
 
-  <div class="row m-3">
-    <button class="btn btn-primary">Call a Clinic</button>
-  </div>
-  <div class="row m-3">
-    <button class="btn btn-primary">Leave a Review</button>
-  </div>
+  <h3 class="mt-4">Upcoming Appointments</h3>
+  <% @user_connections.each do |connection| %>
+    <%= render "appt_card", connection: connection %>
+  <% end %>
+
+  <h3 class="mt-5">Past Appointments</h3>
+  <% @user_connections.each do |connection| %>
+    <%= render "appt_card", connection: connection %>
+  <% end %>
+
+  <button class="btn btn-primary w-100 my-3">Call a Clinic</button><br>
+  <button class="btn btn-primary w-100 mb-3">Leave a Review</button>
 </div>
