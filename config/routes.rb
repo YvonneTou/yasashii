@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   resources :connections, except: [:delete] do
     resources :messages, only: [:show, :new, :create]
   end
+
+  get '/voice', to: 'voice#trigger_call'
 end

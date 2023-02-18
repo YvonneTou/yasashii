@@ -41,3 +41,7 @@
 .DS_Store
 
 # Ignore .env
+.env
+
+# Ignore private.key
+private.key
