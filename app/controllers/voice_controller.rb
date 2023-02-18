@@ -35,8 +35,6 @@ class VoiceController < ApplicationController
     ]
   end
 
-
-
   def event
     render json: [
       {

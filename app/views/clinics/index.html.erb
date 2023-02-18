@@ -2,17 +2,9 @@
   <h1>Clinics</h1>
 
   <div class="my-4">
-    <h2><%= pluralize @clinics.count, "clinic" %> available</h2>
-
+    <h3><%= pluralize @clinics.count, "clinic" %> available</h3>
     <% @clinics.each do |clinic| %>
-      <div>
-        <%= link_to clinic.name, clinic_path(clinic) %> <br>
-        <%= cl_image_tag clinic.photo.key, height: 100, width: 150, crop: :fill %>
-        <p>
-          <small><%= clinic.location %></small>
-        </p>
-      </div>
+        <%= render "pages/clinic_card", clinic: clinic %>
     <% end %>
   </div>
-
 </div>
