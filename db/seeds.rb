@@ -70,7 +70,7 @@ derm = {
   location: '1F 3-10-49 Knot Hanabusayama.
   Kamiosaki, Shinagawa. 141-0021 Tokyo',
   hours: '9:30-19:00',
-  phone_number: '03-6409-6079',
+  phone_number: '818068285005',
   email: 'info@meguro-derm.jp',
   description: 'We are doing medical treatment for patients with general skin diseases such as atopic dermatitis, urticaria, eczema, athletes foot, acne, water warts, warts, herpes, herpes zoster, rash, moles, seborrheic dermatitis, and alopecia areata.',
 }
@@ -80,7 +80,7 @@ mirai = {
   name: 'Meguromirai Internal Medicine Clinic',
   location: '〒141-0021 2-13-26 Kamiosaki Shinagawa-ku, Tokyo Maple top building 3F',
   hours: '9:00-18:00',
-  phone_number: '050-3146-4574',
+  phone_number: '818068285005',
   email: 'info@meguro-clinic.net',
   description: 'Regular internal medical issues starting from the common cold
   Diabetes
@@ -93,7 +93,7 @@ ladies = {
   name: 'Meguro Ladies Clinic',
   location: '1-3-15 Meguro City, Tokyo REID-C Meguro West Building B1F',
   hours: '10:00-19:00',
-  phone_number: 'Line: 目黒レディースクリニック',
+  phone_number: '818068285005',
   email: 'info@meguro-ladies.com',
   description: 'We are doing timing therapy, artificial insemination, and in vitro fertilization. There are also ovary dogs such as ovarian age measurement. We are focusing on treating those who have few eggs such as premature menopause.',
 }
@@ -103,7 +103,7 @@ ear = {
   name: 'Meguro Ear',
   location: '153-0063 Tokyo, Meguro City, Meguro, 2 Chome-9-5 Blossom Meguro 3F',
   hours: '9:30-17:30',
-  phone_number: '03-3490-4187',
+  phone_number: '818068285005',
   email: 'info@meguro-jibika.com',
   description: 'From babies and children to matures, if you are suffering from ear (external ear canalitis, otitis media, hearing loss), nose (allergenic rhin rhinitis, sinusitis), throat (amycitis, laryngitis, abnormality of vocal cords), please come to the hospital. Sign language is also possible."'
 }
@@ -113,7 +113,7 @@ sakurai = {
   name: 'Sakurai Orthopedic Surgical Clinic',
   location: '1 Chome-15-6 Yutenji, Meguro City, Tokyo 153-0052',
   hours: '9:00-18:30',
-  phone_number: '03-5723-8166',
+  phone_number: '818068285005',
   email: 'info@sakurai-ortho.jp',
   description: 'Specializing in hyaluronic acid injection, steroid injections, and osteoarthritis treatment. Dr. Sakurai has amazing injection skills.'
 }
@@ -123,7 +123,7 @@ mental = {
   name: 'Meguro Ekimae Mental Clinic',
   location: '141-0021 Tokyo, Shinagawa City, Kamiosaki, 4 Chome-4-6 Meguro MT Building',
   hours: '9:00-18:30',
-  phone_number: '03-3490-8699',
+  phone_number: '818068285005',
   email: 'info@meguro-mental.jp',
   description: ''
 }
@@ -133,7 +133,7 @@ sakoda = {
   name: 'Meguro Sakoda Orthopedics',
   location: '153-0063 Tokyo, Meguro City, Meguro, 3 Chome-10-13 Ootori Estate Building 3F',
   hours: '9:00-18:30',
-  phone_number: '03-3760-3131',
+  phone_number: '818068285005',
   email: 'info@sakoda-seikei.com',
   description: 'We will provide medical care about the specialized fields of orthopedic and rehabilitation departments.'
 }
@@ -143,7 +143,7 @@ hira = {
   name: 'Hiramoto Eye Clinic',
   location: '153-0064 Tokyo, Meguro City, Shimomeguro, 2 Chome-20-22 Sun Palace Meguro 101',
   hours: '10:00-18:30',
-  phone_number: '03-6420-0378',
+  phone_number: '818068285005',
   email: 'info@hirmamoto-ganka.com',
   description: 'If your eyes are not feeling well or if there is anything wrong with your appearance, please feel free to come. Thank you.'
 }
@@ -153,7 +153,7 @@ utaan = {
   name: 'Utaan Acupuncture Orthopedic Clinic',
   location: '153-0064 Tokyo, Meguro City, Shimomeguro, 2 Chome-16-11 Meguro Point 302',
   hours: '10:00-20:00',
-  phone_number: '080-7391-8358',
+  phone_number: '818068285005',
   email: 'info@shianshimoncare.com',
   description: 'Based on thorough counseling, we approach not only the affected area but also the cause of the symptoms, so you can get a faster and reliable effect and maintain a good condition.'
 }
@@ -163,7 +163,7 @@ kei = {
   name: 'KEI Acupuncture',
   location: '153-0064 Tokyo, Meguro City, Shimomeguro, 1 Chome-4-6 Royal Meguro 203',
   hours: '10:00-18:00',
-  phone_number: '03-6417-9774',
+  phone_number: '818068285005',
   email: 'info@kei-acupuncture.com',
   description: 'We will provide peace of mind and satisfactory treatment. Do you have any symptoms like this? ・Stubborn back pain, hip pain ・Stiff neck, stiff shoulders, ・Eye fatigue, headache, ・Insomnia, ups and downs in mood Please experience our hospitals acupuncture and chiropractic once, where you can graduate from many years of upset'
 }
