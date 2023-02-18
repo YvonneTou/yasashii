@@ -12,5 +12,6 @@ Rails.application.routes.draw do
     resources :messages, only: [:show, :new, :create]
   end
 
-  get '/voice', to: 'voice#trigger_call'
+  get '/answer', to: "voice#answer"
+  post '/event', to: "voice#event"
 end

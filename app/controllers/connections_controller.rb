@@ -1,9 +1,10 @@
 class ConnectionsController < ApplicationController
   before_action :set_clinic, only: [:create]
-  skip_before_action :verify_authenticity_token, only: [:create]
+  skip_before_action :verify_authenticity_token, only: [:create] # do not delete
+  after_action :verify_authorized, except: [:show] # needs to be updated
 
   require "vonage"
-
+  require "json"
 
   def show
     @connection = Connection.find(params[:id])
@@ -34,8 +35,6 @@ class ConnectionsController < ApplicationController
     params.require(:connection).permit(:appt_date, {symptoms: [] }, :info, :clinic_id)
   end
 
-  private
-
   def trigger_call(connection)
     client = Vonage::Client.new(
       application_id: "96063012-ae83-424a-9661-caba31c197d6",
@@ -52,13 +51,9 @@ class ConnectionsController < ApplicationController
         number: "12013800657"
       },
       answer_url: [
-        'https://nexmo-community.github.io/ncco-examples/first_call_talk.json'
+        "https://9c91-124-219-136-119.jp.ngrok.io/answer"
         ]
       }
     )
-  end
-
-  def create_json
-
   end
 end
