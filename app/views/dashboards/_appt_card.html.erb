@@ -3,7 +3,7 @@
   <div class="p-3">
     <div>
       <h3><%= connection.clinic.name %></h3>
-      <p><%= connection.start_time.strftime("%m/%d/%Y") %></p>
+      <p><%= connection.appt_date.strftime("%m/%d/%Y") %></p>
       <p class="d-inline"><strong>Symptoms:</strong></p>
       <% connection.symptoms.each do |symptom| %>
         <% if symptom != connection.symptoms.last %>
@@ -14,7 +14,7 @@
       <% end %>
     </div>
     <p class="mt-1"><strong>
-      <i class="fa-regular fa-clock"></i>  <%= connection.start_time.strftime("%-l:%M %p") %>
+      <i class="fa-regular fa-clock"></i>  <%= connection.appt_date.strftime("%-l:%M %p") %>
     </strong></p>
   </div>
 </div>
