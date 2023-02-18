@@ -55,10 +55,10 @@ puts "Done deletion"
 
 puts "Creating 4 new Users..."
 
-User.create!(username: "SarahR", email: "sarah@email.com", password: "123456")
-User.create(username: "Tanao", email: "tanner@email.com", password: "123456")
-User.create(username: "Dani", email: "danielle@email.com", password: "123456")
-User.create(username: "Eevie", email: "yvonne@email.com", password: "123456")
+User.create!(username: "SarahR", email: "sarah@email.com", password: "123456", lastname: "Rollins", firstname: "Sarah")
+User.create(username: "Tanao", email: "tanner@email.com", password: "123456", lastname: "Maxwell", firstname: "Tanner")
+User.create(username: "Dani", email: "danielle@email.com", password: "123456", lastname: "Matsumoto", firstname: "Danielle")
+User.create(username: "Eevie", email: "yvonne@email.com", password: "123456", lastname: "Tou", firstname: "Yvonne")
 
 puts "Done creating users"
 
@@ -172,6 +172,7 @@ clinics = [derm, mirai, ladies, ear, sakurai, mental, sakoda, hira, utaan, kei]
 
 def create_clinics(clinic)
   file = URI.open(clinic[:file])
+  p "This is clinic[:file]: #{clinic[:file]}"
 
   new_clinic = Clinic.new(
     {
@@ -185,6 +186,7 @@ def create_clinics(clinic)
   )
 
   new_clinic.photo.attach(io: file, filename: "#{clinic[:name]}.jpg", content_type: "image/jpg")
+  p "This is new_clinic.photo: #{new_clinic.photo.key}"
   new_clinic.save
 end
 
