@@ -1,19 +1,22 @@
 <div class="container mt-5">
-  <div class="row">
+  <div class= "row">
     <h1>Welcome Back <%= current_user.username %>!</h1>
-    <h3>Upcoming Appointments</h3>
+  </div>
+  <div class="row">
+    <h3 class="mt-4 p-0">Upcoming Appointments</h3>
       <% @user_connections.each do |connection| %>
-        <div>
           <%= render "appt_card", connection: connection %>
-        </div>
       <% end %>
-    <h3>Past Appointments</h3>
+  </div>
+  <div class="row">
+    <h3 class="mt-4 p-0">Past Appointments</h3>
       <% @user_connections.each do |connection| %>
         <div>
           <%= render "appt_card", connection: connection %>
         </div>
       <% end %>
   </div>
+
   <div class="row m-3">
     <button class="btn btn-primary">Call a Clinic</button>
   </div>
