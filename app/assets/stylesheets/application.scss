@@ -41,3 +41,22 @@ a {
 .form-control {
   background-color: #e4e4e4;
 }
+
+@media (max-width: 768px) {
+  h3 {
+    font-size: 22px !important;
+  }
+  .container img {
+    height: 250px;
+    width: 100%;
+  }
+}
+@media (max-width: 320px) {
+  h3 {
+    font-size: 22px !important;
+  }
+  .container img {
+    height: 200px;
+    width: 100%;
+  }
+}

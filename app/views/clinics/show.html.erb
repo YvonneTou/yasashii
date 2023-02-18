@@ -1,7 +1,7 @@
 <div class="container">
   <div class="my-4">
     <h1><%= @clinic.name %></h1>
-    <%= cl_image_tag @clinic.photo.key, height: 300, width: 400, crop: :fill %>
+    <%= cl_image_tag @clinic.photo.key, height: 300, width: 400, crop: :fill, class: "rounded" %>
   </div>
 
   <div class="my-4">
