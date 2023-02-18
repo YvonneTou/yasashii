@@ -4,8 +4,17 @@
     <div>
       <h3><%= connection.clinic.name %></h3>
       <p><%= connection.start_time.strftime("%m/%d/%Y") %></p>
-      <p><%= connection.symptoms %></p>
+      <p class="d-inline"><strong>Symptoms:</strong></p>
+      <% connection.symptoms.each do |symptom| %>
+        <% if symptom != connection.symptoms.last %>
+          <p class="d-inline"><%= symptom %>, </p>
+          <% else %>
+          <p class="d-inline"><%= symptom %></p>
+        <% end %>
+      <% end %>
     </div>
-  <p><%= connection.start_time.strftime("%I:%M%p") %></p>
+    <p class="mt-1"><strong>
+      <i class="fa-regular fa-clock"></i>  <%= connection.start_time.strftime("%-l:%M %p") %>
+    </strong></p>
   </div>
 </div>
