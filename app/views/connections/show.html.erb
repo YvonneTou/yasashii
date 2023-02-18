@@ -1,0 +1,16 @@
+<div class="container">
+  <h5>This is a connection show page.</h5>
+
+  <p>
+    Hello, this is a call from Yasashii,
+    on behalf of <%= @user.firstname %> <%= @user.lastname %>.
+    This person is feeling
+    <% @connection.symptoms.compact_blank.each_with_index do |sym, index| %>
+      <%= sym %>,
+    <% end %>
+    and would like to make an appointment on <%= @connection.appt_date %>.
+    Thank you.
+  </p>
+
+
+</div>

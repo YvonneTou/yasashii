@@ -22,12 +22,12 @@
     <p><i class="fa-solid fa-phone"></i> <%= @clinic.phone_number %></p>
     <p><i class="fa-regular fa-envelope"></i> <%= @clinic.email %></p>
   </div>
-  
+
   <div class="my-5">
     <h3>Make a phone call appointment with <strong><%= @clinic.name %></strong></h3>
   </div>
 
   <%= simple_form_for [@connection] do |f| %>
-    <%= render 'connections/form', article: [@connection] %>
+    <%= render 'connections/form', article: [@connection, @clinic] %>
   <% end %>
 </div>
