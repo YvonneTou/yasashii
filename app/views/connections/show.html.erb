@@ -1,16 +1,39 @@
 <div class="container">
-  <h5>This is a connection show page.</h5>
+  <div class="card-clinic">
+    <div class="d-flex justify-content-between">
+      <h3><%= @connection.clinic.name %></h3>
+      <p><%= @connection.clinic.hours %></p>
+    </div>
+    <hr>
+    <div class="call-icons">
+      <div class="d-flex justify-content-around pb-2">
+        <i class="fa-solid fa-microphone-lines-slash"></i>
+        <i class="fa-solid fa-phone-slash"></i>
+        <i class="fa-solid fa-volume-high"></i>
+      </div>
+    </div>
+  </div>
 
-  <p>
-    Hello, this is a call from Yasashii,
-    on behalf of <%= @user.firstname %> <%= @user.lastname %>.
-    This person is feeling
-    <% @connection.symptoms.compact_blank.each_with_index do |sym, index| %>
-      <%= sym %>,
-    <% end %>
-    and would like to make an appointment on <%= @connection.appt_date %>.
-    Thank you.
-  </p>
-
-
+  <div class="bubble bubble-bottom-left mt-3">
+    <p>
+      Hello, this is a call from Yasashii,
+      on behalf of <%= @user.firstname %> <%= @user.lastname %>.
+      This person is feeling
+      <% @connection.symptoms.compact_blank.each_with_index do |sym, index| %>
+        <%= sym %>,
+      <% end %>
+      and would like to make an appointment on <%= @connection.start_time.strftime("%m/%d/%Y") %> at <%= @connection.start_time.strftime("%I:%M%p") %>.
+      Thank you.
+    </p>
+  </div>
+  <div class="bubble bubble-bottom-right mt-5 m-5" contenteditable>
+    <p>Thank you for your help!</p>
+  </div>
+  <div class="text-box">
+    <hr>
+    <form class="d-flex justify-content-between">
+      <input class="form-control" type="text" placeholder="Instant Message">
+      <input class="btn btn-primary" type="submit" value="Send">
+    </form>
+  </div>
 </div>

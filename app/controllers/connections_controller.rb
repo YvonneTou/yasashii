@@ -4,6 +4,7 @@ class ConnectionsController < ApplicationController
   def show
     @connection = Connection.find(params[:id])
     authorize @connection
+    @messages = policy_scope(current_user.messages)
     @user = current_user
   end
 
