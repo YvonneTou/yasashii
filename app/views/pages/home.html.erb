@@ -1,13 +1,11 @@
 <div class="banner">
   <div class="container">
-    <div class="row">
       <h1>Fast & easy way to make your clinic appointment</h1>
-    </div>
   </div>
 </div>
 
 <div class="container spacing">
-  <div class="row mt-4">
+  <div class="mt-4">
     <h2>Find a clinic near you</h2>
     <%= form_with url: clinics_path, method: :get do %>
       <%= text_field_tag :query,
@@ -20,13 +18,13 @@
         class: "form-control my-3",
         placeholder: "Symptoms"
       %>
-      <%= button_tag type: 'submit', class: "btn btn-primary my-3" do %>
+      <%= button_tag type: 'submit', class: "btn btn-primary w-100 my-3" do %>
         Search
       <% end %>
     <% end %>
   </div>
 
-  <div class="row my-5">
+  <div class="my-5">
     <h3>Clinics you have visited recently (<%= @clinics.count %>)</h3>
     <% @clinics.each do |clinic| %>
       <%= render "clinic_card", clinic: clinic %>

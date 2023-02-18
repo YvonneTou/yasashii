@@ -3,7 +3,7 @@
     <%= cl_image_tag clinic.photo.key, height: 200, width: 366, crop: :fill, alt: clinic.name %>
     <div class="p-3">
       <h3><%= clinic.name %> <br></h3>
-      <p><small><%= clinic.location %></small></p>
+      <p><small><i class="fa-solid fa-location-dot"></i> <%= clinic.location %></small></p>
     </div>
   </div>
 <% end %>
