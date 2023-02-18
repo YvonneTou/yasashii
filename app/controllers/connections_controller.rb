@@ -7,8 +7,6 @@ class ConnectionsController < ApplicationController
   require "json"
   require "open-uri"
 
-
-
   def show
     @connection = Connection.find(params[:id])
     authorize @connection
@@ -40,6 +38,7 @@ class ConnectionsController < ApplicationController
 
   def trigger_call(connection)
     url = URI.open(ENV.fetch('VONAGE_PRIVATE_KEY_URL')).read
+
     client = Vonage::Client.new(
       application_id: "96063012-ae83-424a-9661-caba31c197d6",
       private_key: url
