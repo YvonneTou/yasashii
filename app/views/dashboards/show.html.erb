@@ -1,21 +1,5 @@
 <div class="container mt-5">
-  <div class= "row">
     <h1>Welcome Back <%= current_user.username %>!</h1>
-  </div>
-  <div class="row">
-    <h3 class="mt-4 p-0">Upcoming Appointments</h3>
-      <% @user_connections.each do |connection| %>
-          <%= render "appt_card", connection: connection %>
-      <% end %>
-  </div>
-  <div class="row">
-    <h3 class="mt-4 p-0">Past Appointments</h3>
-      <% @user_connections.each do |connection| %>
-        <div>
-          <%= render "appt_card", connection: connection %>
-        </div>
-      <% end %>
-  </div>
 
   <h3 class="mt-4">Upcoming Appointments</h3>
   <% @user_connections.each do |connection| %>
