@@ -3,7 +3,7 @@ class IvrController < ApplicationController
   skip_before_action :authenticate_user!
   after_action :verify_authorized, except: [:answer, :event]
 
-  BASE_URL = 'https://02b6-2405-6580-8640-8d00-a02e-9a1e-1d69-e745.jp.ngrok.io'
+  BASE_URL = 'https://452d-124-219-136-119.jp.ngrok.io'
 
   def answer
     render json:
