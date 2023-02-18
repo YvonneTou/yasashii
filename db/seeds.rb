@@ -203,7 +203,7 @@ User.all.each do |user|
   Connection.create!(
     {
       user: user,
-      clinic: Clinic.where(name: "Meguro Ladies Clinic"),
+      clinic: Clinic.all.sample,
       start_time: DateTime.new(2023, 2, 11, 14, 18, 0),
       end_time: DateTime.new(2023, 2, 11, 14, 23, 0),
       appt_date: DateTime.new(2023, 2, 14, 11, 0, 0),
@@ -216,7 +216,7 @@ User.all.each do |user|
   Connection.create!(
     {
       user: user,
-      clinic: Clinic.where(name: "Meguromirai Internal Medicine Clinic"),
+      clinic: Clinic.all.sample,
       start_time: DateTime.new(2023, 2, 1, 14, 18, 0),
       end_time: DateTime.new(2023, 2, 1, 14, 23, 0),
       appt_date: DateTime.new(2023, 2, 2, 8, 30, 0),
@@ -229,7 +229,7 @@ User.all.each do |user|
   Connection.create!(
     {
       user: user,
-      clinic: Clinic.where(name: "Meguro Dermatology"),
+      clinic: Clinic.all.sample,
       start_time: DateTime.new(2023, 1, 6, 14, 18, 0),
       end_time: DateTime.new(2023, 1, 6, 14, 23, 0),
       appt_date: DateTime.new(2023, 1, 8, 8, 30, 0),
