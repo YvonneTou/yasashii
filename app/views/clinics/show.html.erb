@@ -1,15 +1,29 @@
-<div class="container">
-  <div class="my-4">
-    <h1><%= @clinic.name %></h1>
-    <%= cl_image_tag @clinic.photo.key, height: 300, width: 400, crop: :fill, class: "rounded" %>
+<div style="padding: 150px 0; margin: 0 0; background-size: cover; background-position: 50% 50%;
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2)), url(<%= cloudinary_url(@clinic.photo.key) %>);">
+  <div class="container my-4">
+    <h1 class="text-white"><%= @clinic.name %></h1>
   </div>
+</div>
+
+
+<div class="container">
 
   <div class="my-4">
-    <p><i class="fa-solid fa-location-dot"></i> <%= @clinic.location %></p>
-    <% @clinic.specialty_list.each do |specialty| %>
-      <p><%= specialty %></p>
-    <% end %>
-    <p><i class="fa-regular fa-clock"></i> <%= @clinic.hours %></p>
+    <p>
+      <span class="fa-stack">
+        <i class="fa fa-circle fa-stack-2x icon-bg"></i>
+        <i class="fa-solid fa-location-dot fa-stack-1x icon-color"></i>
+      </span> <%= @clinic.location %>
+    </p>
+      <% @clinic.specialty_list.each do |specialty| %>
+        <p><%= specialty %></p>
+      <% end %>
+    <p>
+      <span class="fa-stack">
+        <i class="fa fa-circle fa-stack-2x icon-bg"></i>
+        <i class="fa-regular fa-clock fa-stack-1x icon-color"></i>
+      </span> <%= @clinic.hours %>
+    </p>
   </div>
 
   <div class="my-5">
@@ -19,8 +33,18 @@
 
   <div class="my-4">
     <h3>Contact Information</h3>
-    <p><i class="fa-solid fa-phone"></i> <%= @clinic.phone_number %></p>
-    <p><i class="fa-regular fa-envelope"></i> <%= @clinic.email %></p>
+    <p>
+      <span class="fa-stack">
+        <i class="fa fa-circle fa-stack-2x icon-bg"></i>
+        <i class="fa-solid fa-phone fa-stack-1x icon-color"></i>
+      </span> <%= @clinic.phone_number %>
+    </p>
+    <p>
+      <span class="fa-stack">
+        <i class="fa fa-circle fa-stack-2x icon-bg"></i>
+        <i class="fa-regular fa-envelope fa-stack-1x icon-color"></i>
+      </span> <%= @clinic.email %>
+    </p>
   </div>
 
   <div class="my-5">
