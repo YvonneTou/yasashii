@@ -7,10 +7,10 @@ class VoiceController < ApplicationController
     render json: [
       {
           "action": "talk",
-          "text": "こんにちは。「ヤサシイアプリ」からの予約の依頼でございます。アプリで入力された詳細をお伝えいたします。予約者の名前は「タナー・マクセル」でございます。希望の日時は「2023年02月20日13時00分」でございます。現在、予約者の苦しんでいる症状は「頭痛、熱」でございます。最後に、予約者からのコメントをお伝えいたします。「車椅子を利用します。」",
+          "text": "こんにちは。",
           "language": "ja-JP",
           "style": 0,
-          "bargeIn": false
+          "bargeIn": true
       },
       {
           "action": "talk",
@@ -24,25 +24,35 @@ class VoiceController < ApplicationController
           "type": ["dtmf"],
           "dtmf": {
               "submitOnHash": true,
-              "timeOut": 10
-          }
-      },
-      {
-        "action": 'input',
-        "submitOnHash": true,
-        "eventUrl": ["https://9c91-124-219-136-119.jp.ngrok.io/event"]
+              "timeOut": 10,
+              "maxDigits": 1
+          },
+          "eventUrl": ["https://659f-153-188-33-195.jp.ngrok.io/event"]
       }
     ]
   end
 
   def event
-    render json: [
-      {
-      "action": "talk",
-      "text": "ご受諾いただき、ありがとうございました。予約者に「ヤサシイアプリ」で通知いたします。予約者のご手配のほど、よろしくお願い申し上げます。まもなく電話が終了いたします。失礼いたします。",
-      "language": "ja-JP",
-      "style": 0
-      }
-    ]
+    number = params['dtmf']['digits']
+
+    if number == '1'
+      render json: [
+        {
+        "action": "talk",
+        "text": number,
+        "language": "ja-JP",
+        "style": 0
+        }
+      ]
+    else
+      render json: [
+        {
+        "action": "talk",
+        "text": "#{number}じゃない",
+        "language": "ja-JP",
+        "style": 0
+        }
+      ]
+    end
   end
 end
