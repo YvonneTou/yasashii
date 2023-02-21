@@ -1,9 +1,25 @@
-<%= link_to clinic_path(clinic) do %> <br>
-  <div class="card-appt">
-    <%= cl_image_tag clinic.photo.key, height: 200, width: 366, crop: :fill, alt: clinic.name %>
-    <div class="p-3">
-      <h3><%= clinic.name %> <br></h3>
-      <p><small><i class="fa-solid fa-location-dot"></i> <%= clinic.location %></small></p>
+<div class="container">
+  <%= link_to clinic_path(clinic) do %> <br>
+    <div class="card-appt row">
+
+      <div class="p-0 col-lg-3 col-md-3 col-sm-12">
+        <%= cl_image_tag clinic.photo.key, height: 200, width: 366, crop: :fill, alt: clinic.name, class: "img-full"%>
+      </div>
+
+
+      <div class="p-3 pt-4 col-lg-9 col-md-9 col-sm-12">
+        <h3><%= clinic.name %> <br></h3>
+        <p>
+          <small>
+            <span class="fa-stack">
+              <i class="fa fa-circle fa-stack-2x icon-bg"></i>
+              <i class="fa-solid fa-location-dot fa-stack-1x icon-color"></i>
+            </span>
+            <%= clinic.location %>
+          </small>
+        </p>
+      </div>
+
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>
