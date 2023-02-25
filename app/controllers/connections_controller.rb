@@ -55,7 +55,7 @@ class ConnectionsController < ApplicationController
         number: "12013800657"
       },
       answer_url: [
-        "https://c627-124-219-136-119.jp.ngrok.io/answer?connection_id=#{connection.id}"
+        "https://34fb-124-219-136-119.jp.ngrok.io/answer?connection_id=#{connection.id}"
       ]
     })
 
@@ -64,7 +64,7 @@ class ConnectionsController < ApplicationController
 
   def check_call_status
     until @connection.call_status == "Completed"
-      @connection.call_status = @client.voice.get(@connection.uuid)[:status]
+      @connection.call_status = @client.voice.inspect(@connection.uuid)[:status]
       @connection.save
       redirect_to dashboard_path if @connection.call_status == "Completed"
     end

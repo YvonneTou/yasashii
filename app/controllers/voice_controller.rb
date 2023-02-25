@@ -24,7 +24,7 @@ class VoiceController < ApplicationController
               "timeOut": 10,
               "maxDigits": 1
           },
-          "eventUrl": ["https://c627-124-219-136-119.jp.ngrok.io/event?connection_id=#{@connection.id}"]
+          "eventUrl": ["https://34fb-124-219-136-119.jp.ngrok.io/event?connection_id=#{@connection.id}"]
       }
     ]
   end
