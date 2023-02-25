@@ -8,13 +8,25 @@ class VoiceController < ApplicationController
     @connection.uuid = params['uuid']
     @connection.save
 
+    name = params['name']
+    appt_date = params['appt_date']
+    symptoms = params['symptoms']
+    info = params['info']
+
     render json: [
       {
+        "action": "talk",
+        "text": "#{name}, #{DeepL.translate info, 'EN', 'JA'}",
+        "language": "ja-JP",
+        "style": 0,
+        "bargeIn": false
+      },
+      {
           "action": "talk",
-          "text": "番号をご入力くださいませ。",
+          "text": "番号をご入力ください。",
           "language": "ja-JP",
           "style": 0,
-          "bargeIn": false
+          "bargeIn": true
       },
       {
           "action": "input",
@@ -31,11 +43,11 @@ class VoiceController < ApplicationController
 
   def event
     input = params['dtmf']['digits']
-    status = check_call_status(params['uuid'])
+    # status = check_call_status(params['uuid'])
     # speech = params['speech']['results'][0]['text']
 
     render json: [
-      talk_json(status)
+      talk_json(input)
     ].to_json
   end
 

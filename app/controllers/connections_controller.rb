@@ -19,6 +19,7 @@ class ConnectionsController < ApplicationController
     @connection = Connection.new(connection_params)
     @connection.clinic = @clinic
     @connection.user = current_user
+    @connection.symptoms.delete_at(0)
     authorize @connection
     if @connection.save
       redirect_to connection_path(@connection)
@@ -48,18 +49,32 @@ class ConnectionsController < ApplicationController
     @client.voice.create({
       to: [{
         type: 'phone',
-        number: connection.clinic.phone_number
+        number: '818068285005'
       }],
       from: {
         type: 'phone',
         number: "12013800657"
       },
       answer_url: [
-        "https://34fb-124-219-136-119.jp.ngrok.io/answer?connection_id=#{connection.id}"
+        add_parameters(connection)
       ]
     })
 
-    check_call_status
+    # check_call_status
+  end
+
+  def add_parameters(connection)
+    param_string = "?connection_id=#{connection.id}"
+    param_string += "&name=#{connection.user.firstname}%20#{connection.user.lastname}"
+    param_string += "&appt_date=#{connection.appt_date.strftime("%Y-%m-%d-%H%M")}"
+
+    connection.symptoms.each do |symptom|
+      param_string += "&symptoms%5B%5D=#{symptom.gsub(' ', '%20')}"
+    end
+
+    param_string += "&info=#{connection.info.gsub(' ', '%20')}" if connection.info.empty? == false
+
+    'https://34fb-124-219-136-119.jp.ngrok.io/answer' + param_string
   end
 
   def check_call_status
