@@ -9,12 +9,18 @@
       <i class="fas fa-search"></i>
     <% end %>
   </div>
-  <div class="d-flex justify-content-between my-2">
-  <% @symptoms.each do |symptom| %>
-  <div><%= check_box_tag symptom %>
-  <%= label_tag(symptom, symptom.symptom_en) %>
-  </div>
-  <% end %>
+    <button class="btn btn-primary"
+            data-controller="symptom-dropdown"
+            data-action="click->symptom-dropdown#disable">
+      . . .
+    </button>
+  <div class="my-2" id="symptom_select">
+    <% @symptoms.each do |symptom| %>
+      <div>
+        <%= check_box_tag symptom %>
+        <%= label_tag(symptom, symptom.symptom_en) %>
+      </div>
+    <% end %>
   </div>
   <%# <%= text_field_tag :query,
     params[:query],

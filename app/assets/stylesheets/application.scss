@@ -134,5 +134,10 @@ a {
     height: 200px;
     width: 100%;
   }
+}
 
+#symptom_select {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
 }
