@@ -5,6 +5,8 @@ class Clinic < ApplicationRecord
   has_many :symptoms, through: :specialties
   has_one_attached :photo
   # acts_as_taggable_on :specialties
+  geocoded_by :location
+  after_validation :geocode, if: :will_save_change_to_location?
 
   include PgSearch::Model
   pg_search_scope :global_search,
