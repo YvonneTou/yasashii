@@ -1,26 +1,28 @@
 <%= form_with url: clinics_path, class: "mt-3" , method: :get do %>
-  <div class="d-flex">
-    <%= text_field_tag :query,
-      params[:query],
-      class: "form-control m-1",
-      placeholder: "Location"
-    %>
-    <%= button_tag type: 'submit', class: "btn btn-primary m-1" do %>
-      <i class="fas fa-search"></i>
-    <% end %>
-  </div>
+  <div data-controller="symptom">
+    <div class="d-flex" data-symptom-target="outer" data-action="click->symptom#close">
+      <%= text_field_tag :query,
+        params[:query],
+        class: "form-control m-1",
+        placeholder: "Location"
+      %>
+      <%= button_tag type: 'submit', class: "btn btn-primary m-1" do %>
+        <i class="fas fa-search"></i>
+      <% end %>
+    </div>
     <button class="btn btn-primary"
-            data-controller="symptom-dropdown"
-            data-action="click->symptom-dropdown#disable">
-      . . .
+            data-symptom-target="button"
+            data-action="click->symptom#dropdown">
+      +
     </button>
-  <div class="my-2" id="symptom_select">
-    <% @symptoms.each do |symptom| %>
-      <div>
-        <%= check_box_tag symptom %>
-        <%= label_tag(symptom, symptom.symptom_en) %>
-      </div>
-    <% end %>
+    <div class="d-none my-2" id="symptom_select" data-symptom-target="list">
+      <% @symptoms.each do |symptom| %>
+        <div>
+          <%= check_box_tag symptom %>
+          <%= label_tag(symptom, symptom.symptom_en) %>
+        </div>
+      <% end %>
+    </div>
   </div>
   <%# <%= text_field_tag :query,
     params[:query],
