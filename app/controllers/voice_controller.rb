@@ -14,24 +14,21 @@ class VoiceController < ApplicationController
       },
       {
           "action": "talk",
-          "text": "こちらの予約をご受諾の場合は、番号をご入力くださいませ。",
+          "text": "こちらの予約をご受諾の場合は、番号と番号記号をご入力くださいませ。",
           "language": "ja-JP",
           "style": 0,
           "bargeIn": true
       },
       {
-          "action": "input",
-          "type": ["dtmf"],
-          "dtmf": {
-              "submitOnHash": true,
-              "timeOut": 10
-          }
-      },
-      {
-        "action": 'input',
-        "submitOnHash": true,
-        "eventUrl": ["https://9c91-124-219-136-119.jp.ngrok.io/event"]
-      }
+        "action": "input",
+        "type": ["dtmf", "speech"],
+        "dtmf": {
+            "submitOnHash": true,
+            "timeOut": 10,
+            "maxDigits": 1
+        },
+        "eventUrl": ["https://c627-124-219-136-119.jp.ngrok.io/event"]
+    }
     ]
   end
 

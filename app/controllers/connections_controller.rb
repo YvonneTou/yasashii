@@ -48,14 +48,14 @@ class ConnectionsController < ApplicationController
     client.voice.create({
       to: [{
         type: 'phone',
-        number: connection.clinic.phone_number
+        number: '818068285005'
       }],
       from: {
         type: 'phone',
         number: "12013800657"
       },
       answer_url: [
-        "https://9c91-124-219-136-119.jp.ngrok.io/answer"
+        "https://c627-124-219-136-119.jp.ngrok.io/answer"
         ]
       }
     )
