@@ -9,6 +9,12 @@ class ClinicsController < ApplicationController
     else
       @clinics = Clinic.all
     end
+    @markers = @clinics.geocoded.map do |clinic|
+      {
+        lat: clinic.latitude,
+        lng: clinic.longitude
+      }
+    end
   end
 
   def show

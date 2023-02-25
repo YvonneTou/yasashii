@@ -67,8 +67,7 @@ puts "Creating 10 new Clinics..."
 derm = {
   file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098274/f8ohtzopvp39syrgiurl.jpg",
   name: 'Meguro Dermatology',
-  location: '1F 3-10-49 Knot Hanabusayama.
-  Kamiosaki, Shinagawa. 141-0021 Tokyo',
+  location: '3-10-49 Knot Hanabusayama 1F, Kamiosaki, Shinagawa, Tokyo',
   hours: '9:30-19:00',
   phone_number: '818030161151',
   email: 'info@meguro-derm.jp',
