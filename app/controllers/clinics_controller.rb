@@ -4,6 +4,7 @@ class ClinicsController < ApplicationController
   # access specialities via `specialty_list: []`
 
   def index
+    @symptoms = Symptom.all
     if params[:query].present?
       @clinics = Clinic.search_by_keyword(params[:query])
     else
