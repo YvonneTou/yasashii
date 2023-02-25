@@ -7,7 +7,7 @@ class VoiceController < ApplicationController
     render json: [
       {
           "action": "talk",
-          "text": "こんにちは。「ヤサシイアプリ」からの予約の依頼でございます。アプリで入力された詳細をお伝えいたします。予約者の名前は「タナー・マクセル」でございます。希望の日時は「2023年02月20日13時00分」でございます。現在、予約者の苦しんでいる症状は「頭痛、熱」でございます。最後に、予約者からのコメントをお伝えいたします。「車椅子を利用します。」",
+          "text": "<break><break>こんにちは。「ヤサシイアプリ」からの予約の依頼でございます。アプリで入力された詳細をお伝えいたします。予約者の名前は「タナー・マクセル」でございます。希望の日時は「2023年02月20日13時00分」でございます。現在、予約者の苦しんでいる症状は「頭痛、熱」でございます。最後に、予約者からのコメントをお伝えいたします。「車椅子を利用します。」",
           "language": "ja-JP",
           "style": 0,
           "bargeIn": false
@@ -21,7 +21,7 @@ class VoiceController < ApplicationController
       },
       {
         "action": "input",
-        "type": ["dtmf", "speech"],
+        "type": ["dtmf"],
         "dtmf": {
             "submitOnHash": true,
             "timeOut": 10,
