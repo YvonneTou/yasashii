@@ -1,12 +1,12 @@
 meta_name: "Yasashii"
-meta_title: "Your yasashii medical support in Japan"
+meta_title: "Your yasashii clinic support in Japan"
 meta_description: "Your essential application in Japan!
 Built in with the latest AI technology,
 Yasashii helps you to make clinic appointment over voice call,
 without having to speak a word of Japanese."
 
 # should exist in `app/assets/images/
-meta_image: "yasashii_logo_01.png"
+meta_image: "surgical-gloves-heart-shaped.jpeg"
 
 # required for Twitter Cards
 # twitter_account: "@your_twitter_account"

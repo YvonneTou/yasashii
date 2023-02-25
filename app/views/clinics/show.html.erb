@@ -1,3 +1,7 @@
+<% content_for :meta_title, "#{@clinic.name} is on #{DEFAULT_META["Yasashii"]}" %>
+<% content_for :meta_description, @clinic.description %>
+<% content_for :meta_image, cl_image_path(@restaurant.photo.key) if @restaurant.photo.attached? %>
+
 <div style="padding: 150px 0; margin: 0 0; background-size: cover; background-position: 50% 50%;
             background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2)), url(<%= cloudinary_url(@clinic.photo.key) %>);">
   <div class="container my-4">
