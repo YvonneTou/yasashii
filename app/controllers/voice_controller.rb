@@ -11,7 +11,7 @@ class VoiceController < ApplicationController
           "text": "こちらの予約をご受諾の場合は、番号をご入力くださいませ。",
           "language": "ja-JP",
           "style": 0,
-          "bargeIn": true
+          "bargeIn": false
       },
       {
           "action": "input",
@@ -35,36 +35,43 @@ class VoiceController < ApplicationController
     number = params['dtmf']['digits']
     # speech = params['speech']['results'][0]['text']
 
+    # render json: [
+    #   talk_json("ありがとうございます。")
+    # ].to_json
 
-    talk_json("ありがとうございます。")
-
-  end
-
-  private
-
-  def set_connection
-  end
-
-  def talk_json(text)
     render json: [
       {
-        action: "talk",
-        text: text,
-        language: "ja-JP",
-        style: 0,
-        bargeIn: false
+          "action": "talk",
+          "text": "こちらの予約をご受諾の場合は、番号をご入力くださいませ。",
+          "language": "ja-JP",
+          "style": 0,
+          "bargeIn": false
+      },
+      {
+          "action": "input",
+          "type": ["dtmf", "speech"],
+          "dtmf": {
+              "submitOnHash": true,
+              "timeOut": 10,
+              "maxDigits": 1
+          },
+          # "speech": {
+          #   "language": "ja-JP",
+          #   "endOnSilence": 0.5,
+          #   "saveAudio": true
+          # },
+          "eventUrl": ["https://c627-124-219-136-119.jp.ngrok.io/test"]
       }
+    ]
+
+  end
+
+  def test
+    number = params['dtmf']['digits']
+
+    render json: [
+      talk_json("ありがとうございます。")
     ].to_json
-
-    # render json: [
-    #   {
-    #     "action": "talk",
-    #     "text": speech,
-    #     "language": "ja-JP",
-    #     "style": 0
-    #   }
-    # ]
-
 
     # if number == '1'
     #   render json: [
@@ -85,5 +92,20 @@ class VoiceController < ApplicationController
     #     }
     #   ]
     # end
+  end
+
+  private
+
+  def set_connection
+  end
+
+  def talk_json(text)
+    {
+      action: "talk",
+      text: text,
+      language: "ja-JP",
+      style: 0,
+      bargeIn: false
+    }
   end
 end
