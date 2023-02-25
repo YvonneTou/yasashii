@@ -55,19 +55,12 @@ class VoiceController < ApplicationController
     }
   end
 
-  def create_vonage_client
-    url = URI.open(ENV.fetch('VONAGE_PRIVATE_KEY_URL')).read
+  # def create_vonage_client
+  #   url = URI.open(ENV.fetch('VONAGE_PRIVATE_KEY_URL')).read
 
-    Vonage::Client.new(
-      application_id: "96063012-ae83-424a-9661-caba31c197d6",
-      private_key: url
-    )
-  end
-
-  def check_call_status(uuid)
-    client = create_vonage_client
-    client.voice.get(uuid)[:status]
-  end
-
-  # redirect_to dashboard_path
+  #   Vonage::Client.new(
+  #     application_id: "96063012-ae83-424a-9661-caba31c197d6",
+  #     private_key: url
+  #   )
+  # end
 end

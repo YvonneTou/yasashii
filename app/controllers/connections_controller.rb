@@ -34,18 +34,18 @@ class ConnectionsController < ApplicationController
   end
 
   def connection_params
-    params.require(:connection).permit(:appt_date, {symptoms: [] }, :info, :clinic_id)
+    params.require(:connection).permit(:appt_date, { symptoms: [] }, :info, :clinic_id)
   end
 
   def trigger_call(connection)
     url = URI.open(ENV.fetch('VONAGE_PRIVATE_KEY_URL')).read
 
-    client = Vonage::Client.new(
+    @client = Vonage::Client.new(
       application_id: "96063012-ae83-424a-9661-caba31c197d6",
       private_key: url
     )
 
-    client.voice.create({
+    @client.voice.create({
       to: [{
         type: 'phone',
         number: '818068285005'
@@ -58,5 +58,15 @@ class ConnectionsController < ApplicationController
         "https://c627-124-219-136-119.jp.ngrok.io/answer?connection_id=#{connection.id}"
       ]
     })
+
+    check_call_status
+  end
+
+  def check_call_status
+    until @connection.call_status == "Completed"
+      @connection.call_status = @client.voice.get(@connection.uuid)[:status]
+      @connection.save
+      redirect_to dashboard_path if @connection.call_status == "Completed"
+    end
   end
 end
