@@ -306,4 +306,12 @@ end
 
 specialty(ear, 7)
 specialty(ear, 8)
-specialty(sakurai, )
+specialty(sakurai, 10)
+specialty(mental, 1)
+specialty(mental, 3)
+specialty(sakoda, 8)
+specialty(derm, 2)
+specialty(mirai, 10)
+specialty(ladies, 3)
+specialty(utaan, 8)
+specialty(kei, 1)
