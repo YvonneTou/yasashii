@@ -16,7 +16,7 @@ class VoiceController < ApplicationController
     render json: [
       {
         "action": "talk",
-        "text": "#{name}, #{DeepL.translate info, 'EN', 'JA'}",
+        "text": "#{DeepL.translate info, 'EN', 'JA'}",
         "language": "ja-JP",
         "style": 0,
         "bargeIn": false
@@ -39,22 +39,27 @@ class VoiceController < ApplicationController
           "eventUrl": ["https://34fb-124-219-136-119.jp.ngrok.io/event?connection_id=#{@connection.id}"]
       }
     ]
+    # check_call_status
   end
 
   def event
-    input = params['dtmf']['digits']
+    input = params['dtmf']['digits'] if params['dtmf']
+    status = params['status'] if params['status']
     # status = check_call_status(params['uuid'])
     # speech = params['speech']['results'][0]['text']
 
     render json: [
-      talk_json(input)
+      talk_json("ありがとうございます。")
     ].to_json
+
+    # check_call_status
+    redirect_to dashboard_path if status == "completed" # the problem is in this line (double redirect)
   end
 
   private
 
   def set_connection
-    @connection = Connection.find(params[:connection_id])
+    @connection = Connection.find(params[:connection_id]) if params[:connection_id]
   end
 
   def talk_json(text)
@@ -67,12 +72,12 @@ class VoiceController < ApplicationController
     }
   end
 
-  # def create_vonage_client
-  #   url = URI.open(ENV.fetch('VONAGE_PRIVATE_KEY_URL')).read
+  def create_vonage_client
+    url = URI.open(ENV.fetch('VONAGE_PRIVATE_KEY_URL')).read
 
-  #   Vonage::Client.new(
-  #     application_id: "96063012-ae83-424a-9661-caba31c197d6",
-  #     private_key: url
-  #   )
-  # end
+    Vonage::Client.new(
+      application_id: "96063012-ae83-424a-9661-caba31c197d6",
+      private_key: url
+    )
+  end
 end

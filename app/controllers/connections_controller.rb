@@ -59,8 +59,6 @@ class ConnectionsController < ApplicationController
         add_parameters(connection)
       ]
     })
-
-    # check_call_status
   end
 
   def add_parameters(connection)
@@ -75,13 +73,5 @@ class ConnectionsController < ApplicationController
     param_string += "&info=#{connection.info.gsub(' ', '%20')}" if connection.info.empty? == false
 
     'https://34fb-124-219-136-119.jp.ngrok.io/answer' + param_string
-  end
-
-  def check_call_status
-    until @connection.call_status == "Completed"
-      @connection.call_status = @client.voice.inspect(@connection.uuid)[:status]
-      @connection.save
-      redirect_to dashboard_path if @connection.call_status == "Completed"
-    end
   end
 end

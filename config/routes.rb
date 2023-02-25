@@ -13,5 +13,6 @@ Rails.application.routes.draw do
   end
 
   get '/answer', to: "voice#answer"
+  # get '/event', to: "voice#event"
   post '/event', to: "voice#event"
 end
