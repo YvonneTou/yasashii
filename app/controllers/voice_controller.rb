@@ -21,11 +21,11 @@ class VoiceController < ApplicationController
               "timeOut": 10,
               "maxDigits": 1
           },
-          "speech": {
-            "language": "ja-JP",
-            "endOnSilence": 0.5,
-            "saveAudio": true
-          },
+          # "speech": {
+          #   "language": "ja-JP",
+          #   "endOnSilence": 0.5,
+          #   "saveAudio": true
+          # },
           "eventUrl": ["https://c627-124-219-136-119.jp.ngrok.io/event"]
       }
     ]
@@ -33,7 +33,7 @@ class VoiceController < ApplicationController
 
   def event
     number = params['dtmf']['digits']
-    speech = params['speech']['results'][0]['text']
+    # speech = params['speech']['results'][0]['text']
 
 
     talk_json("ありがとうございます。")
@@ -51,7 +51,7 @@ class VoiceController < ApplicationController
         action: "talk",
         text: text,
         language: "ja-JP",
-        style: 0
+        style: 0,
         bargeIn: false
       }
     ].to_json
@@ -86,7 +86,4 @@ class VoiceController < ApplicationController
     #   ]
     # end
   end
-
-  def
-
 end

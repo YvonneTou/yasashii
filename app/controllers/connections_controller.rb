@@ -59,6 +59,5 @@ class ConnectionsController < ApplicationController
         ]
       }
     )
-    raise
   end
 end
