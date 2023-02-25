@@ -16,3 +16,84 @@
   margin: 0;
   padding-left: 4px;
 }
+
+#navbarDropdown {
+  border: 0px;
+  padding-right: 0px;
+  padding-left: 0px;
+  margin-left: 8px;
+  background-color: white;
+}
+
+.navbar-brand {
+  margin-left: 8px;
+}
+
+.nav-item {
+  padding-left: 32px;
+
+}
+
+.view-user-dashboard {
+  font-size: 12px;
+  margin-bottom: 0px;
+}
+
+.user-profile-info {
+  padding-left: 16px;
+  padding-right: 16px;
+  text-decoration: double;
+}
+
+.user-avatar {
+  height: 32px;
+  width: auto;
+}
+
+.separator-line {
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+.dropdown-menu {
+  border: 0px;
+  font-size: 18px;
+  margin-left: 16px;
+  margin-bottom: 16px;
+  margin-bottom: 32px;
+  width: 100%;
+}
+
+.icon-spacing {
+  padding-right: 16px;
+  padding-left: 16px;
+  color: $pink;
+}
+
+.icon-spacing-gray {
+  padding-right: 16px;
+  padding-left: 16px;
+  color: $darkgray;
+}
+
+.nav-link.btn {
+  width: 100%;
+  font-weight: 400;
+  font-size: 16px;
+  border-radius: 8px;
+  padding: 0px;
+}
+
+.sign-in-text {
+  margin-top: 16px;
+  margin-bottom: 4px;
+  font-size: 14px;
+  color: $darkgray;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
