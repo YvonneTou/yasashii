@@ -292,3 +292,18 @@ Connection.all.each do |connection|
 end
 
 puts "Done creating messages"
+
+puts "Adding specialties for clinics"
+
+def specialty(clinic, symptom)
+  Specialty.create!(
+    symptom_id: symptom,
+    clinic_id: clinic[:id]
+  )
+end
+
+# clinics = [derm, mirai, ladies, ear, sakurai, mental, sakoda, hira, utaan, kei]
+
+specialty(ear, 7)
+specialty(ear, 8)
+specialty(sakurai, )

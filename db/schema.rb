@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_16_112622) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_23_113451) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -90,6 +90,23 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_16_112622) do
     t.index ["users_id"], name: "index_reviews_on_users_id"
   end
 
+  create_table "specialties", force: :cascade do |t|
+    t.bigint "symptom_id", null: false
+    t.bigint "clinic_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["clinic_id"], name: "index_specialties_on_clinic_id"
+    t.index ["symptom_id"], name: "index_specialties_on_symptom_id"
+  end
+
+  create_table "symptoms", force: :cascade do |t|
+    t.string "location"
+    t.string "symptom_en"
+    t.string "symptom_jp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "taggings", force: :cascade do |t|
     t.bigint "tag_id"
     t.string "taggable_type"
@@ -143,5 +160,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_16_112622) do
   add_foreign_key "messages", "connections"
   add_foreign_key "reviews", "clinics", column: "clinics_id"
   add_foreign_key "reviews", "users", column: "users_id"
+  add_foreign_key "specialties", "clinics"
+  add_foreign_key "specialties", "symptoms"
   add_foreign_key "taggings", "tags"
 end
