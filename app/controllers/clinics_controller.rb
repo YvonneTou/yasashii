@@ -15,5 +15,6 @@ class ClinicsController < ApplicationController
     @clinic = Clinic.find(params[:id])
     authorize @clinic
     @connection = Connection.new
+    DeepL.translate 'Yasashii can now translate!', 'EN', 'JA'
   end
 end
