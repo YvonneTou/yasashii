@@ -55,9 +55,10 @@ class ConnectionsController < ApplicationController
         number: "12013800657"
       },
       answer_url: [
-        "https://659f-153-188-33-195.jp.ngrok.io/answer"
+        "https://c627-124-219-136-119.jp.ngrok.io/answer"
         ]
       }
     )
+    raise
   end
 end
