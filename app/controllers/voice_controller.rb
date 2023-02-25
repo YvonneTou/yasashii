@@ -5,38 +5,37 @@ class VoiceController < ApplicationController
   before_action :set_connection
 
   def answer
+    @connection.uuid = params['uuid']
+    @connection.save
+
     render json: [
       {
           "action": "talk",
-          "text": "こちらの予約をご受諾の場合は、番号をご入力くださいませ。",
+          "text": "番号をご入力くださいませ。",
           "language": "ja-JP",
           "style": 0,
           "bargeIn": false
       },
       {
           "action": "input",
-          "type": ["dtmf", "speech"],
+          "type": ["dtmf"],
           "dtmf": {
               "submitOnHash": true,
               "timeOut": 10,
               "maxDigits": 1
           },
-          # "speech": {
-          #   "language": "ja-JP",
-          #   "endOnSilence": 0.5,
-          #   "saveAudio": true
-          # },
           "eventUrl": ["https://c627-124-219-136-119.jp.ngrok.io/event?connection_id=#{@connection.id}"]
       }
     ]
   end
 
   def event
-    number = params['dtmf']['digits']
+    input = params['dtmf']['digits']
+    status = check_call_status(params['uuid'])
     # speech = params['speech']['results'][0]['text']
 
     render json: [
-      talk_json(@connection.id)
+      talk_json(status)
     ].to_json
   end
 
@@ -55,4 +54,20 @@ class VoiceController < ApplicationController
       bargeIn: false
     }
   end
+
+  def create_vonage_client
+    url = URI.open(ENV.fetch('VONAGE_PRIVATE_KEY_URL')).read
+
+    Vonage::Client.new(
+      application_id: "96063012-ae83-424a-9661-caba31c197d6",
+      private_key: url
+    )
+  end
+
+  def check_call_status(uuid)
+    client = create_vonage_client
+    client.voice.get(uuid)[:status]
+  end
+
+  # redirect_to dashboard_path
 end

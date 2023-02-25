@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_16_112622) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_25_033136) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -56,14 +56,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_16_112622) do
   create_table "connections", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "clinic_id", null: false
-    t.datetime "start_time"
-    t.datetime "end_time"
     t.datetime "appt_date"
     t.integer "status", default: 0
     t.text "info"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "symptoms", default: [], array: true
+    t.string "uuid"
     t.index ["clinic_id"], name: "index_connections_on_clinic_id"
     t.index ["user_id"], name: "index_connections_on_user_id"
   end

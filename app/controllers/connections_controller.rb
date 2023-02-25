@@ -56,8 +56,7 @@ class ConnectionsController < ApplicationController
       },
       answer_url: [
         "https://c627-124-219-136-119.jp.ngrok.io/answer?connection_id=#{connection.id}"
-        ]
-      }
-    )
+      ]
+    })
   end
 end
