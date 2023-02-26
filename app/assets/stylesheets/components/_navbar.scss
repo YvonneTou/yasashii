@@ -130,3 +130,19 @@
 .modal.show.modal-left .modal-dialog {
   transform: none;
 }
+
+.modal-footer {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.menu-select {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: -12px;
+  padding-right: -12px;
+}
+
+.menu-select:hover {
+  background-color: $lightpink;
+}
