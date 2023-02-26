@@ -1,15 +1,8 @@
 <div class="container">
   <%= render "index_search_form" %>
+</div>
 
-  <div style="width: 100%; height: 100vh;"
+  <div id="clinics-map" class="mt-4" style="width: 100%; height: 90vh;"
   data-controller="map"
   data-map-markers-value="<%= @markers.to_json %>"
   data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
-
-  <div class="my-4">
-    <h3><%= pluralize @clinics.count, "clinic" %> available</h3>
-    <% @clinics.each do |clinic| %>
-        <%= render "pages/clinic_card", clinic: clinic %>
-    <% end %>
-  </div>
-</div>

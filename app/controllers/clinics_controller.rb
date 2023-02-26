@@ -12,7 +12,8 @@ class ClinicsController < ApplicationController
     @markers = @clinics.geocoded.map do |clinic|
       {
         lat: clinic.latitude,
-        lng: clinic.longitude
+        lng: clinic.longitude,
+        clinic_card_html: render_to_string(partial: "pages/clinic_card", locals: { clinic: clinic })
       }
     end
   end

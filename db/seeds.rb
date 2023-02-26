@@ -66,21 +66,21 @@ puts "Creating 10 new Clinics..."
 
 derm = {
   file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098274/f8ohtzopvp39syrgiurl.jpg",
-  name: 'Meguro Dermatology',
+  name: 'Shinagawa Dermatology',
   location: '3-10-49 Knot Hanabusayama 1F, Kamiosaki, Shinagawa, Tokyo',
   hours: '9:30-19:00',
   phone_number: '818030161151',
-  email: 'info@meguro-derm.jp',
+  email: 'info@shinagawa-derm.jp',
   description: 'We are doing medical treatment for patients with general skin diseases such as atopic dermatitis, urticaria, eczema, athletes foot, acne, water warts, warts, herpes, herpes zoster, rash, moles, seborrheic dermatitis, and alopecia areata.',
 }
 
 mirai = {
   file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098571/b5pc0fz1xznoyjbf5c6n.png",
-  name: 'Meguromirai Internal Medicine Clinic',
-  location: '〒141-0021 2-13-26 Kamiosaki Shinagawa-ku, Tokyo Maple top building 3F',
+  name: 'Shinagawa Mirai Internal Medicine Clinic',
+  location: '141-0021 2-13-26 Kamiosaki Shinagawa-ku, Tokyo Maple Top Building 3F',
   hours: '9:00-18:00',
   phone_number: '818030161151',
-  email: 'info@meguro-clinic.net',
+  email: 'info@shinagawa-clinic.net',
   description: 'Regular internal medical issues starting from the common cold
   Diabetes
   Respiratory medicine COPD・Bronchial asthma・Sleep apnea syndrome etc
@@ -119,11 +119,11 @@ sakurai = {
 
 mental = {
   file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098517/ggkqixqzd0lxlewkidgs.jpg",
-  name: 'Meguro Ekimae Mental Clinic',
+  name: 'Shinagawa Ekimae Mental Clinic',
   location: '141-0021 Tokyo, Shinagawa City, Kamiosaki, 4 Chome-4-6 Meguro MT Building',
   hours: '9:00-18:30',
   phone_number: '818030161151',
-  email: 'info@meguro-mental.jp',
+  email: 'info@shinagawa-mental.jp',
   description: ''
 }
 
