@@ -11,13 +11,20 @@
   width: 40px;
 }
 
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
 #navbar-title {
   color: $pink;
   margin: 0;
   padding-left: 4px;
 }
 
-#navbarDropdown {
+.navbar-modal {
   border: 0px;
   padding-right: 0px;
   padding-left: 0px;
@@ -46,7 +53,7 @@
 }
 
 .user-avatar {
-  height: 32px;
+  height: 48px;
   width: auto;
 }
 
@@ -76,12 +83,17 @@
   color: $darkgray;
 }
 
+.dropdown-item {
+  color: $darkgray;
+  font-size: 20px;
+}
+
 .nav-link.btn {
   width: 100%;
   font-weight: 400;
   font-size: 16px;
   border-radius: 8px;
-  padding: 0px;
+  padding: 4px;
 }
 
 .sign-in-text {
@@ -91,9 +103,30 @@
   color: $darkgray;
 }
 
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
+.page-container {
+  margin-top: 80px;
+  position: relative;
+  min-height: 100vh;
+}
+
+.modal-dialog {
+  width: 75%;
+  margin-top: 0px;
+  margin-left: 0px;
+  transition: ease-in-out;
+}
+
+.modal-content {
+  padding: 16px;
+}
+.modal-title img {
+  width: 40px;
+}
+
+.modal.fade.modal-left .modal-dialog {
+  transform: translate(-125%, 0px);
+}
+
+.modal.show.modal-left .modal-dialog {
+  transform: none;
 }
