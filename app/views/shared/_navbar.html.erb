@@ -1,11 +1,8 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon sticky">
-  <div class="d-flex flex-row dropdown">
+<!-- Desktop Navbar -->
+<div class="navbar navbar-desktop navbar-light navbar-yasashii sticky">
+  <div class="d-flex justify-content-between">
 
-    <button class="navbar-toggle" type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <%# <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> %>
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
+    <!-- Logo on navbar -->
     <%= link_to root_path, class: "navbar-brand" do %>
       <div class="d-flex align-items-center">
         <%= image_tag "https://res.cloudinary.com/df7gbyhfx/image/upload/v1676690943/w0f8761a6pirw16f3tg6.png" %>
@@ -13,87 +10,146 @@
       </div>
     <% end %>
 
-    <%# <div class="collapse navbar-collapse" id="navbarSupportedContent"> %>
-    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-      <ul class="navbar-nav me-auto">
-        <% if user_signed_in? %>
-          <li class="user-profile dropdown-item">
-            <div class="d-flex justify-content-between align-items-center">
-              <%= image_tag "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676698699/wqhubpjfxsjeee49k9ox.jpg", class: "user-avatar" %>
-              <div class="user-profile-info">
-                <%= link_to current_user.username, dashboard_path, class: "user-link" %>
-                <p class="view-user-dashboard">View dashboard ></p>
-              </div>
-            </div>
-          </li>
+    <!-- Navbar link items -->
+    <div class="navbar-link-items">
 
-          <div class="separator-line">
-            <hr>
-          </div>
+      <%= link_to root_path do%>
+        <i class="fa-solid fa-house nav-link icon-spacing"></i>
+      <% end %>
 
-          <li class="dropdown-item">
-            <div class="d-flex flex-row align-items-center">
-              <i class="fa-solid fa-house icon-spacing"></i>
-              <%= link_to "Home", root_path, class: "nav-link" %>
-            </div>
-          </li>
+      <%= link_to clinics_path do%>
+        <i class="fa-solid fa-house-medical-flag nav-link icon-spacing"></i>
+      <% end %>
 
-          <li class="dropdown-item">
-            <div class="d-flex flex-row align-items-center">
-              <i class="fa-solid fa-house-medical-flag icon-spacing"></i>
-              <%= link_to "Clinics", clinics_path, class: "nav-link" %>
-            </div>
-          </li>
-
-          <div class="separator-line">
-            <hr>
-          </div>
-
-          <li class="dropdown-item">
-            <div class="d-flex flex-row align-items-center">
-              <i class="fa-solid fa-door-open icon-spacing-gray"></i>
-              <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "nav-link" %>
-            </div>
-          </li>
-
-
-
-        <% else %>
-
-          <li class="dropdown-item">
-            <div>
-              <p class="sign-in-text">New to Yasashii?</p>
-              <%= link_to new_user_registration_path do %>
-                <button class="btn btn-primary nav-link">Sign Up</button>
-              <% end %>
-              <p class="sign-in-text">Already a member?</p>
-              <%= link_to new_user_session_path do %>
-                <button class="btn btn-outline-primary nav-link">Sign In</button>
-              <% end %>
-            </div>
-          </li>
-
-          <div class="separator-line">
-            <hr>
-          </div>
-
-          <li class="dropdown-item">
-            <div class="d-flex flex-row align-items-center">
-              <i class="fa-solid fa-house icon-spacing"></i>
-              <%= link_to "Home", root_path, class: "nav-link" %>
-            </div>
-          </li>
-
-          <li class="dropdown-item">
-            <div class="d-flex flex-row align-items-center">
-              <i class="fa-solid fa-house-medical-flag icon-spacing"></i>
-              <%= link_to "Clinics", clinics_path, class: "nav-link" %>
-            </div>
-          </li>
-
+      <% if user_signed_in? %>
+        <%= link_to destroy_user_session_path, data: {turbo_method: :delete} do%>
+          <i class="fa-solid fa-door-open icon-spacing-gray nav-link"></i>
         <% end %>
-      </ul>
+        <%= image_tag "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676698699/wqhubpjfxsjeee49k9ox.jpg", class: "user-avatar" %>
+
+      <% else %>
+        <%= link_to new_user_registration_path do %>
+          <button class="btn btn-primary btn-sm nav-link">Sign Up</button>
+        <% end %>
+
+        <%= link_to new_user_session_path do %>
+          <button class="btn btn-outline-primary btn-sm nav-link">Sign In</button>
+        <% end %>
+      <% end %>
     </div>
 
+  </div>
+</div>
+
+<!-- Mobile Navbar -->
+<div class="navbar navbar-mobile navbar-light navbar-yasashii sticky">
+  <div class="d-flex flex-row">
+
+    <!-- Hamburger modal -->
+    <button type="button" class="navbar-modal" data-bs-toggle="modal" data-bs-target="#hamburgerModal">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Logo on navbar -->
+    <%= link_to root_path, class: "navbar-brand" do %>
+      <div class="d-flex align-items-center">
+        <%= image_tag "https://res.cloudinary.com/df7gbyhfx/image/upload/v1676690943/w0f8761a6pirw16f3tg6.png" %>
+        <h4 id="navbar-title">Yasashii</h4>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade modal-left" id="hamburgerModal" tabindex="-1" aria-labelledby="hamburgerModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="hamburgerModalLabel">
+          <%= image_tag "https://res.cloudinary.com/df7gbyhfx/image/upload/v1676690943/w0f8761a6pirw16f3tg6.png" %>
+          <span id="navbar-title">Yasashii</span>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <ul class="navbar-nav me-auto">
+
+          <% if user_signed_in? %>
+            <li class="user-profile dropdown-item">
+              <div class="d-flex justify-content-around align-items-center">
+                <%= image_tag "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676698699/wqhubpjfxsjeee49k9ox.jpg", class: "user-avatar" %>
+                <div class="user-profile-info">
+                  <%= link_to dashboard_path do%>
+                    <h5 class="user-link"><%= current_user.username %></h5>
+                    <p class="view-user-dashboard">View dashboard ></p>
+                  <% end %>
+                </div>
+              </div>
+            </li>
+
+          <% else %>
+            <li class="dropdown-item">
+              <div>
+                <p class="sign-in-text">New to Yasashii?</p>
+                <%= link_to new_user_registration_path do %>
+                  <button class="btn btn-primary btn-sm nav-link">Sign Up</button>
+                <% end %>
+                <p class="sign-in-text">Already a member?</p>
+                <%= link_to new_user_session_path do %>
+                  <button class="btn btn-outline-primary btn-sm nav-link">Sign In</button>
+                <% end %>
+              </div>
+            </li>
+          <% end %>
+        </div>
+
+        <div class="modal-footer">
+          <li class="dropdown-item menu-select">
+            <div class="d-flex flex-row align-items-center">
+              <i class="fa-solid fa-house icon-spacing"></i>
+              <%= link_to "Home", root_path, class: "nav-link" %>
+            </div>
+          </li>
+
+          <li class="dropdown-item menu-select">
+            <div class="d-flex flex-row align-items-center">
+              <i class="fa-solid fa-house-medical-flag icon-spacing"></i>
+              <%= link_to "View Clinics", clinics_path, class: "nav-link" %>
+            </div>
+          </li>
+
+          <li class="dropdown-item menu-select">
+            <div class="d-flex flex-row align-items-center">
+              <i class="fa-solid fa-bookmark icon-spacing"></i>
+              <%= link_to "Bookmarks", dashboard_path, class: "nav-link" %>
+            </div>
+          </li>
+
+          <li class="dropdown-item menu-select">
+            <div class="d-flex flex-row align-items-center">
+              <i class="fa-solid fa-envelope icon-spacing"></i>
+              <%= link_to "Notifications", dashboard_path, class: "nav-link" %>
+            </div>
+          </li>
+
+          <li class="dropdown-item menu-select">
+            <div class="d-flex flex-row align-items-center">
+              <i class="fa-solid fa-gear icon-spacing"></i>
+              <%= link_to "Settings", dashboard_path, class: "nav-link" %>
+            </div>
+          </li>
+
+          <% if user_signed_in? %>
+            <li class="dropdown-item  menu-select">
+              <div class="d-flex flex-row align-items-center">
+                <i class="fa-solid fa-door-open icon-spacing-gray"></i>
+                <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "nav-link" %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
