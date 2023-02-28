@@ -19,8 +19,9 @@
         <i class="fa-solid fa-location-dot fa-stack-1x icon-color"></i>
       </span> <%= @clinic.location %>
     </p>
-      <% @clinic.specialty_list.each do |specialty| %>
-        <p><%= specialty %></p>
+    <p><strong>Treatment Available For</strong></p>
+      <% @clinic.symptoms.each do |symptom| %>
+        <p><%= symptom.symptom_en %></p>
       <% end %>
     <p>
       <span class="fa-stack">
