@@ -8,15 +8,20 @@ class VoiceController < ApplicationController
     @connection.uuid = params['uuid']
     @connection.save
 
-    name = params['name']
-    appt_date = params['appt_date']
-    symptoms = params['symptoms']
-    info = params['info']
+    # name = params['name']
+    # appt_date = params['appt_date']
+    # symptoms = params['symptoms']
+    # info = params['info']
+
+    name = "#{@connection.user.firstname} #{@connection.user.lastname}"
+    appt_date = @connection.appt_date.strftime("%Y年%m月%d日%H時%M分")
+    symptoms = @connection.symptoms
+    info = @connection.info
 
     render json: [
       {
         "action": "talk",
-        "text": "#{DeepL.translate info, 'EN', 'JA'}",
+        "text": "#{name} #{DeepL.translate info, 'EN', 'JA'}",
         "language": "ja-JP",
         "style": 0,
         "bargeIn": false
@@ -36,7 +41,7 @@ class VoiceController < ApplicationController
               "timeOut": 10,
               "maxDigits": 1
           },
-          "eventUrl": ["https://34fb-124-219-136-119.jp.ngrok.io/event?connection_id=#{@connection.id}"]
+          "eventUrl": ["https://fc7c-210-80-199-132.jp.ngrok.io/event?connection_id=#{@connection.id}"]
       }
     ]
     # check_call_status

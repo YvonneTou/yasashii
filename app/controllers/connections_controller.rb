@@ -56,22 +56,8 @@ class ConnectionsController < ApplicationController
         number: "12013800657"
       },
       answer_url: [
-        add_parameters(connection)
+        "https://fc7c-210-80-199-132.jp.ngrok.io/answer?connection_id=#{connection.id}"
       ]
     })
-  end
-
-  def add_parameters(connection)
-    param_string = "?connection_id=#{connection.id}"
-    param_string += "&name=#{connection.user.firstname}%20#{connection.user.lastname}"
-    param_string += "&appt_date=#{connection.appt_date.strftime("%Y-%m-%d-%H%M")}"
-
-    connection.symptoms.each do |symptom|
-      param_string += "&symptoms%5B%5D=#{symptom.gsub(' ', '%20')}"
-    end
-
-    param_string += "&info=#{connection.info.gsub(' ', '%20')}" if connection.info.empty? == false
-
-    'https://34fb-124-219-136-119.jp.ngrok.io/answer' + param_string
   end
 end
