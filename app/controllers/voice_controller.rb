@@ -57,8 +57,6 @@ class VoiceController < ApplicationController
       talk_json("ありがとうございます。")
     ].to_json
 
-    # check_call_status
-    redirect_to dashboard_path if status == "completed" # the problem is in this line (double redirect)
   end
 
   private
