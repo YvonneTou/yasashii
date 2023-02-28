@@ -9,7 +9,7 @@ class Clinic < ApplicationRecord
   after_validation :geocode, if: :will_save_change_to_location?
 
   include PgSearch::Model
-  pg_search_scope :global_search,
+  pg_search_scope :search_by_location_and_symptoms,
     against: [ :location ],
     associated_against: {
       symptoms: [:symptom_en]

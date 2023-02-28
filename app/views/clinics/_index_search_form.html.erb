@@ -18,7 +18,7 @@
     <div class="d-none my-2" id="symptom_select" data-symptom-target="list">
       <% @symptoms.each do |symptom| %>
         <div>
-          <%= check_box_tag symptom %>
+          <%= check_box_tag symptom.symptom_en %>
           <%= label_tag(symptom, symptom.symptom_en) %>
         </div>
       <% end %>

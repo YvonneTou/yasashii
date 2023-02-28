@@ -6,7 +6,13 @@ class ClinicsController < ApplicationController
   def index
     @symptoms = Symptom.all
     if params[:query].present?
-      @clinics = Clinic.search_by_keyword(params[:query])
+      # @clinics = Clinic.search_by_location_and_symptoms(params[:query])
+      symptoms = []
+      params.keys.each do |param|
+        symptoms << param if params[param] == 1
+      end
+
+      puts params
     else
       @clinics = Clinic.all
     end
