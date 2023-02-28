@@ -1,7 +1,7 @@
 class Clinic < ApplicationRecord
   has_many :connections, dependent: :destroy
   has_many :messages, as: :sender
-  has_many :specialties
+  has_many :specialties, dependent: :destroy
   has_many :symptoms, through: :specialties
   has_one_attached :photo
   # acts_as_taggable_on :specialties

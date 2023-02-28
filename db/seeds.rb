@@ -350,22 +350,25 @@ puts "Done creating messages"
 puts "Adding specialties for clinics"
 
 def specialty(clinic, symptom)
+  clinic = Clinic.find_by(name: clinic).id
   Specialty.create!(
     symptom_id: symptom,
-    clinic_id: clinic[:id]
+    clinic_id: clinic
   )
 end
 
 # clinics = [derm, mirai, ladies, ear, sakurai, mental, sakoda, hira, utaan, kei]
 
-specialty(ear, 7)
-specialty(ear, 8)
-specialty(sakurai, 10)
-specialty(mental, 1)
-specialty(mental, 3)
-specialty(sakoda, 8)
-specialty(derm, 2)
-specialty(mirai, 10)
-specialty(ladies, 3)
-specialty(utaan, 8)
-specialty(kei, 1)
+specialty('Meguro Ear', 7)
+specialty('Meguro Ear', 8)
+specialty('Sakurai Orthopedic Surgical Clinic', 10)
+specialty('Meguro Ekimae Mental Clinic', 1)
+specialty('Meguro Ekimae Mental Clinic', 5)
+specialty('Meguro Sakoda Orthopedics', 8)
+specialty('Meguro Dermatology', 4)
+specialty('Meguromirai Internal Medicine Clinic', 10)
+specialty('Meguro Ladies Clinic', 5)
+specialty('Utaan Acupuncture Orthopedic Clinic', 8)
+specialty('KEI Acupuncture', 1)
+
+puts "Done adding specialties to clinics!"
