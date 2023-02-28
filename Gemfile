@@ -87,3 +87,4 @@ gem "geocoder"
 gem 'acts-as-taggable-on'
 gem 'vonage'
 gem 'deepl-rb', require: 'deepl'
+gem "serviceworker-rails"
