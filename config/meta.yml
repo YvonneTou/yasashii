@@ -6,7 +6,7 @@ Yasashii helps you to make clinic appointment over voice call,
 without having to speak a word of Japanese."
 
 # should exist in `app/assets/images/
-meta_image: "surgical-gloves-heart-shaped.jpeg"
+meta_image: "surgical-gloves-heart-shaped.jpg"
 
 # required for Twitter Cards
 # twitter_account: "@your_twitter_account"

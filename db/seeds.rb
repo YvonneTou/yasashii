@@ -47,7 +47,6 @@ SYMPTOMS = [
   "Difficulting writing"
 ]
 
-
 puts "Destroying existing records..."
 Clinic.destroy_all
 User.destroy_all
@@ -55,10 +54,66 @@ puts "Done deletion"
 
 puts "Creating 4 new Users..."
 
-User.create!(username: "SarahR", email: "sarah@email.com", password: "123456", lastname: "Rollins", firstname: "Sarah")
-User.create(username: "Tanao", email: "tanner@email.com", password: "123456", lastname: "Maxwell", firstname: "Tanner")
-User.create(username: "Dani", email: "danielle@email.com", password: "123456", lastname: "Matsumoto", firstname: "Danielle")
-User.create(username: "Eevie", email: "yvonne@email.com", password: "123456", lastname: "Tou", firstname: "Yvonne")
+sarah = {
+  file: "https://res.cloudinary.com/df7gbyhfx/image/upload/v1677485847/wdvks78cnylhnmuic7ox.png",
+  username: "SarahR",
+  email: "sarah@email.com",
+  password: "123456",
+  lastname: "Rollins",
+  firstname: "Sarah"
+}
+
+tanner = {
+  file: "https://res.cloudinary.com/df7gbyhfx/image/upload/v1677485871/gzjpt9oeinyz4wq1qo6t.png",
+  username: "Tanao",
+  email: "tanner@email.com",
+  password: "123456",
+  lastname: "Maxwell",
+  firstname: "Tanner"
+}
+
+dani = {
+  file: "https://res.cloudinary.com/df7gbyhfx/image/upload/v1677485861/eew9vywfuyfq4faoyev5.png",
+  username: "Dani",
+  email: "danielle@email.com",
+  password: "123456",
+  lastname: "Matsumoto",
+  firstname: "Danielle"
+}
+
+yvonne = {
+  file: "https://res.cloudinary.com/df7gbyhfx/image/upload/v1677485835/hw40x8plypk3bvvxh9qp.jpg",
+  username: "Eevie",
+  email: "yvonne@email.com",
+  password: "123456",
+  lastname: "Tou",
+  firstname: "Yvonne"
+}
+
+users = [yvonne, sarah, dani, tanner]
+
+def create_users(user)
+  file = URI.open(user[:file])
+
+  new_user = User.new(
+    {
+      username: user[:username],
+      email: user[:email],
+      password: user[:password],
+      lastname: user[:lastname],
+      firstname: user[:firstname],
+    }
+  )
+
+  new_user.photo.attach(io: file, filename: "#{user[:name]}.jpg", content_type: "image/jpg")
+  p "This is new_user.photo: #{new_user.photo.key}"
+  new_user.save
+end
+
+users.each_with_index do |user, index|
+  create_users(user)
+  puts "Created #{index + 1} user#{index.zero? ? '' : 's'}"
+end
 
 puts "Done creating users"
 
@@ -67,8 +122,7 @@ puts "Creating 10 new Clinics..."
 derm = {
   file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098274/f8ohtzopvp39syrgiurl.jpg",
   name: 'Meguro Dermatology',
-  location: '1F 3-10-49 Knot Hanabusayama.
-  Kamiosaki, Shinagawa. 141-0021 Tokyo',
+  location: '3-10-49 Knot Hanabusayama 1F, Kamiosaki, Shinagawa, Tokyo',
   hours: '9:30-19:00',
   phone_number: '818030161151',
   email: 'info@meguro-derm.jp',

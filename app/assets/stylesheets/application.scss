@@ -117,6 +117,10 @@ a {
   color: rgba(0, 0, 0, 0.477);
 }
 
+.text-pink {
+  color: $pink;
+}
+
 @media (max-width: 768px) {
   h3 {
     font-size: 21px !important;
