@@ -18,7 +18,7 @@ class VoiceController < ApplicationController
     render json: [
       talk_json(greeting(name, info)),
       input_json(greeting_number),
-      event_json(@connection_id, nil)
+      event_json
     ]
   end
 
@@ -32,7 +32,6 @@ class VoiceController < ApplicationController
       @connection,
       "event"
     )
-    # head :ok
 
 
     render json: [
@@ -81,7 +80,7 @@ class VoiceController < ApplicationController
     }
   end
 
-  def event_json(connection_id, event_params)
+  def event_json
     {
       action: "input",
       type: ["dtmf"],
