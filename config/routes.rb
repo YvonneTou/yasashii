@@ -14,4 +14,8 @@ Rails.application.routes.draw do
 
   get '/answer', to: "voice#answer"
   post '/event', to: "voice#event"
+
+  # Google Calendar routes
+  get '/redirect', to: 'calendar#redirect', as: 'redirect'
+  get '/callback', to: 'calendar#callback', as: 'callback'
 end

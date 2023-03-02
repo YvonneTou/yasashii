@@ -16,5 +16,10 @@
     <p class="mt-1"><strong>
       <i class="fa-regular fa-clock"></i>  <%= connection.appt_date.strftime("%-l:%M %p") %>
     </strong></p>
+    <%# <% if connection.appt_date > Time.now %>
+      <a target="_blank" href="https://calendar.google.com/calendar/event?action=TEMPLATE&amp;tmeid=Mms2OWI5NGVjYmJmNzVuNDk1Zm9pOWJkZHYgOGE5OTJhZTllMDUyN2M1ODQ5ZjAwYzMyOGE1MDc3ZDNjZjJkOWRmNjk3NjljZmI2N2Q0YjBlNGRkMmQxN2ZiYkBn&amp;tmsrc=8a992ae9e0527c5849f00c328a5077d3cf2d9df69769cfb67d4b0e4dd2d17fbb%40group.calendar.google.com">
+        <button class="btn btn-primary">Add appointment to my Google calendar</button>
+      </a>
+    <%# <% end %>
   </div>
 </div>

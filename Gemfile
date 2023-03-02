@@ -88,3 +88,5 @@ gem 'acts-as-taggable-on'
 gem 'vonage'
 gem 'deepl-rb', require: 'deepl'
 gem "serviceworker-rails"
+gem 'google-api-client', require: 'google/apis/calendar_v3'
+gem 'signet', '~> 0.17.0'
