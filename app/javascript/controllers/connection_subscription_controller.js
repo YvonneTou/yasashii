@@ -9,8 +9,15 @@ export default class extends Controller {
   connect() {
     this.channel = createConsumer().subscriptions.create(
       { channel: "ConnectionChannel", id: this.connectionIdValue },
-      { received: data => this.messagesTarget.insertAdjacentHTML("beforeend", data) }
+      { received: data => this.messagesTarget.#insertMessageAndReload(data) }
     )
+
+    #insertMessageAndReload(data) {
+      this.messagesTarget.insertAdjacentHTML("beforeend", data)
+    }
+
     console.log(`Subscribed to the connection with the id ${this.connectionIdValue}.`)
   }
+
+
 }
