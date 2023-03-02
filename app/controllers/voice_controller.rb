@@ -8,15 +8,15 @@ class VoiceController < ApplicationController
     @connection.uuid = params['uuid']
     @connection.save
 
-    # name = params['name']
-    # appt_date = params['appt_date']
-    # symptoms = params['symptoms']
-    # info = params['info']
-
     name = "#{@connection.user.firstname} #{@connection.user.lastname}"
     appt_date = @connection.appt_date.strftime("%Y年%m月%d日%H時%M分")
     symptoms = @connection.symptoms
     info = @connection.info
+
+    ConnectionChannel.broadcast_to(
+      @connection,
+      "answer"
+    )
 
     render json: [
       {
@@ -52,6 +52,14 @@ class VoiceController < ApplicationController
     status = params['status'] if params['status']
     # status = check_call_status(params['uuid'])
     # speech = params['speech']['results'][0]['text']
+
+
+    ConnectionChannel.broadcast_to(
+      @connection,
+      "event"
+    )
+    # head :ok
+
 
     render json: [
       talk_json("ありがとうございます。")

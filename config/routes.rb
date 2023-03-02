@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   end
 
   resources :connections, except: [:delete] do
-    resources :messages, only: [:show, :new, :create]
+    resources :messages, only: [:create]
   end
 
   get '/answer', to: "voice#answer"

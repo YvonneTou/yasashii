@@ -10,9 +10,11 @@ class ConnectionsController < ApplicationController
   def show
     @connection = Connection.find(params[:id])
     authorize @connection
-    @messages = policy_scope(current_user.messages)
+    # @messages = policy_scope(current_user.messages)
+    @message = Message.new
+    authorize @message
     @user = current_user
-    # trigger_call(@connection)
+    trigger_call(@connection) unless params[:no_call]
   end
 
   def create

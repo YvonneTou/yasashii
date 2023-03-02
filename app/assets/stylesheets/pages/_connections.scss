@@ -1,12 +1,18 @@
 .msg-clinic {
   background-color: $darkblue;
   color: white;
+  width: 80%;
+  float: left;
+  text-align: left;
 }
 
 .msg-user {
   background-color: white;
+  width: 80%;
+  float: right;
+  text-align: right;
 }
 
 .clinic-info {
-
+  top: 45px;
 }
