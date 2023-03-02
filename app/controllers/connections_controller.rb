@@ -12,7 +12,7 @@ class ConnectionsController < ApplicationController
     authorize @connection
     @messages = policy_scope(current_user.messages)
     @user = current_user
-    trigger_call(@connection)
+    # trigger_call(@connection)
   end
 
   def create

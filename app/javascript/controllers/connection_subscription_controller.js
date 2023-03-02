@@ -7,6 +7,10 @@ export default class extends Controller {
   static targets = ["messages"]
 
   connect() {
-    console.log(`Subscribe to the chatroom with the id ${this.connectionIdValue}.`)
+    this.channel = createConsumer().subscriptions.create(
+      { channel: "ChatroomChannel", id: this.connectionIdValue },
+      { received: data => console.log(data) }
+    )
+    console.log(`Subscribed to the chatroom with the id ${this.connectionIdValue}.`)
   }
 }
