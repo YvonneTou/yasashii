@@ -13,9 +13,18 @@ class VoiceController < ApplicationController
     symptoms = @connection.symptoms
     info = @connection.info
 
+    message_content = "answered"
+
+    @message = Message.create!({
+      connection: @connection,
+      sender: @connection.clinic,
+      sender_type: "Clinic",
+      content: message_content
+    })
+
     ConnectionChannel.broadcast_to(
       @connection,
-      "answer"
+      render_to_string(partial: "connections/message", locals: { message: @message, style: "msg-clinic" })
     )
 
     render json: [
@@ -44,14 +53,12 @@ class VoiceController < ApplicationController
           "eventUrl": ["https://fc7c-210-80-199-132.jp.ngrok.io/event?connection_id=#{@connection.id}"]
       }
     ]
-    # check_call_status
   end
 
   def event
     input = params['dtmf']['digits'] if params['dtmf']
+    # speech = params['speech']['results'][0]['text'] if params['speech']
     status = params['status'] if params['status']
-    # status = check_call_status(params['uuid'])
-    # speech = params['speech']['results'][0]['text']
 
 
     ConnectionChannel.broadcast_to(
@@ -73,6 +80,15 @@ class VoiceController < ApplicationController
     @connection = Connection.find(params[:connection_id]) if params[:connection_id]
   end
 
+  def create_message(message)
+    @message = Message.create!({
+      connection: @connection,
+      sender: @connection.clinic,
+      sender_type: "Clinic",
+      message: message
+    })
+  end
+
   def talk_json(text)
     {
       action: "talk",
@@ -83,12 +99,6 @@ class VoiceController < ApplicationController
     }
   end
 
-  def create_vonage_client
-    url = URI.open(ENV.fetch('VONAGE_PRIVATE_KEY_URL')).read
+  # call paths
 
-    Vonage::Client.new(
-      application_id: "96063012-ae83-424a-9661-caba31c197d6",
-      private_key: url
-    )
-  end
 end

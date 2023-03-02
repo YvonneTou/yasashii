@@ -10,7 +10,6 @@ class ConnectionsController < ApplicationController
   def show
     @connection = Connection.find(params[:id])
     authorize @connection
-    # @messages = policy_scope(current_user.messages)
     @message = Message.new
     authorize @message
     @user = current_user
