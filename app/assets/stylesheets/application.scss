@@ -117,6 +117,10 @@ a {
   color: rgba(0, 0, 0, 0.477);
 }
 
+.fwidth {
+  min-width: 40px !important;
+}
+
 @media (max-width: 768px) {
   h3 {
     font-size: 21px !important;
@@ -124,6 +128,10 @@ a {
   .container img {
     height: 250px;
     width: 100%;
+  }
+  .popups {
+    bottom: -40px !important;
+    transform: scale(0.95, 0.75) !important;
   }
 }
 @media (max-width: 320px) {
@@ -134,5 +142,8 @@ a {
     height: 200px;
     width: 100%;
   }
-
+  .popups {
+    bottom: -40px !important;
+    transform: scale(0.95, 0.75) !important;
+  }
 }
