@@ -122,7 +122,7 @@ a {
 .fwidth {
   min-width: 40px !important;
 }
-  
+
 .text-pink {
   color: $pink;
 }
@@ -152,4 +152,16 @@ a {
     bottom: -40px !important;
     transform: scale(0.95, 0.75) !important;
   }
+}
+
+#symptom_select {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.symptom_select {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
 }
