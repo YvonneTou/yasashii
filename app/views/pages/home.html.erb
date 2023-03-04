@@ -19,8 +19,8 @@
   </div>
 
   <div class="my-5">
-    <h3>Clinics you have visited recently (<%= @clinics.count %>)</h3>
-    <% @clinics.each do |clinic| %>
+    <h3>Clinics you have visited recently (<%= @clinics.first(5).count %>)</h3>
+    <% @clinics.first(5).each do |clinic| %>
       <%= render "clinic_card", clinic: clinic %>
     <% end %>
   </div>
