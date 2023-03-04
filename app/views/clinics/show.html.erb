@@ -11,8 +11,16 @@
 
 
 <div class="container">
-
+<nav class="nav nav-pills nav-fill mt-4">
+  <a class="nav-link active" aria-current="page" href="#">About Clinic</a>
+  <a class="nav-link" href="#">Book Appointment</a>
+</nav>
   <div class="my-4">
+    <h3>About This Clinic</h3>
+    <p><%= @clinic.description %></p>
+  </div>
+
+  <div class="mb-2">
     <% if @clinic.symptoms.present? %>
       <p><strong>Treatment Available For</strong></p>
         <% @clinic.symptoms.each do |symptom| %>
@@ -22,11 +30,6 @@
       <%# <% @clinic.specialty_list.each do |specialty| %>
         <%# <p><%= specialty %></p>
       <%# <% end %>
-  </div>
-
-  <div class="my-5">
-    <h3>About This Clinic</h3>
-    <p><%= @clinic.description %></p>
   </div>
 
   <div class="my-4">
