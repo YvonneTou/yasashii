@@ -42,6 +42,8 @@ class CalendarController < ApplicationController
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = client
 
+    event_list = service.list_calendar_lists.items
+
     today = Date.today
 
     event = Google::Apis::CalendarV3::Event.new(
