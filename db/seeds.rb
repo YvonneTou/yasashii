@@ -174,7 +174,7 @@ sakurai = {
   phone_number: '818030161151',
   email: 'info@sakurai-ortho.jp',
   description: 'Specializing in hyaluronic acid injection, steroid injections, and osteoarthritis treatment.
-   Dr. Sakurai has amazing injection skills.'
+  Dr. Sakurai has amazing injection skills.'
 }
 
 mental = {
@@ -233,7 +233,17 @@ kei = {
   Please experience our hospitals acupuncture and chiropractic once, where you can graduate from many years of upset'
 }
 
-clinics = [derm, mirai, ladies, ear, sakurai, mental, sakoda, hira, utaan, kei]
+nagakura = {
+  file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1677893168/cseufavo4rw8msetzblh.png",
+  name: 'Nagakura Jibika Allergy Clinic',
+  location: '141-0021 Tokyo, Shinagawa City, Kamiosaki, 2 Chome-13-26 Maple Top Building 5F',
+  hours: '9:00-18:00',
+  phone_number: '818030161151',
+  email: 'info@nagakura-ac.com',
+  description: 'As an otolaryngologist, an allergy specialist, and a sports doctor, I would like to provide patients with sufficient explanations and information, create an environment where they can receive treatment with peace of mind, and work on medical treatment.'
+}
+
+clinics = [derm, mirai, ladies, ear, sakurai, mental, sakoda, hira, utaan, kei, nagakura]
 
 def create_clinics(clinic)
   file = URI.open(clinic[:file])
@@ -374,3 +384,32 @@ Connection.all.each do |connection|
 end
 
 puts "Done creating messages"
+
+puts "Adding specialties for clinics"
+
+def specialty(clinic, symptom)
+  clinic = Clinic.find_by(name: clinic).id
+  Specialty.create!(
+    symptom_id: symptom,
+    clinic_id: clinic
+  )
+end
+
+# clinics = [derm, mirai, ladies, ear, sakurai, mental, sakoda, hira, utaan, kei]
+
+specialty('Meguro Ear', 7)
+specialty('Meguro Ear', 8)
+specialty('Sakurai Orthopedic Surgical Clinic', 10)
+specialty('Shinagawa Ekimae Mental Clinic', 1)
+specialty('Shinagawa Ekimae Mental Clinic', 5)
+specialty('Meguro Sakoda Orthopedics', 8)
+specialty('Shinagawa Dermatology', 4)
+specialty('Shinagawa Mirai Internal Medicine Clinic', 10)
+specialty('Meguro Ladies Clinic', 5)
+specialty('Utaan Acupuncture Orthopedic Clinic', 8)
+specialty('KEI Acupuncture', 1)
+specialty('Nagakura Jibika Allergy Clinic', 13)
+specialty('Nagakura Jibika Allergy Clinic', 24)
+specialty('Nagakura Jibika Allergy Clinic', 14)
+
+puts "Done adding specialties to clinics!"

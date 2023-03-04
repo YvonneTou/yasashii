@@ -13,9 +13,15 @@
 <div class="container">
 
   <div class="my-4">
-      <% @clinic.specialty_list.each do |specialty| %>
-        <p><%= specialty %></p>
-      <% end %>
+    <% if @clinic.symptoms.present? %>
+      <p><strong>Treatment Available For</strong></p>
+        <% @clinic.symptoms.each do |symptom| %>
+          <p><%= symptom.symptom_en.capitalize %></p>
+        <% end %>
+    <% end %>
+      <%# <% @clinic.specialty_list.each do |specialty| %>
+        <%# <p><%= specialty %></p>
+      <%# <% end %>
   </div>
 
   <div class="my-5">
