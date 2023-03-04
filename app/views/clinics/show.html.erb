@@ -13,21 +13,9 @@
 <div class="container">
 
   <div class="my-4">
-    <p>
-      <span class="fa-stack">
-        <i class="fa fa-circle fa-stack-2x icon-bg"></i>
-        <i class="fa-solid fa-location-dot fa-stack-1x icon-color"></i>
-      </span> <%= @clinic.location %>
-    </p>
       <% @clinic.specialty_list.each do |specialty| %>
         <p><%= specialty %></p>
       <% end %>
-    <p>
-      <span class="fa-stack">
-        <i class="fa fa-circle fa-stack-2x icon-bg"></i>
-        <i class="fa-regular fa-clock fa-stack-1x icon-color"></i>
-      </span> <%= @clinic.hours %>
-    </p>
   </div>
 
   <div class="my-5">
@@ -37,20 +25,43 @@
 
   <div class="my-4">
     <h3>Contact Information</h3>
-    <p>
-      <span class="fa-stack">
+    <div class="d-flex flex-row py-2">
+      <span class="fa-stack d-flex flex-col justify-content-center mx-1">
+        <i class="fa fa-circle fa-stack-2x icon-bg"></i>
+        <i class="fa-regular fa-clock fa-stack-1x icon-color"></i>
+      </span>
+      <p class="d-flex flex-col align-self-center m-0"> <%= @clinic.hours %><p>
+    </div>
+    <div class="d-flex flex-row py-2">
+      <span class="fa-stack d-flex flex-col justify-content-center mx-1">
         <i class="fa fa-circle fa-stack-2x icon-bg"></i>
         <i class="fa-solid fa-phone fa-stack-1x icon-color"></i>
-      </span> <%= @clinic.phone_number %>
-    </p>
-    <p>
-      <span class="fa-stack">
+      </span>
+      <p class="d-flex flex-col align-self-center m-0"> <%= @clinic.phone_number %><p>
+    </div>
+    <div class="d-flex flex-row py-2">
+      <span class="fa-stack d-flex flex-col justify-content-center mx-1">
         <i class="fa fa-circle fa-stack-2x icon-bg"></i>
         <i class="fa-regular fa-envelope fa-stack-1x icon-color"></i>
-      </span> <%= @clinic.email %>
-    </p>
+      </span>
+      <p class="d-flex flex-col align-self-center m-0"> <%= @clinic.email %><p>
+    </div>
+    <div class="d-flex flex-row py-2">
+      <span class="fa-stack d-flex flex-col justify-content-center fwidth mx-1">
+        <i class="fa fa-circle fa-stack-2x icon-bg"></i>
+        <i class="fa-solid fa-location-dot fa-stack-1x icon-color"></i>
+      </span>
+      <p class="d-flex flex-col align-self-center m-0"><%= @clinic.location %><p>
+    </div>
   </div>
+</div>
 
+  <div id="clinics-map" class="mt-4" style="width: 100%; height: 40vh;"
+  data-controller="show-map"
+  data-show-map-marker-value="<%= @marker.to_json %>"
+  data-show-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+
+<div class="container">
   <div class="my-5">
     <h3>Make a phone call appointment with <strong><%= @clinic.name %></strong></h3>
   </div>
