@@ -1,0 +1,25 @@
+#clinics-map *:focus {
+  outline: none !important;
+}
+
+.popups {
+  bottom: 0px !important;
+  width: 100%;
+  max-width: 100% !important;
+  transform: none !important;
+  top: auto !important;
+  transform: scale(0.98, 0.90) !important;
+}
+
+.mapboxgl-popup-tip {
+  display: none !important;
+}
+
+.mapboxgl-popup-close-button {
+  display: none !important;
+}
+
+.mapboxgl-popup-content {
+  background: rgba(0, 0, 0, 0) !important;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0) !important;
+}

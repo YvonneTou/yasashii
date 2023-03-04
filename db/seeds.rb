@@ -121,25 +121,26 @@ puts "Creating 10 new Clinics..."
 
 derm = {
   file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098274/f8ohtzopvp39syrgiurl.jpg",
-  name: 'Meguro Dermatology',
+  name: 'Shinagawa Dermatology',
   location: '3-10-49 Knot Hanabusayama 1F, Kamiosaki, Shinagawa, Tokyo',
   hours: '9:30-19:00',
   phone_number: '818030161151',
-  email: 'info@meguro-derm.jp',
-  description: 'We are doing medical treatment for patients with general skin diseases such as atopic dermatitis, urticaria, eczema, athletes foot, acne, water warts, warts, herpes, herpes zoster, rash, moles, seborrheic dermatitis, and alopecia areata.',
+  email: 'info@shinagawa-derm.jp',
+  description: 'We are doing medical treatment for patients with general skin diseases such as atopic dermatitis,
+  urticaria, eczema, athletes foot, acne, water warts, warts, herpes, herpes zoster, rash, moles,
+  seborrheic dermatitis, and alopecia areata.'
 }
 
 mirai = {
   file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098571/b5pc0fz1xznoyjbf5c6n.png",
-  name: 'Meguromirai Internal Medicine Clinic',
-  location: '〒141-0021 2-13-26 Kamiosaki Shinagawa-ku, Tokyo Maple top building 3F',
+  name: 'Shinagawa Mirai Internal Medicine Clinic',
+  location: '141-0021 2-13-26 Kamiosaki Shinagawa-ku, Tokyo Maple Top Building 3F',
   hours: '9:00-18:00',
   phone_number: '818030161151',
-  email: 'info@meguro-clinic.net',
-  description: 'Regular internal medical issues starting from the common cold
-  Diabetes
-  Respiratory medicine COPD・Bronchial asthma・Sleep apnea syndrome etc
-  High blood pressure, Dyslipidemia, Hyperuricemia, Fatty liver disease and other lifestyle-related diseases/ illnesses',
+  email: 'info@shinagawa-clinic.net',
+  description: 'Regular internal medical issues starting from the common cold. Diabetes・Respiratory medicine COPD・
+  Bronchial asthma・Sleep apnea syndrome etc. High blood pressure, Dyslipidemia, Hyperuricemia, Fatty liver disease
+  and other lifestyle-related diseases/ illnesses'
 }
 
 ladies = {
@@ -149,7 +150,8 @@ ladies = {
   hours: '10:00-19:00',
   phone_number: '818030161151',
   email: 'info@meguro-ladies.com',
-  description: 'We are doing timing therapy, artificial insemination, and in vitro fertilization. There are also ovary dogs such as ovarian age measurement. We are focusing on treating those who have few eggs such as premature menopause.',
+  description: 'We are doing timing therapy, artificial insemination, and in vitro fertilization. There are also ovary
+  tests such as ovarian age measurement. We are focusing on treating those who have few eggs such as premature menopause.'
 }
 
 ear = {
@@ -159,7 +161,9 @@ ear = {
   hours: '9:30-17:30',
   phone_number: '818030161151',
   email: 'info@meguro-jibika.com',
-  description: 'From babies and children to matures, if you are suffering from ear (external ear canalitis, otitis media, hearing loss), nose (allergenic rhin rhinitis, sinusitis), throat (amycitis, laryngitis, abnormality of vocal cords), please come to the hospital. Sign language is also possible."'
+  description: 'From babies and children to matures, if you are suffering from ear (external ear canalitis,
+  otitis media, hearing loss), nose (allergenic rhin rhinitis, sinusitis), throat
+  (amycitis, laryngitis, abnormality of vocal cords), please come to the hospital. Sign language is also possible.'
 }
 
 sakurai = {
@@ -169,17 +173,20 @@ sakurai = {
   hours: '9:00-18:30',
   phone_number: '818030161151',
   email: 'info@sakurai-ortho.jp',
-  description: 'Specializing in hyaluronic acid injection, steroid injections, and osteoarthritis treatment. Dr. Sakurai has amazing injection skills.'
+  description: 'Specializing in hyaluronic acid injection, steroid injections, and osteoarthritis treatment.
+   Dr. Sakurai has amazing injection skills.'
 }
 
 mental = {
   file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098517/ggkqixqzd0lxlewkidgs.jpg",
-  name: 'Meguro Ekimae Mental Clinic',
+  name: 'Shinagawa Ekimae Mental Clinic',
   location: '141-0021 Tokyo, Shinagawa City, Kamiosaki, 4 Chome-4-6 Meguro MT Building',
   hours: '9:00-18:30',
   phone_number: '818030161151',
-  email: 'info@meguro-mental.jp',
-  description: ''
+  email: 'info@shinagawa-mental.jp',
+  description: 'We are happy to provide comprehensive counseling, psychotherapy and psychology services for children and families.
+  Our growing team of counselors and psychologists can work with parents and children to address concerns around
+  mental health, behaviour and childhood development.'
 }
 
 sakoda = {
@@ -199,7 +206,8 @@ hira = {
   hours: '10:00-18:30',
   phone_number: '818030161151',
   email: 'info@hirmamoto-ganka.com',
-  description: 'If your eyes are not feeling well or if there is anything wrong with your appearance, please feel free to come. Thank you.'
+  description: 'If your eyes are not feeling well or if there is anything wrong with your appearance,
+  please feel free to come. Thank you.'
 }
 
 utaan = {
@@ -209,7 +217,8 @@ utaan = {
   hours: '10:00-20:00',
   phone_number: '818030161151',
   email: 'info@shianshimoncare.com',
-  description: 'Based on thorough counseling, we approach not only the affected area but also the cause of the symptoms, so you can get a faster and reliable effect and maintain a good condition.'
+  description: 'Based on thorough counseling, we approach not only the affected area but also the cause of the symptoms,
+  so you can get a faster and reliable effect and maintain a good condition.'
 }
 
 kei = {
@@ -219,7 +228,9 @@ kei = {
   hours: '10:00-18:00',
   phone_number: '818030161151',
   email: 'info@kei-acupuncture.com',
-  description: 'We will provide peace of mind and satisfactory treatment. Do you have any symptoms like this? ・Stubborn back pain, hip pain ・Stiff neck, stiff shoulders, ・Eye fatigue, headache, ・Insomnia, ups and downs in mood Please experience our hospitals acupuncture and chiropractic once, where you can graduate from many years of upset'
+  description: 'We will provide peace of mind and satisfactory treatment. Do you have any symptoms like this?
+  ・Stubborn back pain, hip pain ・Stiff neck, stiff shoulders, ・Eye fatigue, headache, ・Insomnia, ups and downs in mood
+  Please experience our hospitals acupuncture and chiropractic once, where you can graduate from many years of upset'
 }
 
 clinics = [derm, mirai, ladies, ear, sakurai, mental, sakoda, hira, utaan, kei]
@@ -230,12 +241,12 @@ def create_clinics(clinic)
 
   new_clinic = Clinic.new(
     {
-    name: clinic[:name],
-    location: clinic[:location],
-    hours: clinic[:hours],
-    phone_number: clinic[:phone_number],
-    email: clinic[:email],
-    description: clinic[:description]
+      name: clinic[:name],
+      location: clinic[:location],
+      hours: clinic[:hours],
+      phone_number: clinic[:phone_number],
+      email: clinic[:email],
+      description: clinic[:description]
     }
   )
 
@@ -250,6 +261,29 @@ clinics.each_with_index do |clinic, index|
 end
 
 puts 'Done creating 10 clinics'
+
+puts 'Creating more clinics for Mapbox map'
+
+clinic_photos = ["http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098393/zquhpwiksc8zt3rwoifi.jpg",
+                 "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098682/fz8jcbrtkxsdsvxhonrp.jpg",
+                 "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098517/ggkqixqzd0lxlewkidgs.jpg",
+                 "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098620/aepj0yo0b2tndmspkjbc.jpg",
+                 "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098325/luxbijrgqhnaicuiphd1.jpg",
+                 "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098430/tqehxzorgix6eygvqnlj.jpg",
+                 "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098571/b5pc0fz1xznoyjbf5c6n.png"]
+
+clinic_hours = ['10:00-18:00', '10:00-20:00', '11:00-18:30', '9:00-18:30', '10:30-19:00', '9:30-17:00']
+
+clinic_phone_num = ['0248-23-2230', '0278-22-2777', '099-297-5830', '093-582-7217', '045-251-4740', '06-6488-9133',
+                    '0155-29-4515', '011-612-4181', '077-562-0730', '029-886-4531']
+
+clinic_email = ['clinic@care.com', 'yasashii@health.com', 'tokyoclinic@yasashii.care',
+                'tkyclinic@naika.com', 'dainibyouin@yasashii.care', 'healthfirst@sante.org']
+
+clinic_desc = ["We are an organized medical team offering diagnostic, therapeutic, and preventive outpatient services.
+  Please contact us to book an appointment and discuss treatment plans.", "Our hospital operates on an outpatient
+  referral system. Please bring your referral from a clinic or doctor's office when you visit.", "We are an
+  interdisciplinary practice that has been providing healthcare to our community since 1995"]
 
 puts "Creating three connections per user (#{User.all.count * 3} connections)..."
 
