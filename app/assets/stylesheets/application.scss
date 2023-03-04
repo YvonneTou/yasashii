@@ -117,8 +117,13 @@ a {
   color: rgba(0, 0, 0, 0.477);
 }
 
+
 .fwidth {
   min-width: 40px !important;
+}
+  
+.text-pink {
+  color: $pink;
 }
 
 @media (max-width: 768px) {
