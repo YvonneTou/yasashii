@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import ClinicToggleController from "./clinic_toggle_controller"
+application.register("clinic-toggle", ClinicToggleController)
+
 import ConnectionSubscriptionController from "./connection_subscription_controller"
 application.register("connection-subscription", ConnectionSubscriptionController)
 
