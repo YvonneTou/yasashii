@@ -1,22 +1,23 @@
-<div class="clinic-info mt-0">
-  <div class="card-appt">
-    <div class="p-3 pt-4">
-      <h3><%= @connection.clinic.name %> <br></h3>
-      <p>
-        <small>
-          <span class="fa-stack">
-            <i class="fa fa-circle fa-stack-2x icon-bg"></i>
-            <i class="fa-solid fa-location-dot fa-stack-1x icon-color"></i>
-          </span>
-          <%= @connection.clinic.location %>
-        </small>
-      </p>
+<div class="container mt-0">
+  <div class="clinic-info row sticky mt-0">
+    <div class="card-appt">
+      <div class="p-3 pt-4">
+        <h3><%= @connection.clinic.name %> <br></h3>
+        <p>
+          <small>
+            <span class="fa-stack">
+              <i class="fa fa-circle fa-stack-2x icon-bg"></i>
+              <i class="fa-solid fa-location-dot fa-stack-1x icon-color"></i>
+            </span>
+            <%= @connection.clinic.location %>
+          </small>
+        </p>
+      </div>
     </div>
   </div>
-</div>
-
-<div class="container mt-0">
-  <div class="chatroom" data-controller="connection-subscription" data-connection-subscription-connection-id-value="<%= @connection.id %>">
+  <div class="row my-5">
+  </div>
+  <div class="row m-0 chatroom" data-controller="connection-subscription" data-connection-subscription-connection-id-value="<%= @connection.id %>">
     <div class="messages container row" data-connection-subscription-target="messages">
       <% @connection.messages.each do |message| %>
         <% if message.sender_type == "Clinic" %>
@@ -26,7 +27,7 @@
         <% end %>
       <% end %>
     </div>
-    <div class="row">
+    <div class="row m-0 p-0">
       <%= simple_form_for [@connection, @message],
         html: {class: "d-flex"} do |f|
       %>
