@@ -1,39 +1,41 @@
-<div class="container">
-  <div class="card-clinic">
-    <div class="d-flex justify-content-between">
-      <h3><%= @connection.clinic.name %></h3>
-      <p><%= @connection.clinic.hours %></p>
-    </div>
-    <hr>
-    <div class="call-icons">
-      <div class="d-flex justify-content-around pb-2">
-        <i class="fa-solid fa-microphone-lines-slash"></i>
-        <i class="fa-solid fa-phone-slash"></i>
-        <i class="fa-solid fa-volume-high"></i>
-      </div>
+<div class="clinic-info mt-0">
+  <div class="card-appt">
+    <div class="p-3 pt-4">
+      <h3><%= @connection.clinic.name %> <br></h3>
+      <p>
+        <small>
+          <span class="fa-stack">
+            <i class="fa fa-circle fa-stack-2x icon-bg"></i>
+            <i class="fa-solid fa-location-dot fa-stack-1x icon-color"></i>
+          </span>
+          <%= @connection.clinic.location %>
+        </small>
+      </p>
     </div>
   </div>
+</div>
 
-  <div class="bubble bubble-bottom-left mt-3">
-    <p>
-      Hello, this is a call from Yasashii,
-      on behalf of <%= @user.firstname %> <%= @user.lastname %>.
-      This person is feeling
-      <% @connection.symptoms.compact_blank.each_with_index do |sym, index| %>
-        <%= sym %>,
+<div class="container mt-0">
+  <div class="chatroom" data-controller="connection-subscription" data-connection-subscription-connection-id-value="<%= @connection.id %>">
+    <div class="messages container row" data-connection-subscription-target="messages">
+      <% @connection.messages.each do |message| %>
+        <% if message.sender_type == "Clinic" %>
+          <%= render "connections/message", message: message, style: "msg-clinic" %>
+        <% elsif message.sender_type == "User" %>
+          <%= render "connections/message", message: message, style: "msg-user" %>
+        <% end %>
       <% end %>
-      and would like to make an appointment on <%= @connection.appt_date.strftime("%m/%d/%Y") %> at <%= @connection.appt_date.strftime("%I:%M%p") %>.
-      Thank you.
-    </p>
-  </div>
-  <div class="bubble bubble-bottom-right mt-5 m-5" contenteditable>
-    <p>Thank you for your help!</p>
-  </div>
-  <div class="text-box">
-    <hr>
-    <form class="d-flex justify-content-between">
-      <input class="form-control" type="text" placeholder="Instant Message">
-      <input class="btn btn-primary" type="submit" value="Send">
-    </form>
-  </div>
+    </div>
+    <div class="row">
+      <%= simple_form_for [@connection, @message],
+        html: {class: "d-flex"} do |f|
+      %>
+        <%= f.input :content,
+          label: false,
+          placeholder: "Message #{@connection.clinic.name}",
+          wrapper_html: {class: "flex-grow-1"}
+        %>
+        <%= f.submit "Send", class: "btn btn-primary mb-3" %>
+      <% end %>
+    </div>
 </div>

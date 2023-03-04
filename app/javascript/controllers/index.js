@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import ConnectionSubscriptionController from "./connection_subscription_controller"
+application.register("connection-subscription", ConnectionSubscriptionController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 

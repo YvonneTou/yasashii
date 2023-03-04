@@ -334,8 +334,6 @@ User.all.each do |user|
     {
       user: user,
       clinic: Clinic.all.sample,
-      start_time: DateTime.new(2023, 2, 11, 14, 18, 0),
-      end_time: DateTime.new(2023, 2, 11, 14, 23, 0),
       appt_date: DateTime.new(2023, 2, 14, 11, 0, 0),
       symptoms: ["dizziness", "shortness of breath", "fatigue"],
       info: "I require wheelchair access.",
@@ -347,8 +345,6 @@ User.all.each do |user|
     {
       user: user,
       clinic: Clinic.all.sample,
-      start_time: DateTime.new(2023, 2, 1, 14, 18, 0),
-      end_time: DateTime.new(2023, 2, 1, 14, 23, 0),
       appt_date: DateTime.new(2023, 2, 2, 8, 30, 0),
       symptoms: ["cough", "fever", "loss of taste"],
       info: "I might have the Rona.",
@@ -360,8 +356,6 @@ User.all.each do |user|
     {
       user: user,
       clinic: Clinic.all.sample,
-      start_time: DateTime.new(2023, 1, 6, 14, 18, 0),
-      end_time: DateTime.new(2023, 1, 6, 14, 23, 0),
       appt_date: DateTime.new(2023, 1, 8, 8, 30, 0),
       symptoms: ["itchiness", "acne", "oozing"],
       info: "I require ointment.",
