@@ -13,8 +13,12 @@
 <div class="container">
   <nav class="nav nav-pills nav-fill mt-4">
     <a class="nav-link active" aria-current="page" href="#">About Clinic</a>
-    <a class="nav-link" href="">Book Appointment</a>
+    <a class="nav-link" href="#">Book Appointment</a>
   </nav>
+  <div class="my-4">
+    <h3>About This Clinic</h3>
+    <p><%= @clinic.description %></p>
+  </div>
 
   <div class="mb-2">
     <% if @clinic.symptoms.present? %>
@@ -27,12 +31,6 @@
         <%# <p><%= specialty %></p>
       <%# <% end %>
   </div>
-
-  <div class="my-4">
-    <h3>About This Clinic</h3>
-    <p><%= @clinic.description %></p>
-  </div>
-
   <div class="my-4">
     <h3>Contact Information</h3>
     <div class="d-flex flex-row py-2">
