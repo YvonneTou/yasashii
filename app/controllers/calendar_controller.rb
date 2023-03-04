@@ -11,8 +11,8 @@ class CalendarController < ApplicationController
     client.code = params[:code]
     response = client.fetch_access_token!
     session[:authorization] = response
-
-    redirect_to calendars_url
+    new_event
+    redirect_to dashboard_url
   end
 
   def calendars
@@ -46,17 +46,24 @@ class CalendarController < ApplicationController
     primary_cal = event_list[0]
     primary_cal_id = primary_cal.id
 
-    today = Date.today
+    # today = Date.today
 
     event = Google::Apis::CalendarV3::Event.new(
-      start: Google::Apis::CalendarV3::EventDateTime.new(date: today),
-      end: Google::Apis::CalendarV3::EventDateTime.new(date: today + 1),
-      summary: 'New event!'
+      start: Google::Apis::CalendarV3::EventDateTime.new(
+        date_time: '2023-03-5T13:00:00+09:00',
+        time_zone: 'Asia/Tokyo'
+      ),
+      end: Google::Apis::CalendarV3::EventDateTime.new(
+        date_time: '2023-03-5T14:00:00+09:00',
+        time_zone: 'Asia/Tokyo'
+      ),
+      summary: 'Lunch gathering with my team!!'
     )
 
-    service.insert_event(params[:calendar_id], event)
+    service.insert_event(primary_cal_id, event)
+    # service.insert_event(params[:calendar_id], event)
 
-    redirect_to events_url(calendar_id: params[:calendar_id])
+    # redirect_to events_url(calendar_id: params[:calendar_id])
   end
 
   private
