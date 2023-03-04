@@ -11,6 +11,7 @@ class CalendarController < ApplicationController
     client.code = params[:code]
     response = client.fetch_access_token!
     session[:authorization] = response
+
     redirect_to calendars_url
   end
 
@@ -41,18 +42,12 @@ class CalendarController < ApplicationController
     service = Google::Apis::CalendarV3::CalendarService.new
     service.authorization = client
 
-    # today = Date.today
-    appt_date_time = '2023-03-07T10:00:00+09:00'
+    today = Date.today
+
     event = Google::Apis::CalendarV3::Event.new(
-      start: Google::Apis::CalendarV3::EventDateTime.new(
-        date_time: appt_date_time,
-        time_zone: 'Asia/Tokyo'
-      ),
-      end: Google::Apis::CalendarV3::EventDateTime.new(
-        date_time: '2023-03-0T10:00:00+09:00',
-        time_zone: 'Asia/Tokyo'
-      ),
-      summary: 'Test event 03!'
+      start: Google::Apis::CalendarV3::EventDateTime.new(date: today),
+      end: Google::Apis::CalendarV3::EventDateTime.new(date: today + 1),
+      summary: 'New event!'
     )
 
     service.insert_event(params[:calendar_id], event)
