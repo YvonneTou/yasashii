@@ -5,7 +5,7 @@ class Clinic < ApplicationRecord
   has_many :symptoms, through: :specialties
   has_one_attached :photo
   # acts_as_taggable_on :specialties
-  geocoded_by :location
+  geocoded_by :location, params: { country: "jp", proximity: "139.817413,35.652832" }
   after_validation :geocode, if: :will_save_change_to_location?
 
   include PgSearch::Model

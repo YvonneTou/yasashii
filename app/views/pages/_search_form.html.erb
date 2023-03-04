@@ -1,13 +1,9 @@
 <%= form_with url: clinics_path, method: :get do %>
   <%= text_field_tag :query,
     params[:query],
-    class: "form-control mt-3 mb-2",
-    placeholder: "Location"
-  %>
-  <%# <%= text_field_tag :query,
-    params[:query],
     class: "form-control my-3",
-    placeholder: "Symptoms"
+    placeholder: "Location",
+    required: true
   %>
   <%= button_tag type: 'submit', class: "btn btn-primary w-100 mb-3" do %>
     Search
