@@ -19,8 +19,12 @@ class VoiceController < ApplicationController
 
     # end_call if status == "completed"
     return unless params['call_paths']
-
-    accept_details_decision(input, @connection) if path == ["accept", "details"]
+    case path
+    when ["accept", "details"]
+      accept_details_decision(input, @connection)
+    when ["repeat", "accept", "new_date"]
+      repeat_accept_new_date_decision(input, @connection)
+    end
   end
 
   private
@@ -100,25 +104,47 @@ class VoiceController < ApplicationController
   def greeting
     render json: [
       talk_json(greeting_text),
-      input_json(greeting_number),
+      input_json(greeting_menu),
       event_json(1, ["accept", "details"])
     ]
   end
 
   def accept_details_decision(input, connection)
-    puts input
     case input
     when 1
-      puts "1 was pressed"
-      render json: [
-        talk_json(appt_details(connection))
-      ]
+      appt_details(connection)
     when 2
-      puts "2 was pressed"
       render json: [
         talk_json(accepted)
       ]
     end
+  end
+
+  def appt_details(connection)
+    render json: [
+      talk_json(appt_details_text(connection)),
+      input_json(appt_details_menu),
+      event_json(1, ["repeat", "accept", "new_date"])
+    ]
+  end
+
+  def repeat_accept_new_date_decision(input, connection)
+    case input
+    when 1
+      appt_details(connection)
+    when 2
+      render json: [
+        talk_json(accepted)
+      ]
+    when 3
+      change_date
+    end
+  end
+
+  def change_date
+    render json: [
+      talk_json("hi")
+    ]
   end
 
   # text to speech
@@ -127,11 +153,11 @@ class VoiceController < ApplicationController
     "こんにちは。「ヤサシイアプリ」からの予約の依頼でございます。これから、ガイダンスに従い、番号を押してください。"
   end
 
-  def greeting_number
+  def greeting_menu
     "予約の詳細をご確認の場合、「１」を。予約のご受諾の場合、「２」を押してください。"
   end
 
-  def appt_details(connection)
+  def appt_details_text(connection)
     name = "#{connection.user.firstname} #{connection.user.lastname}"
     appt_date = connection.appt_date.strftime("%Y年%m月%d日%H時%M分")
     info = DeepL.translate @connection.info, 'EN', 'JA'
@@ -145,6 +171,10 @@ class VoiceController < ApplicationController
     end
 
     "予約者の名前は「#{name}」でございます。希望の日時は「#{appt_date}」でございます。現在、予約者の苦しんでいる症状は「#{symptoms}」でございます。最後に、予約者からのコメントをお伝えいたします。「#{info}」"
+  end
+
+  def appt_details_menu
+    "繰り返しは「１」を。受諾は「２」を。変更は「３」を。"
   end
 
   def accepted
