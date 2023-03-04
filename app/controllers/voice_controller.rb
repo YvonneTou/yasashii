@@ -7,19 +7,8 @@ class VoiceController < ApplicationController
   def answer
     @connection.uuid = params['uuid']
     @connection.save
-
-    name = "#{@connection.user.firstname} #{@connection.user.lastname}"
-    appt_date = @connection.appt_date.strftime("%Y年%m月%d日%H時%M分")
-    symptoms = @connection.symptoms
-    info = @connection.info
-
-    create_message("hi6")
-
-    render json: [
-      talk_json(greeting(name, appt_date, symptoms, info)),
-      input_json(greeting_number),
-      event_json
-    ]
+    create_message("answered")
+    greeting(@connection)
   end
 
   def event
@@ -32,15 +21,23 @@ class VoiceController < ApplicationController
     #   "event"
     # )
 
+    create_message("call ended") if status == "completed"
+    end_call if status == "completed"
+
     render json: [
-      talk_json("ご受諾いただき、ありがとうございました。予約者に「ヤサシイアプリ」で通知いたします。予約者のご手配のほど、よろしくお願い申し上げます。まもなく電話が終了いたします。失礼いたします。")
+      # talk_json("ご受諾いただき、ありがとうございました。予約者に「ヤサシイアプリ」で通知いたします。予約者のご手配のほど、よろしくお願い申し上げます。まもなく電話が終了いたします。失礼いたします。")
+      talk_json("どうも")
     ].to_json
   end
 
   private
 
   def set_connection
-    @connection = Connection.find(params[:connection_id]) if params[:connection_id]
+    if params[:connection_id]
+      @connection = Connection.find(params[:connection_id])
+    else
+      @connection = Connection.find_by(uuid: params['uuid'])
+    end
   end
 
   def create_message(message_content)
@@ -52,10 +49,17 @@ class VoiceController < ApplicationController
     })
 
     ConnectionChannel.broadcast_to(
-      current_user,
-      # render_to_string(partial: "connections/message", locals: { message: @message, style: "msg-clinic" })
+      @connection,
       head: 302,
-      path: connection_path(@connection)
+      path: "#{connection_path(@connection)}?no_call=true"
+    )
+  end
+
+  def end_call
+    ConnectionChannel.broadcast_to(
+      @connection,
+      head: 302,
+      path: dashboard_path
     )
   end
 
@@ -88,17 +92,32 @@ class VoiceController < ApplicationController
           timeOut: 10,
           maxDigits: 1
       },
-      eventUrl: ["https://a482-2405-6580-8640-8d00-acf7-8d0f-dcaf-a31.jp.ngrok.io/event?connection_id=#{@connection.id}"]
+      eventUrl: ["https://57c3-124-219-136-119.jp.ngrok.io/event?connection_id=#{@connection.id}"]
     }
   end
 
   # call paths
 
-  def greeting(name, appt_date, symptoms, info)
-    "こんにちは。「ヤサシイアプリ」からの予約の依頼でございます。アプリで入力された詳細をお伝えいたします。予約者の名前は「#{name}」でございます。希望の日時は「#{appt_date}」でございます。現在、予約者の苦しんでいる症状は「#{symptoms.each { |symptom| "#{DeepL.translate symptom, 'EN', 'JA'}," }}」でございます。最後に、予約者からのコメントをお伝えいたします。「#{DeepL.translate info, 'EN', 'JA'}」"
+  def greeting(connection)
+    name = "#{connection.user.firstname} #{connection.user.lastname}"
+    appt_date = @connection.appt_date.strftime("%Y年%m月%d日%H時%M分")
+    symptoms = @connection.symptoms
+    info = @connection.info
+
+    render json: [
+      talk_json(greeting_text(name, appt_date, symptoms, info)),
+      input_json(greeting_number),
+      event_json
+    ]
+  end
+
+  def greeting_text(name, appt_date, symptoms, info)
+    # "こんにちは。「ヤサシイアプリ」からの予約の依頼でございます。アプリで入力された詳細をお伝えいたします。予約者の名前は「#{name}」でございます。希望の日時は「#{appt_date}」でございます。現在、予約者の苦しんでいる症状は「#{symptoms.each { |symptom| "#{DeepL.translate symptom, 'EN', 'JA'}," }}」でございます。最後に、予約者からのコメントをお伝えいたします。「#{DeepL.translate info, 'EN', 'JA'}」"
+    name
   end
 
   def greeting_number
-    "こちらの予約をご受諾の場合は、番号と番号記号をご入力ください。"
+    # "こちらの予約をご受諾の場合は、番号と番号記号をご入力ください。"
+    "番号プリーズ"
   end
 end
