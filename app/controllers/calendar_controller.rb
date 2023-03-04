@@ -1,10 +1,63 @@
 class CalendarController < ApplicationController
   before_action :skip_authorization # needs to be updated
-
   def redirect
-    @client = Signet::OAuth2::Client.new(client_options)
-    # authorize @client
-    redirect_to @client.authorization_uri.to_s, allow_other_host: true
+    client = Signet::OAuth2::Client.new(client_options)
+    # authorize client
+    redirect_to client.authorization_uri.to_s, allow_other_host: true
+  end
+
+  def callback
+    client = Signet::OAuth2::Client.new(client_options)
+    client.code = params[:code]
+    response = client.fetch_access_token!
+    session[:authorization] = response
+    redirect_to calendars_url
+  end
+
+  def calendars
+    client = Signet::OAuth2::Client.new(client_options)
+    client.update!(session[:authorization])
+
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = client
+
+    @calendar_list = service.list_calendar_lists
+  end
+
+  def events
+    client = Signet::OAuth2::Client.new(client_options)
+    client.update!(session[:authorization])
+
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = client
+
+    @event_list = service.list_events(params[:calendar_id])
+  end
+
+  def new_event
+    client = Signet::OAuth2::Client.new(client_options)
+    client.update!(session[:authorization])
+
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = client
+
+    # today = Date.today
+    appt_date_time = '2023-03-07T10:00:00+09:00'
+    event = Google::Apis::CalendarV3::Event.new(
+      start: Google::Apis::CalendarV3::EventDateTime.new(
+        date_time: appt_date_time,
+        time_zone: 'Asia/Tokyo'
+      ),
+      end: Google::Apis::CalendarV3::EventDateTime.new(
+        date_time: '2023-03-0T10:00:00+09:00',
+        time_zone: 'Asia/Tokyo'
+      ),
+      summary: 'Test event 03!'
+    )
+
+    service.insert_event(params[:calendar_id], event)
+
+    redirect_to events_url(calendar_id: params[:calendar_id])
   end
 
   private
