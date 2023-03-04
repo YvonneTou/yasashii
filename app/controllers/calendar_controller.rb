@@ -1,17 +1,19 @@
 class CalendarController < ApplicationController
   before_action :skip_authorization # needs to be updated
   def redirect
-    client = Signet::OAuth2::Client.new(client_options)
+    connection_id = params[:connection_id]
+    client = Signet::OAuth2::Client.new(client_options(connection_id))
     # authorize client
     redirect_to client.authorization_uri.to_s, allow_other_host: true
   end
 
   def callback
-    client = Signet::OAuth2::Client.new(client_options)
+    client = Signet::OAuth2::Client.new(client_options(params[:state]))
     client.code = params[:code]
     response = client.fetch_access_token!
     session[:authorization] = response
-    new_event
+    connect_id = client.state
+    new_event(connect_id)
     redirect_to dashboard_url
   end
 
@@ -35,8 +37,10 @@ class CalendarController < ApplicationController
     @event_list = service.list_events(params[:calendar_id])
   end
 
-  def new_event
-    client = Signet::OAuth2::Client.new(client_options)
+  def new_event(connection_id)
+    connection = Connection.find(connection_id.to_i)
+
+    client = Signet::OAuth2::Client.new(client_options(params[:state]))
     client.update!(session[:authorization])
 
     service = Google::Apis::CalendarV3::CalendarService.new
@@ -45,6 +49,8 @@ class CalendarController < ApplicationController
     event_list = service.list_calendar_lists.items
     primary_cal = event_list[0]
     primary_cal_id = primary_cal.id
+
+    pri_cal_id = connection.user.email
 
     # today = Date.today
 
@@ -68,16 +74,17 @@ class CalendarController < ApplicationController
 
   private
 
-  def client_options
+  def client_options(connection_id)
     {
-      # client_id: Rails.application.secrets.google_client_id,
-      # client_secret: Rails.application.secrets.google_client_secret,
-      client_id: ENV['google_client_id'],
-      client_secret: ENV['google_client_secret'],
+      client_id: Rails.application.secrets.google_client_id,
+      client_secret: Rails.application.secrets.google_client_secret,
+      # client_id: ENV['google_client_id'],
+      # client_secret: ENV['google_client_secret'],
       authorization_uri: 'https://accounts.google.com/o/oauth2/auth',
       token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
       scope: Google::Apis::CalendarV3::AUTH_CALENDAR,
-      redirect_uri: callback_url
+      redirect_uri: callback_url,
+      state: connection_id
     }
   end
 end
