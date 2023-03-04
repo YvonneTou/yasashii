@@ -5,6 +5,37 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+require "nokogiri"
+require "open-uri"
+
+# scraping locations (70 total) and names (70 total) of clinics
+# amount of items limited to 20
+url_one = "https://www.alljapanrelocation.com/living-guides/hospitals/"
+html_one = URI.open(url_one)
+doc_one = Nokogiri::HTML.parse(html_one)
+
+elements_one_names = doc_one.search('.hospital-info h3').take(20)
+elements_one_locations = doc_one.search('.fa-map-marker + a').take(20)
+
+names = elements_one_names.map do |element|
+  element.text.strip
+end
+
+locations = elements_one_locations.map do |element|
+  element.text.strip
+end
+
+# scraping locations in Shinagawa (30 locations)
+# url_two = "https://yaokami.jp/tokyo/a13109/"
+# html_two = URI.open(url_two)
+# doc_two = Nokogiri::HTML.parse(html_two)
+
+# elements_two_location = doc_two.search('.result-address')
+
+# locations_shinagawa = elements_two_location.map do |element|
+#   address = element.text.strip
+#   DeepL.translate address, 'JA', 'EN'
+# end
 
 SYMPTOMS = [
   "back pain",
@@ -284,6 +315,30 @@ clinic_desc = ["We are an organized medical team offering diagnostic, therapeuti
   Please contact us to book an appointment and discuss treatment plans.", "Our hospital operates on an outpatient
   referral system. Please bring your referral from a clinic or doctor's office when you visit.", "We are an
   interdisciplinary practice that has been providing healthcare to our community since 1995"]
+
+def create_clinics_map(a_name, a_location, hours, phone, mail, desc, photo)
+  file = URI.open(photo.sample)
+
+  new_clinic = Clinic.new(
+    {
+      name: a_name,
+      location: a_location,
+      hours: hours.sample,
+      phone_number: phone.sample,
+      email: mail.sample,
+      description: desc.sample
+    }
+  )
+
+  new_clinic.photo.attach(io: file, filename: "#{a_name}.jpg", content_type: "image/jpg")
+  new_clinic.save
+end
+
+names.zip(locations).each do |name, location|
+  create_clinics_map(name, location, clinic_hours, clinic_phone_num, clinic_email, clinic_desc, clinic_photos)
+end
+
+puts 'Done creating 20 clinics'
 
 puts "Creating three connections per user (#{User.all.count * 3} connections)..."
 
