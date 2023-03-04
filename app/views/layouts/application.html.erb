@@ -7,8 +7,12 @@
     <%= favicon_link_tag "favicon.png", rel: "icon", type: "image/png" %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
+    <!-- PWA -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="<%= asset_path 'manifest.json' %>">
+    <%= render 'shared/ios_pwa_links' %>
 
     <!-- Facebook Open Graph data -->
     <meta property="og:title" content="<%= meta_title %>">
@@ -26,8 +30,6 @@
     <meta name="twitter:creator" content="<%= DEFAULT_META["twitter_account"] %>">
     <meta name="twitter:image:src" content="<%= meta_image %>">
 
-    <link rel="manifest" href="<%= asset_path 'manifest.json' %>">
-    <%= render 'shared/ios_pwa_links' %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <script src="https://kit.fontawesome.com/998d077378.js" crossorigin="anonymous"></script>
@@ -38,10 +40,12 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
-  <body>
-    <%= render "shared/navbar" %>
-    <%= render "shared/flashes" %>
-    <%= yield %>
-    <%= render "shared/footer" %>
+  <body class="page-container">
+    <div class="content-wrap">
+      <%= render "shared/navbar" %>
+      <%= render "shared/flashes" %>
+      <%= yield %>
+      <%= render "shared/footer" %>
+    </div>
   </body>
 </html>
