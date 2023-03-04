@@ -13,10 +13,10 @@ class VoiceController < ApplicationController
     symptoms = @connection.symptoms
     info = @connection.info
 
-    create_message("hi")
+    create_message("hi6")
 
     render json: [
-      talk_json(greeting(name, info)),
+      talk_json(greeting(name, appt_date, symptoms, info)),
       input_json(greeting_number),
       event_json
     ]
@@ -27,17 +27,14 @@ class VoiceController < ApplicationController
     # speech = params['speech']['results'][0]['text'] if params['speech']
     status = params['status'] if params['status']
 
-
-    ConnectionChannel.broadcast_to(
-      @connection,
-      "event"
-    )
-
+    # ConnectionChannel.broadcast_to(
+    #   @connection,
+    #   "event"
+    # )
 
     render json: [
-      talk_json("ありがとうございます。")
+      talk_json("ご受諾いただき、ありがとうございました。予約者に「ヤサシイアプリ」で通知いたします。予約者のご手配のほど、よろしくお願い申し上げます。まもなく電話が終了いたします。失礼いたします。")
     ].to_json
-
   end
 
   private
@@ -55,8 +52,10 @@ class VoiceController < ApplicationController
     })
 
     ConnectionChannel.broadcast_to(
-      @connection,
-      render_to_string(partial: "connections/message", locals: { message: @message, style: "msg-clinic" })
+      current_user,
+      # render_to_string(partial: "connections/message", locals: { message: @message, style: "msg-clinic" })
+      head: 302,
+      path: connection_path(@connection)
     )
   end
 
@@ -89,17 +88,17 @@ class VoiceController < ApplicationController
           timeOut: 10,
           maxDigits: 1
       },
-      eventUrl: ["https://fc7c-210-80-199-132.jp.ngrok.io/event?connection_id=#{@connection.id}"]
+      eventUrl: ["https://a482-2405-6580-8640-8d00-acf7-8d0f-dcaf-a31.jp.ngrok.io/event?connection_id=#{@connection.id}"]
     }
   end
 
   # call paths
 
-  def greeting(name, info)
-    "#{name} #{DeepL.translate info, 'EN', 'JA'}"
+  def greeting(name, appt_date, symptoms, info)
+    "こんにちは。「ヤサシイアプリ」からの予約の依頼でございます。アプリで入力された詳細をお伝えいたします。予約者の名前は「#{name}」でございます。希望の日時は「#{appt_date}」でございます。現在、予約者の苦しんでいる症状は「#{symptoms.each { |symptom| "#{DeepL.translate symptom, 'EN', 'JA'}," }}」でございます。最後に、予約者からのコメントをお伝えいたします。「#{DeepL.translate info, 'EN', 'JA'}」"
   end
 
   def greeting_number
-    "番号をご入力ください。"
+    "こちらの予約をご受諾の場合は、番号と番号記号をご入力ください。"
   end
 end

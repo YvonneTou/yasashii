@@ -14,6 +14,7 @@ export default class extends Controller {
 
     #insertMessageAndReload(data) {
       this.messagesTarget.insertAdjacentHTML("beforeend", data)
+
     }
 
     console.log(`Subscribed to the connection with the id ${this.connectionIdValue}.`)

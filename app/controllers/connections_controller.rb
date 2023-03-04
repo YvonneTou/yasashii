@@ -57,7 +57,7 @@ class ConnectionsController < ApplicationController
         number: "12013800657"
       },
       answer_url: [
-        "https://fc7c-210-80-199-132.jp.ngrok.io/answer?connection_id=#{connection.id}"
+        "https://a482-2405-6580-8640-8d00-acf7-8d0f-dcaf-a31.jp.ngrok.io/answer?connection_id=#{connection.id}"
       ]
     })
   end
