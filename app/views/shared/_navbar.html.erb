@@ -28,7 +28,7 @@
         <% if current_user.photo.key %>
           <%= cl_image_tag current_user.photo.key, height: 48, crop: :fill, alt: current_user.username, class: "user-avatar" %>
         <% else %>
-          <%= image_tag "https://res.cloudinary.com/df7gbyhfx/image/upload/v1676698699/wqhubpjfxsjeee49k9ox.jpg" %>
+          <%= image_tag "https://res.cloudinary.com/df7gbyhfx/image/upload/v1676698699/wqhubpjfxsjeee49k9ox.jpg", height: 36, crop: :fill %>
         <% end %>
 
       <% else %>
