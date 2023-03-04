@@ -8,7 +8,6 @@ export default class extends Controller {
   }
 
   connect() {
-    console.log('hello')
     mapboxgl.accessToken = this.apiKeyValue
 
     this.map = new mapboxgl.Map({
@@ -20,16 +19,26 @@ export default class extends Controller {
   }
 
   #addMarkersToMap() {
+    var firstMarker = true;
     this.markersValue.forEach((marker) => {
-      new mapboxgl.Marker()
+      const popup = new mapboxgl.Popup({ className: 'popups', anchor: 'top' }).setHTML(marker.clinic_card_html)
+      const customMarker = document.createElement("div")
+      customMarker.innerHTML = marker.marker_html
+      const aMarker = new mapboxgl.Marker(customMarker)
         .setLngLat([ marker.lng, marker.lat ])
+        .setPopup(popup)
         .addTo(this.map)
+      if (firstMarker == true) {
+        aMarker.togglePopup();
+        firstMarker = false;
+      }
     })
   }
 
   #fitMapToMarkers() {
     const bounds = new mapboxgl.LngLatBounds()
     this.markersValue.forEach(marker => bounds.extend([ marker.lng, marker.lat ]))
-    this.map.fitBounds(bounds, { padding: 70, maxZoom: 15, duration: 0 })
+    this.map.fitBounds(bounds, { padding: {top: 10, bottom: 90, left: 70, right: 70}, maxZoom: 11, duration: 0 })
+    this.map.setPadding({top: 20, bottom: 110});
   }
 }
