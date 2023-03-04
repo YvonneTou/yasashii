@@ -21,7 +21,7 @@
     </p>
     <p><strong>Treatment Available For</strong></p>
       <% @clinic.symptoms.each do |symptom| %>
-        <p><%= symptom.symptom_en %></p>
+        <p><%= symptom.symptom_en.capitalize %></p>
       <% end %>
     <p>
       <span class="fa-stack">

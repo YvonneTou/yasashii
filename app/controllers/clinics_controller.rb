@@ -6,19 +6,25 @@ class ClinicsController < ApplicationController
   def index
     @symptoms = Symptom.all
     if params[:query].present?
-      @clinics = Clinic.search_by_location_and_symptoms(params[:query]).where(params.values == "on")
+      @clinics = Clinic.search_by_location_and_symptoms(params[:query])
+      # @clinics.each do |clinic|
+      #   clinic.symptoms.map
+      # end
+
       # symptoms = []
-      # params.keys.each do |param|
-      #   symptoms << param if params[param] == 1
+      # params.each_key do |symptom|
+      #   symptoms << symptom if symptom == 1
+      # end
+      # raise
     else
       @clinics = Clinic.all
     end
-    @markers = @clinics.geocoded.map do |clinic|
-      {
-        lat: clinic.latitude,
-        lng: clinic.longitude
-      }
-    end
+    # @markers = @clinics.geocoded.map do |clinic|
+    #   {
+    #     lat: clinic.latitude,
+    #     lng: clinic.longitude
+    #   }
+    # end
   end
 
   def show
@@ -27,4 +33,11 @@ class ClinicsController < ApplicationController
     @connection = Connection.new
     DeepL.translate 'Yasashii can now translate!', 'EN', 'JA'
   end
+
+  private
+
+  def symptom_params
+    params.require(:symptom).permit(:symptom)
+  end
+
 end
