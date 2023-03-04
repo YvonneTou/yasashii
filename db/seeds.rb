@@ -222,7 +222,17 @@ kei = {
   description: 'We will provide peace of mind and satisfactory treatment. Do you have any symptoms like this? ・Stubborn back pain, hip pain ・Stiff neck, stiff shoulders, ・Eye fatigue, headache, ・Insomnia, ups and downs in mood Please experience our hospitals acupuncture and chiropractic once, where you can graduate from many years of upset'
 }
 
-clinics = [derm, mirai, ladies, ear, sakurai, mental, sakoda, hira, utaan, kei]
+nagakura = {
+  file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1677893168/cseufavo4rw8msetzblh.png",
+  name: 'Nagakura Jibika Allergy Clinic',
+  location: '141-0021 Tokyo, Shinagawa City, Kamiosaki, 2 Chome-13-26 Maple Top Building 5F',
+  hours: '9:00-18:00',
+  phone_number: '818030161151',
+  email: 'info@nagakura-ac.com',
+  description: 'As an otolaryngologist, an allergy specialist, and a sports doctor, I would like to provide patients with sufficient explanations and information, create an environment where they can receive treatment with peace of mind, and work on medical treatment.'
+}
+
+clinics = [derm, mirai, ladies, ear, sakurai, mental, sakoda, hira, utaan, kei, nagakura]
 
 def create_clinics(clinic)
   file = URI.open(clinic[:file])
