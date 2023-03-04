@@ -20,16 +20,4 @@ end
 
 puts locations
 
-
-# scraping locations in Shinagawa (30 locations)
-# url_two = "https://yaokami.jp/tokyo/a13109/"
-# html_two = URI.open(url_two)
-# doc_two = Nokogiri::HTML.parse(html_two)
-
-# elements_two_location = doc_two.search('.result-address')
-
-# locations_shinagawa = elements_two_location.map do |element|
-#   address = element.text.strip
-# end
-
-# puts locations_shinagawa.count
+puts names

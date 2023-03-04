@@ -9,18 +9,19 @@ require "nokogiri"
 require "open-uri"
 
 # scraping locations (70 total) and names (70 total) of clinics
+# limited amount of clinics to 30
 url_one = "https://www.alljapanrelocation.com/living-guides/hospitals/"
 html_one = URI.open(url_one)
 doc_one = Nokogiri::HTML.parse(html_one)
 
-elements_one_names = doc_one.search('.hospital-info h3')
-elements_one_locations = doc_one.search('.fa-map-marker + a')
+elements_names = doc_one.search('.hospital-info h3').take(30)
+elements_locations = doc_one.search('.fa-map-marker + a').take(30)
 
-names = elements_one_names.map do |element|
+names = elements_names.map do |element|
   element.text.strip
 end
 
-locations = elements_one_locations.map do |element|
+locations = elements_locations.map do |element|
   element.text.strip
 end
 
@@ -280,7 +281,7 @@ end
 
 puts 'Done creating 10 clinics'
 
-puts 'Creating more clinics for Mapbox map'
+puts 'Creating 30 more clinics for Mapbox map'
 
 clinic_photos = ["http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098393/zquhpwiksc8zt3rwoifi.jpg",
                  "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098682/fz8jcbrtkxsdsvxhonrp.jpg",
@@ -321,11 +322,11 @@ def create_clinics_map(a_name, a_location, hours, phone, mail, desc, photo)
   new_clinic.save
 end
 
-# names.zip(locations).each do |name, location|
-#   create_clinics_map(name, location, clinic_hours, clinic_phone_num, clinic_email, clinic_desc, clinic_photos)
-# end
+names.zip(locations).each do |name, location|
+  create_clinics_map(name, location, clinic_hours, clinic_phone_num, clinic_email, clinic_desc, clinic_photos)
+end
 
-puts 'Done creating 20 clinics'
+puts 'Done creating clinics for Mapbox map'
 
 puts "Creating three connections per user (#{User.all.count * 3} connections)..."
 
