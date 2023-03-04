@@ -4,8 +4,14 @@
 
 import { application } from "./application"
 
+import ClinicToggleController from "./clinic_toggle_controller"
+application.register("clinic-toggle", ClinicToggleController)
+
 import ConnectionSubscriptionController from "./connection_subscription_controller"
 application.register("connection-subscription", ConnectionSubscriptionController)
+
+import ConnectionsController from "./connections_controller"
+application.register("connections", ConnectionsController)
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
@@ -15,3 +21,6 @@ application.register("map", MapController)
 
 import ShowMapController from "./show_map_controller"
 application.register("show-map", ShowMapController)
+
+import SymptomController from "./symptom_controller"
+application.register("symptom", SymptomController)

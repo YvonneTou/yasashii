@@ -10,13 +10,17 @@ export default class extends Controller {
     this.channel = createConsumer().subscriptions.create(
       { channel: "ConnectionChannel", id: this.connectionIdValue },
       { received: data => {
-          if (data.head == 302 && data.path) {
-          window.location.pathname = data.path;
+          if (data.head == 302 && data.path && data.params) {
+            window.location.pathname = data.path
+            window.location.search = data.params
+          }
+          else if (data.head == 302 && data.path) {
+            window.location.pathname = data.path
           }
         }
       }
     )
 
-    console.log(`Subscribed to the connection with the id ${this.connectionIdValue}.`)
+    console.log(`uhhSubscribed to the connection with the id ${this.connectionIdValue}.`)
   }
 }

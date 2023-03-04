@@ -5,6 +5,25 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+require "nokogiri"
+require "open-uri"
+
+# scraping locations (70 total) and names (70 total) of clinics
+# limited amount of clinics to 30
+url_one = "https://www.alljapanrelocation.com/living-guides/hospitals/"
+html_one = URI.open(url_one)
+doc_one = Nokogiri::HTML.parse(html_one)
+
+elements_names = doc_one.search('.hospital-info h3').take(30)
+elements_locations = doc_one.search('.fa-map-marker + a').take(30)
+
+names = elements_names.map do |element|
+  element.text.strip
+end
+
+locations = elements_locations.map do |element|
+  element.text.strip
+end
 
 SYMPTOMS = [
   "back pain",
@@ -174,7 +193,7 @@ sakurai = {
   phone_number: '818030161151',
   email: 'info@sakurai-ortho.jp',
   description: 'Specializing in hyaluronic acid injection, steroid injections, and osteoarthritis treatment.
-   Dr. Sakurai has amazing injection skills.'
+  Dr. Sakurai has amazing injection skills.'
 }
 
 mental = {
@@ -233,7 +252,17 @@ kei = {
   Please experience our hospitals acupuncture and chiropractic once, where you can graduate from many years of upset'
 }
 
-clinics = [derm, mirai, ladies, ear, sakurai, mental, sakoda, hira, utaan, kei]
+nagakura = {
+  file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1677893168/cseufavo4rw8msetzblh.png",
+  name: 'Nagakura Jibika Allergy Clinic',
+  location: '141-0021 Tokyo, Shinagawa City, Kamiosaki, 2 Chome-13-26 Maple Top Building 5F',
+  hours: '9:00-18:00',
+  phone_number: '818030161151',
+  email: 'info@nagakura-ac.com',
+  description: 'As an otolaryngologist, an allergy specialist, and a sports doctor, I would like to provide patients with sufficient explanations and information, create an environment where they can receive treatment with peace of mind, and work on medical treatment.'
+}
+
+clinics = [derm, mirai, ladies, ear, sakurai, mental, sakoda, hira, utaan, kei, nagakura]
 
 def create_clinics(clinic)
   file = URI.open(clinic[:file])
@@ -262,7 +291,7 @@ end
 
 puts 'Done creating 10 clinics'
 
-puts 'Creating more clinics for Mapbox map'
+puts 'Creating 30 more clinics for Mapbox map'
 
 clinic_photos = ["http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098393/zquhpwiksc8zt3rwoifi.jpg",
                  "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098682/fz8jcbrtkxsdsvxhonrp.jpg",
@@ -284,6 +313,30 @@ clinic_desc = ["We are an organized medical team offering diagnostic, therapeuti
   Please contact us to book an appointment and discuss treatment plans.", "Our hospital operates on an outpatient
   referral system. Please bring your referral from a clinic or doctor's office when you visit.", "We are an
   interdisciplinary practice that has been providing healthcare to our community since 1995"]
+
+def create_clinics_map(a_name, a_location, hours, phone, mail, desc, photo)
+  file = URI.open(photo.sample)
+
+  new_clinic = Clinic.new(
+    {
+      name: a_name,
+      location: a_location,
+      hours: hours.sample,
+      phone_number: phone.sample,
+      email: mail.sample,
+      description: desc.sample
+    }
+  )
+
+  new_clinic.photo.attach(io: file, filename: "#{a_name}.jpg", content_type: "image/jpg")
+  new_clinic.save
+end
+
+names.zip(locations).each do |name, location|
+  create_clinics_map(name, location, clinic_hours, clinic_phone_num, clinic_email, clinic_desc, clinic_photos)
+end
+
+puts 'Done creating clinics for Mapbox map'
 
 puts "Creating three connections per user (#{User.all.count * 3} connections)..."
 
@@ -374,3 +427,32 @@ Connection.all.each do |connection|
 end
 
 puts "Done creating messages"
+
+puts "Adding specialties for clinics"
+
+def specialty(clinic, symptom)
+  clinic = Clinic.find_by(name: clinic).id
+  Specialty.create!(
+    symptom_id: symptom,
+    clinic_id: clinic
+  )
+end
+
+# clinics = [derm, mirai, ladies, ear, sakurai, mental, sakoda, hira, utaan, kei]
+
+specialty('Meguro Ear', 7)
+specialty('Meguro Ear', 8)
+specialty('Sakurai Orthopedic Surgical Clinic', 10)
+specialty('Shinagawa Ekimae Mental Clinic', 1)
+specialty('Shinagawa Ekimae Mental Clinic', 5)
+specialty('Meguro Sakoda Orthopedics', 8)
+specialty('Shinagawa Dermatology', 4)
+specialty('Shinagawa Mirai Internal Medicine Clinic', 10)
+specialty('Meguro Ladies Clinic', 5)
+specialty('Utaan Acupuncture Orthopedic Clinic', 8)
+specialty('KEI Acupuncture', 1)
+specialty('Nagakura Jibika Allergy Clinic', 13)
+specialty('Nagakura Jibika Allergy Clinic', 24)
+specialty('Nagakura Jibika Allergy Clinic', 14)
+
+puts "Done adding specialties to clinics!"
