@@ -4,8 +4,18 @@ class ClinicsController < ApplicationController
   # access specialities via `specialty_list: []`
 
   def index
+    @symptoms = Symptom.all
     if params[:query].present?
-      @clinics = Clinic.search_by_keyword(params[:query])
+      @clinics = Clinic.search_by_location_and_symptoms(params[:query])
+      # @clinics.each do |clinic|
+      #   clinic.symptoms.map
+      # end
+
+      # symptoms = []
+      # params.each_key do |symptom|
+      #   symptoms << symptom if symptom == 1
+      # end
+      # raise
     else
       @clinics = Clinic.all
     end
@@ -30,4 +40,11 @@ class ClinicsController < ApplicationController
       marker_html: render_to_string(partial: "show_marker")
     }
   end
+
+  private
+
+  def symptom_params
+    params.require(:symptom).permit(:symptom)
+  end
+
 end

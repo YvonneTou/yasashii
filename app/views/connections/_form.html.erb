@@ -1,6 +1,6 @@
 <%= simple_form_for [@connection] do |f| %>
   <%= f.input :appt_date, label: 'Proposed Appointment Date Time', as: :datetime, html5: true%>
-  <%= f.input :symptoms, as: :check_boxes, label: 'Symptoms', collection: ['Headache', 'Fever', 'Muscle pain', 'Stiff neck', 'Stomachache']  %>
+  <%= f.input :symptoms, as: :check_boxes, label: 'Symptoms', collection: ['Headache', 'Fever', 'Muscle pain', 'Stiff neck', 'Stomachache', 'hair loss', 'Allergic rhinitis', 'Sore throat', 'Toothache'], item_label_class: 'symptom_select' %>
   <%= f.input :info, placeholder: 'Other information', label: false, as: :text %>
   <%= f.hidden_field :clinic_id, value: @clinic.id %>
   <%= f.button :submit, 'Submit & start call', class: "btn btn-success mb-3", data: { turbo_confirm: 'Confirm to start call?'} %>

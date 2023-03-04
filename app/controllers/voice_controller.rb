@@ -16,17 +16,11 @@ class VoiceController < ApplicationController
     # speech = params['speech']['results'][0]['text'] if params['speech']
     status = params['status'] if params['status']
 
-    # ConnectionChannel.broadcast_to(
-    #   @connection,
-    #   "event"
-    # )
-
-    create_message("call ended") if status == "completed"
     end_call if status == "completed"
 
     render json: [
-      # talk_json("ご受諾いただき、ありがとうございました。予約者に「ヤサシイアプリ」で通知いたします。予約者のご手配のほど、よろしくお願い申し上げます。まもなく電話が終了いたします。失礼いたします。")
-      talk_json("どうも")
+      talk_json(accepted)
+      # talk_json("どうも")
     ].to_json
   end
 
@@ -51,7 +45,8 @@ class VoiceController < ApplicationController
     ConnectionChannel.broadcast_to(
       @connection,
       head: 302,
-      path: "#{connection_path(@connection)}?no_call=true"
+      path: "#{connection_path(@connection)}",
+      params: "?no_call=true"
     )
   end
 
@@ -102,7 +97,7 @@ class VoiceController < ApplicationController
     name = "#{connection.user.firstname} #{connection.user.lastname}"
     appt_date = @connection.appt_date.strftime("%Y年%m月%d日%H時%M分")
     symptoms = @connection.symptoms
-    info = @connection.info
+    info = DeepL.translate @connection.info, 'EN', 'JA'
 
     render json: [
       talk_json(greeting_text(name, appt_date, symptoms, info)),
@@ -111,13 +106,19 @@ class VoiceController < ApplicationController
     ]
   end
 
+  # text to speech
+
   def greeting_text(name, appt_date, symptoms, info)
-    # "こんにちは。「ヤサシイアプリ」からの予約の依頼でございます。アプリで入力された詳細をお伝えいたします。予約者の名前は「#{name}」でございます。希望の日時は「#{appt_date}」でございます。現在、予約者の苦しんでいる症状は「#{symptoms.each { |symptom| "#{DeepL.translate symptom, 'EN', 'JA'}," }}」でございます。最後に、予約者からのコメントをお伝えいたします。「#{DeepL.translate info, 'EN', 'JA'}」"
-    name
+    "こんにちは。「ヤサシイアプリ」からの予約の依頼でございます。アプリで入力された詳細をお伝えいたします。予約者の名前は「#{name}」でございます。希望の日時は「#{appt_date}」でございます。現在、予約者の苦しんでいる症状は「#{symptoms}」でございます。最後に、予約者からのコメントをお伝えいたします。「#{info}」"
+    # name
   end
 
   def greeting_number
-    # "こちらの予約をご受諾の場合は、番号と番号記号をご入力ください。"
-    "番号プリーズ"
+    "こちらの予約をご受諾の場合は、番号と番号記号をご入力ください。"
+    # "番号プリーズ"
+  end
+
+  def accepted
+    "ご受諾いただき、ありがとうございました。予約者に「ヤサシイアプリ」で通知いたします。予約者のご手配のほど、よろしくお願い申し上げます。まもなく電話が終了いたします。失礼いたします。"
   end
 end
