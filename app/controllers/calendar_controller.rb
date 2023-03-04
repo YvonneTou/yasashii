@@ -43,6 +43,8 @@ class CalendarController < ApplicationController
     service.authorization = client
 
     event_list = service.list_calendar_lists.items
+    primary_cal = event_list[0]
+    primary_cal_id = primary_cal.id
 
     today = Date.today
 
