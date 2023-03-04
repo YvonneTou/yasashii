@@ -12,3 +12,6 @@ application.register("map", MapController)
 
 import SymptomController from "./symptom_controller"
 application.register("symptom", SymptomController)
+
+import ShowMapController from "./show_map_controller"
+application.register("show-map", ShowMapController)

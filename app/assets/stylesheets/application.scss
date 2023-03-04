@@ -117,6 +117,11 @@ a {
   color: rgba(0, 0, 0, 0.477);
 }
 
+
+.fwidth {
+  min-width: 40px !important;
+}
+
 .text-pink {
   color: $pink;
 }
@@ -128,6 +133,10 @@ a {
   .container img {
     height: 250px;
     width: 100%;
+  }
+  .popups {
+    bottom: -40px !important;
+    transform: scale(0.95, 0.75) !important;
   }
 }
 @media (max-width: 320px) {
@@ -144,4 +153,8 @@ a {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
+  .popups {
+    bottom: -40px !important;
+    transform: scale(0.95, 0.75) !important;
+  }
 }
