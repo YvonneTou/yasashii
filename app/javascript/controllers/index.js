@@ -7,14 +7,17 @@ import { application } from "./application"
 import ConnectionSubscriptionController from "./connection_subscription_controller"
 application.register("connection-subscription", ConnectionSubscriptionController)
 
+import ConnectionsController from "./connections_controller"
+application.register("connections", ConnectionsController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
 import MapController from "./map_controller"
 application.register("map", MapController)
 
-import SymptomController from "./symptom_controller"
-application.register("symptom", SymptomController)
-
 import ShowMapController from "./show_map_controller"
 application.register("show-map", ShowMapController)
+
+import SymptomController from "./symptom_controller"
+application.register("symptom", SymptomController)
