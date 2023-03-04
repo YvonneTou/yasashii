@@ -14,13 +14,11 @@ names = elements_one_name.map do |element|
   element.text.strip
 end
 
-puts names
-
 locations = elements_one_location.map do |element|
   element.text.strip
 end
 
-puts locations.count
+puts locations
 
 
 # scraping locations in Shinagawa (30 locations)
