@@ -50,7 +50,8 @@ class ConnectionsController < ApplicationController
     @client.voice.create({
       to: [{
         type: 'phone',
-        number: @connection.clinic.phone_number
+        # number: @connection.clinic.phone_number
+        number: '818068285005'
       }],
       from: {
         type: 'phone',

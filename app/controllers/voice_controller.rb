@@ -7,21 +7,20 @@ class VoiceController < ApplicationController
   def answer
     @connection.uuid = params['uuid']
     @connection.save
-    create_message("answered")
-    greeting(@connection)
+    # create_message("answered")
+    greeting
   end
 
   def event
-    input = params['dtmf']['digits'] if params['dtmf']
+    input = params['dtmf']['digits'].to_i if params['dtmf']
     # speech = params['speech']['results'][0]['text'] if params['speech']
     status = params['status'] if params['status']
+    path = params['call_paths'] if params['call_paths']
 
-    end_call if status == "completed"
+    # end_call if status == "completed"
+    return unless params['call_paths']
 
-    render json: [
-      talk_json(accepted)
-      # talk_json("どうも")
-    ].to_json
+    accept_details_decision(input, @connection) if path == ["accept", "details"]
   end
 
   private
@@ -78,44 +77,74 @@ class VoiceController < ApplicationController
     }
   end
 
-  def event_json
+  def event_json(max_digits, call_paths)
+    call_paths_string = ""
+    call_paths.each do |path|
+      call_paths_string += "&call_paths%5B%5D=#{path}"
+    end
+
     {
       action: "input",
       type: ["dtmf"],
       dtmf: {
           submitOnHash: true,
-          timeOut: 10,
-          maxDigits: 1
+          timeOut: 20,
+          maxDigits: max_digits
       },
-      eventUrl: ["https://57c3-124-219-136-119.jp.ngrok.io/event?connection_id=#{@connection.id}"]
+      eventUrl: ["https://57c3-124-219-136-119.jp.ngrok.io/event?connection_id=#{@connection.id}#{call_paths_string}"]
     }
   end
 
   # call paths
 
-  def greeting(connection)
-    name = "#{connection.user.firstname} #{connection.user.lastname}"
-    appt_date = @connection.appt_date.strftime("%Y年%m月%d日%H時%M分")
-    symptoms = @connection.symptoms
-    info = DeepL.translate @connection.info, 'EN', 'JA'
-
+  def greeting
     render json: [
-      talk_json(greeting_text(name, appt_date, symptoms, info)),
+      talk_json(greeting_text),
       input_json(greeting_number),
-      event_json
+      event_json(1, ["accept", "details"])
     ]
+  end
+
+  def accept_details_decision(input, connection)
+    puts input
+    case input
+    when 1
+      puts "1 was pressed"
+      render json: [
+        talk_json(appt_details(connection))
+      ]
+    when 2
+      puts "2 was pressed"
+      render json: [
+        talk_json(accepted)
+      ]
+    end
   end
 
   # text to speech
 
-  def greeting_text(name, appt_date, symptoms, info)
-    "こんにちは。「ヤサシイアプリ」からの予約の依頼でございます。アプリで入力された詳細をお伝えいたします。予約者の名前は「#{name}」でございます。希望の日時は「#{appt_date}」でございます。現在、予約者の苦しんでいる症状は「#{symptoms}」でございます。最後に、予約者からのコメントをお伝えいたします。「#{info}」"
-    # name
+  def greeting_text
+    "こんにちは。「ヤサシイアプリ」からの予約の依頼でございます。これから、ガイダンスに従い、番号を押してください。"
   end
 
   def greeting_number
-    "こちらの予約をご受諾の場合は、番号と番号記号をご入力ください。"
-    # "番号プリーズ"
+    "予約の詳細をご確認の場合、「１」を。予約のご受諾の場合、「２」を押してください。"
+  end
+
+  def appt_details(connection)
+    name = "#{connection.user.firstname} #{connection.user.lastname}"
+    appt_date = connection.appt_date.strftime("%Y年%m月%d日%H時%M分")
+    info = DeepL.translate @connection.info, 'EN', 'JA'
+    symptoms = ""
+    @connection.symptoms.each_with_index do |symptom, i|
+      if i + 1 == connection.symptoms.size
+        symptoms += "#{DeepL.translate symptom, 'EN', 'JA'}"
+      else
+        symptoms += "#{DeepL.translate symptom, 'EN', 'JA'}、"
+      end
+    end
+
+    "予約者の名前は「#{name}」でございます。希望の日時は「#{appt_date}」でございます。現在、予約者の苦しんでいる症状は「#{symptoms}」でございます。最後に、予約者からのコメントをお伝えいたします。「#{info}」"
   end
 
   def accepted
