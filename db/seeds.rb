@@ -415,5 +415,7 @@ specialty('Meguro Ladies Clinic', 5)
 specialty('Utaan Acupuncture Orthopedic Clinic', 8)
 specialty('KEI Acupuncture', 1)
 specialty('Nagakura Jibika Allergy Clinic', 13)
+specialty('Nagakura Jibika Allergy Clinic', 24)
+specialty('Nagakura Jibika Allergy Clinic', 14)
 
 puts "Done adding specialties to clinics!"

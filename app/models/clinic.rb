@@ -12,7 +12,7 @@ class Clinic < ApplicationRecord
   pg_search_scope :search_by_location_and_symptoms,
     against: [ :location ],
     associated_against: {
-      symptoms: [:symptom_en]
+      symptoms: [:symptom_en, :location]
     },
     using: {
       tsearch: { prefix: true } # <-- now `superman batm` will return something!
