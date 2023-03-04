@@ -428,31 +428,147 @@ end
 
 puts "Done creating messages"
 
-puts "Adding specialties for clinics"
+puts "Adding symptoms and specialties for clinics"
 
-def specialty(clinic, symptom)
-  clinic = Clinic.find_by(name: clinic).id
-  Specialty.create!(
-    symptom_id: symptom,
-    clinic_id: clinic
+def add_symptoms(symptom)
+  Symptom.create!(
+    location: symptom[:location],
+    symptom_en: symptom[:symptom_en],
+    symptom_jp: symptom[:symptom_jp]
   )
 end
 
-# clinics = [derm, mirai, ladies, ear, sakurai, mental, sakoda, hira, utaan, kei]
+symptoms = [
+  head1 = {
+    location: 'head',
+    symptom_en: 'headache',
+    symptom_jp: '頭痛'
+  },
+  head2 = {
+    location: 'head',
+    symptom_en: 'hair loss',
+    symptom_jp: '髪の毛が抜けてきている'
+  },
+  head3 = {
+    location: 'head',
+    symptom_en: 'dizzines',
+    symptom_jp: '立ちくらみがする'
+  },
+  ear1 = {
+    location: 'ear',
+    symptom_en: 'tinnitus',
+    symptom_jp: '耳鳴りがする'
+  },
+  ear2 = {
+    location: 'ear',
+    symptom_en: 'stuffy ears',
+    symptom_jp:'耳が詰まった感じがする'
+  },
+  neck1 = {
+    location: 'neck',
+    symptom_en: 'neck swelling',
+    symptom_jp: '首の周りが腫れている'
+  },
+  neck2 = {
+    location: 'neck',
+    symptom_en: 'stiff neck',
+    symptom_jp: '首こりがある'
+  },
+  mouth1 = {
+    location: 'mouth',
+    symptom_en: 'toothache',
+    symptom_jp: '歯の痛みがある'
+  },
+  mouth2 = {
+    location: 'mouth',
+    symptom_en: 'cavity',
+    symptom_jp: '虫歯'
+  },
+  throat = {
+    location: 'throat',
+    symptom_en: 'sore throat',
+    symptom_jp: 'のどの痛みがある'
+  },
+  allergy1 = {
+    location: 'allergy',
+    symptom_en: 'allergic rhinitis',
+    symptom_jp: 'アレルギー性鼻炎'
+  },
+  allergy2 = {
+    location: 'allergy',
+    symptom_en: 'coughing and sneezing',
+    symptom_jp: '咳とくしゃみ'
+  },
+  nose1 = {
+    location: 'nose',
+    symptom_en: 'runny nose',
+    symptom_jp: '鼻水が出る'
+  },
+  nose2 = {
+    location: 'nose',
+    symptom_en: 'nose bleed',
+    symptom_jp: '鼻血が出ている'
+  },
+  eye = {
+    location: 'eye',
+    symptom_en: 'eyeball popped out',
+    symptom_jp: '目玉が飛び出している'
+  },
+  stomach1 = {
+    location: 'stomach',
+    symptom_en: 'diarrhea',
+    symptom_jp: '下痢'
+  },
+  stomach2 = {
+    location: 'stomach',
+    symptom_en: 'constipation',
+    symptom_jp: '便秘'
+  },
+  uterus1 = {
+    location: 'uterus',
+    symptom_en: 'inconsistent period',
+    symptom_jp: '生理周期がおかしい'
+  },
+  vagina = {
+    location: 'vagina',
+    symptom_en: 'vaginal pain',
+    symptom_jp: '女性器の痛み'
+  },
+  lung = {
+    location: 'lung',
+    symptom_en: 'dry cough',
+    symptom_jp: '空咳が出る'
+  }
+]
 
-specialty('Meguro Ear', 7)
-specialty('Meguro Ear', 8)
-specialty('Sakurai Orthopedic Surgical Clinic', 10)
-specialty('Shinagawa Ekimae Mental Clinic', 1)
-specialty('Shinagawa Ekimae Mental Clinic', 5)
-specialty('Meguro Sakoda Orthopedics', 8)
-specialty('Shinagawa Dermatology', 4)
-specialty('Shinagawa Mirai Internal Medicine Clinic', 10)
-specialty('Meguro Ladies Clinic', 5)
-specialty('Utaan Acupuncture Orthopedic Clinic', 8)
-specialty('KEI Acupuncture', 1)
-specialty('Nagakura Jibika Allergy Clinic', 13)
-specialty('Nagakura Jibika Allergy Clinic', 24)
-specialty('Nagakura Jibika Allergy Clinic', 14)
+symptoms.each do |symptom|
+  add_symptoms(symptom)
+end
+
+# clinics = [derm, mirai, ladies, ear, sakurai, mental, sakoda, hira, utaan, kei, nagakura]
+
+def specialty(clinic, symptom)
+  # clinic_id = Clinic.find_by(name: clinic[:name]).id
+  # symptom_id = Symptom.find_by(symptom_en: symptom[:symptom_en]).id
+  Specialty.create!(
+    clinic_id: Clinic.find_by(name: clinic[:name]).id,
+    symptom_id: Symptom.find_by(symptom_en: symptom[:symptom_en]).id
+  )
+end
+
+specialty(ear, ear1)
+specialty(ear, ear2)
+specialty(sakurai, neck2)
+specialty(mental, head1)
+specialty(mental, head3)
+specialty(sakoda, neck1)
+specialty(derm, head2)
+specialty(mirai, throat)
+specialty(ladies, head3)
+specialty(utaan, neck1)
+specialty(kei, head1)
+specialty(nagakura, allergy1)
+specialty(nagakura, allergy2)
+specialty(nagakura, nose1)
 
 puts "Done adding specialties to clinics!"
