@@ -38,7 +38,9 @@ class CalendarController < ApplicationController
   end
 
   def new_event(connection_id)
-    connection = Connection.find(connection_id.to_i)
+    # connection = Connection.find(connection_id.to_i)
+    # clinic = connection.clinic
+    event_details = event_details(connection_id)
 
     client = Signet::OAuth2::Client.new(client_options(params[:state]))
     client.update!(session[:authorization])
@@ -50,20 +52,19 @@ class CalendarController < ApplicationController
     primary_cal = event_list[0]
     primary_cal_id = primary_cal.id
 
-    pri_cal_id = connection.user.email
-
     # today = Date.today
 
     event = Google::Apis::CalendarV3::Event.new(
       start: Google::Apis::CalendarV3::EventDateTime.new(
-        date_time: '2023-03-5T13:00:00+09:00',
+        date_time: event_details[:start_time],
         time_zone: 'Asia/Tokyo'
       ),
       end: Google::Apis::CalendarV3::EventDateTime.new(
-        date_time: '2023-03-5T14:00:00+09:00',
+        date_time: event_details[:end_time],
         time_zone: 'Asia/Tokyo'
       ),
-      summary: 'Lunch gathering with my team!!'
+      summary: event_details[:title],
+      description: event_details[:description],
     )
 
     service.insert_event(primary_cal_id, event)
@@ -85,6 +86,21 @@ class CalendarController < ApplicationController
       scope: Google::Apis::CalendarV3::AUTH_CALENDAR,
       redirect_uri: callback_url,
       state: connection_id
+    }
+  end
+
+  def event_details(connection_id)
+    connection = Connection.find(connection_id.to_i)
+    clinic = connection.clinic
+    symptoms = connection.symptoms.join(",")
+    info = connection.info.nil? ? 'nil' : connection.info
+
+    {
+      title: "Appointment with #{clinic.name}",
+      location: clinic.location,
+      start_time: connection.appt_date.iso8601,
+      end_time: (connection.appt_date + 1.hours).iso8601,
+      description: "My symptoms: #{symptoms} \nAddtional info: #{info}"
     }
   end
 end

@@ -109,6 +109,23 @@ yvonne = {
   firstname: "Yvonne"
 }
 
+dani_demo = {
+  file: "https://res.cloudinary.com/df7gbyhfx/image/upload/v1677984960/rtsvp2gdwmvhn3u72u3d.jpg",
+  username: "Danielle",
+  email: "danielle.m123456@gmail.com",
+  password: "123456",
+  lastname: "Matsumoto",
+  firstname: "Danielle"
+}
+
+test_acct = {
+  file: "https://res.cloudinary.com/df7gbyhfx/image/upload/v1675342051/hfrgkexj32egcd8qjq2g.jpg",
+  username: "test.calendar.acct",
+  email: "test.calendar.y@gmail.com",
+  password: "123456",
+  lastname: "Account",
+  firstname: "Test"
+}
 users = [yvonne, sarah, dani, tanner]
 
 def create_users(user)
@@ -344,10 +361,10 @@ User.all.each do |user|
   Connection.create!(
     {
       user: user,
-      clinic: Clinic.all.sample,
-      appt_date: DateTime.new(2023, 2, 14, 11, 0, 0),
-      symptoms: ["dizziness", "shortness of breath", "fatigue"],
-      info: "I require wheelchair access.",
+      clinic: Clinic.find_by(name: 'KEI Acupuncture'),
+      appt_date: DateTime.new(2023, 3, 13, 14, 0, 0),
+      symptoms: ["back pain", "Trouble sleeping"],
+      info: "First timer",
       status: 1
     }
   )
@@ -355,21 +372,10 @@ User.all.each do |user|
   Connection.create!(
     {
       user: user,
-      clinic: Clinic.all.sample,
-      appt_date: DateTime.new(2023, 2, 2, 8, 30, 0),
-      symptoms: ["cough", "fever", "loss of taste"],
-      info: "I might have the Rona.",
-      status: 3
-    }
-  )
-
-  Connection.create!(
-    {
-      user: user,
-      clinic: Clinic.all.sample,
-      appt_date: DateTime.new(2023, 1, 8, 8, 30, 0),
+      clinic: Clinic.find_by(name: 'Shinagawa Dermatology'),
+      appt_date: DateTime.new(2023, 3, 8, 16, 30, 0),
       symptoms: ["itchiness", "acne", "oozing"],
-      info: "I require ointment.",
+      info: "I changed to a new facial wash recently",
       status: 3
     }
   )
