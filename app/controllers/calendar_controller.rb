@@ -49,8 +49,8 @@ class CalendarController < ApplicationController
     service.authorization = client
 
     event_list = service.list_calendar_lists.items
-    primary_cal = event_list[0]
-    primary_cal_id = primary_cal.id
+    owner_cal = event_list.select { |cal| cal.access_role == "owner" }
+    calendar_id = owner_cal[0].id
 
     # today = Date.today
 
@@ -67,7 +67,7 @@ class CalendarController < ApplicationController
       description: event_details[:description],
     )
 
-    service.insert_event(primary_cal_id, event)
+    service.insert_event(calendar_id, event)
     # service.insert_event(params[:calendar_id], event)
 
     # redirect_to events_url(calendar_id: params[:calendar_id])
@@ -100,7 +100,7 @@ class CalendarController < ApplicationController
       location: clinic.location,
       start_time: connection.appt_date.iso8601,
       end_time: (connection.appt_date + 1.hours).iso8601,
-      description: "My symptoms: #{symptoms} \nAddtional info: #{info}"
+      description: "My symptoms: #{symptoms} \nAddtional info: #{info}\nEvent created by Yasashii.Care"
     }
   end
 end

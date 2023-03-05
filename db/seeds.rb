@@ -71,7 +71,7 @@ Clinic.destroy_all
 User.destroy_all
 puts "Done deletion"
 
-puts "Creating 4 new Users..."
+puts "Creating 6 new Users..."
 
 sarah = {
   file: "https://res.cloudinary.com/df7gbyhfx/image/upload/v1677485847/wdvks78cnylhnmuic7ox.png",
@@ -112,7 +112,7 @@ yvonne = {
 dani_demo = {
   file: "https://res.cloudinary.com/df7gbyhfx/image/upload/v1677984960/rtsvp2gdwmvhn3u72u3d.jpg",
   username: "Danielle",
-  email: "danielle.m123456@gmail.com",
+  email: "danielle.m13579@gmail.com",
   password: "123456",
   lastname: "Matsumoto",
   firstname: "Danielle"
@@ -126,7 +126,7 @@ test_acct = {
   lastname: "Account",
   firstname: "Test"
 }
-users = [yvonne, sarah, dani, tanner]
+users = [yvonne, sarah, dani, tanner, dani_demo, test_acct]
 
 def create_users(user)
   file = URI.open(user[:file])
@@ -153,7 +153,7 @@ end
 
 puts "Done creating users"
 
-puts "Creating 10 new Clinics..."
+puts "Creating 11 new Clinics..."
 
 derm = {
   file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098274/f8ohtzopvp39syrgiurl.jpg",
@@ -306,7 +306,7 @@ clinics.each_with_index do |clinic, index|
   puts "Created #{index + 1} clinic#{index.zero? ? '' : 's'}"
 end
 
-puts 'Done creating 10 clinics'
+puts 'Done creating 11 clinics'
 
 puts 'Creating 30 more clinics for Mapbox map'
 
@@ -355,14 +355,14 @@ end
 
 puts 'Done creating clinics for Mapbox map'
 
-puts "Creating three connections per user (#{User.all.count * 3} connections)..."
+puts "Creating 2 connections per user (#{User.all.count * 2} connections)..."
 
 User.all.each do |user|
   Connection.create!(
     {
       user: user,
       clinic: Clinic.find_by(name: 'KEI Acupuncture'),
-      appt_date: DateTime.new(2023, 3, 13, 14, 0, 0),
+      appt_date: DateTime.new(2023, 3, 13, 14, 0, 0, "+09:00"),
       symptoms: ["back pain", "Trouble sleeping"],
       info: "First timer",
       status: 1
@@ -373,7 +373,7 @@ User.all.each do |user|
     {
       user: user,
       clinic: Clinic.find_by(name: 'Shinagawa Dermatology'),
-      appt_date: DateTime.new(2023, 3, 8, 16, 30, 0),
+      appt_date: DateTime.new(2023, 3, 8, 16, 30, 0, "+09:00"),
       symptoms: ["itchiness", "acne", "oozing"],
       info: "I changed to a new facial wash recently",
       status: 3
