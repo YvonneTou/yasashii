@@ -7,12 +7,8 @@ class VoiceController < ApplicationController
   def answer
     @connection.uuid = params['uuid']
     @connection.save
-    # create_message("answered #{Time.now.strftime("%h:%m")}")
-    ConnectionChannel.broadcast_to(
-      @connection,
-      confirm_new_appt_date_message
-    )
     # greeting
+    music_test
   end
 
   def event
@@ -35,6 +31,28 @@ class VoiceController < ApplicationController
     else
       @connection = Connection.find_by(uuid: params['uuid'])
     end
+  end
+
+  def music_test
+    # create_message("answered #{Time.now.strftime("%h:%m")}")
+    # ConnectionChannel.broadcast_to(
+    #   @connection,
+    #   confirm_new_appt_date_message
+    # )
+
+    render json:
+    [
+      {
+        "action": "stream",
+        "streamUrl": ["https://incompetech.com/music/royalty-free/mp3-royaltyfree/Gymnopedie%20No%201.mp3"],
+        "bargeIn": "true"
+      },
+      {
+        "action": "input",
+        "submitOnHash": "true",
+        "eventUrl": ["https://ed65-124-219-136-119.jp.ngrok.io/event?connection_id=#{@connection.id}"]
+      }
+    ]
   end
 
   def create_message(message_content)
@@ -130,6 +148,8 @@ class VoiceController < ApplicationController
       confirm_appt_date(input)
     when ["send_to_user", "new_date"]
       send_to_user_new_date_decision(input)
+    when ["accept", "new_date"]
+      accept_new_date_decision(input)
     end
   end
 
@@ -233,6 +253,25 @@ class VoiceController < ApplicationController
     end
   end
 
+  def accept_new_date_decision
+    case input
+    when 1
+      render json: [
+        talk_json(accepted)
+      ]
+    when 2
+      rejected_appt_date
+    end
+  end
+
+  def rejected_appt_date
+    render json: [
+      talk_json(rejected),
+      input_json(enter_day),
+      event_json(2, ["time"])
+    ]
+  end
+
   # text to speech
 
   def greeting_text
@@ -283,6 +322,10 @@ class VoiceController < ApplicationController
 
   def check_new_date_menu
     "この日付を予約者に通信する場合、「１」を。再入力する場合、あ「２」を押してください。"
+  end
+
+  def rejected
+    "予約者はご希望の日付ができかねますので、もう一度ご変更よろしくお願いします。"
   end
 
   def accepted

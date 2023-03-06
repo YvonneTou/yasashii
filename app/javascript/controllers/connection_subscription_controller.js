@@ -25,6 +25,6 @@ export default class extends Controller {
       }
     )
 
-    console.log(`uhhSubscribed to the connection with the id ${this.connectionIdValue}.`)
+    // console.log(`Subscribed to the connection with the id ${this.connectionIdValue}.`)
   }
 }
