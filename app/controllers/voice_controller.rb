@@ -103,6 +103,14 @@ class VoiceController < ApplicationController
       accept_details_decision(input)
     when ["repeat", "accept", "new_date"]
       repeat_accept_new_date_decision(input)
+    when ["day"]
+      change_day(input)
+    when ["time"]
+      change_time(input)
+    when ["confirm_appt_date"]
+      confirm_appt_date(input)
+    when ["send_to_user", "new_date"]
+      send_to_user_new_date_decision(input)
     end
   end
 
@@ -142,14 +150,68 @@ class VoiceController < ApplicationController
         talk_json(accepted)
       ]
     when 3
-      change_date
+      change_month
     end
   end
 
-  def change_date
+  def change_month
     render json: [
-      talk_json("hi")
+      # talk_json("予約の変更ですね。"),
+      talk_json("てすと"),
+      input_json(enter_month),
+      event_json(2, ["day"])
     ]
+  end
+
+  def change_day(input)
+    puts input
+    @connection.appt_date = @connection.appt_date.strftime("%d/#{input}/%Y/ %H:%M:00").to_datetime
+    @connection.save
+    puts @connection.appt_date
+
+    render json: [
+      # talk_json("予約の変更ですね。"),
+      talk_json("てすと"),
+      input_json(enter_day),
+      event_json(2, ["time"])
+    ]
+  end
+
+  def change_time(input)
+    puts input
+    @connection.appt_date = @connection.appt_date.strftime("#{input}/%m/%Y/ %H:%M:00").to_datetime
+    @connection.save
+    puts @connection.appt_date
+
+    render json: [
+      talk_json("ご希望の時間を、"),
+      input_json(enter_time),
+      event_json(4, ["confirm_appt_date"])
+    ]
+  end
+
+  def confirm_appt_date(input)
+    puts input
+    @connection.appt_date = @connection.appt_date.strftime("%d/%m/%Y/ #{input.to_s[0..1]}:#{input.to_s[2..3]}:00").to_datetime
+    @connection.save
+    puts @connection.appt_date
+
+    render json: [
+      talk_json(check_new_date),
+      input_json(check_new_date_menu),
+      event_json(1, ["send_to_user", "new_date"])
+    ]
+  end
+
+  def send_to_user_new_date_decision(input)
+    case input
+    when 1
+      render json: [
+        talk_json(accepted)
+      ]
+    when 2
+      change_day
+    end
   end
 
   # text to speech
@@ -182,6 +244,26 @@ class VoiceController < ApplicationController
 
   def appt_details_menu
     "繰り返しは「１」を。受諾は「２」を。変更は「３」を。"
+  end
+
+  def enter_month
+    "ご希望の月を数字で押してください。"
+  end
+
+  def enter_day
+    "ご希望の日にちを数字で押してください。"
+  end
+
+  def enter_time
+    "２４時間の形式で押してください。たとえ午後１時１５分だと、「１」「３」「１」「５」を押してください。"
+  end
+
+  def check_new_date
+    "ご希望の日付は「#{@connection.appt_date.strftime("%Y年%m月%d日%H時%M分")}」で間違いないでしょうか。"
+  end
+
+  def check_new_date_menu
+    "この日付を予約者に通信する場合、「１」を。再入力する場合、あ「２」を押してください。"
   end
 
   def accepted
