@@ -17,6 +17,10 @@ export default class extends Controller {
           else if (data.head == 302 && data.path) {
             window.location.pathname = data.path
           }
+          else {
+            this.messagesTarget.insertAdjacentHTML("beforeend", data)
+            channel.event.preventDefault()
+          }
         }
       }
     )

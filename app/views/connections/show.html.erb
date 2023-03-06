@@ -25,6 +25,7 @@
           <%= render "connections/message", message: message, style: "msg-user" %>
         <% end %>
       <% end %>
+
     </div>
     <div class="row">
       <%= simple_form_for [@connection, @message],
@@ -32,7 +33,7 @@
       %>
         <%= f.input :content,
           label: false,
-          placeholder: "Message #{@connection.clinic.name}",
+          placeholder: "Message #{@connection.appt_date}",
           wrapper_html: {class: "flex-grow-1"}
         %>
         <%= f.submit "Send", class: "btn btn-primary mb-3" %>

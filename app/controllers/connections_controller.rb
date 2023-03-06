@@ -29,6 +29,24 @@ class ConnectionsController < ApplicationController
     end
   end
 
+  def update
+    @connection = Connection.find(params[:id])
+    authorize @connection
+    if @connection.update(connection_params)
+      if params[:new_appt_date]
+        Message.create!({
+          connection: @connection,
+          sender: current_user,
+          sender_type: "User",
+          content: "Requested a different appointment date: #{@connection.appt_date}"
+        })
+      end
+      redirect_to connection_path(@connection, no_call: true)
+    else
+      render "connections/show", status: :unprocessable_entity, no_call: true
+    end
+  end
+
   private
 
   def set_clinic
