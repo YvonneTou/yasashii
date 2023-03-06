@@ -19,12 +19,8 @@ class VoiceController < ApplicationController
 
     # end_call if status == "completed"
     return unless params['call_paths']
-    case path
-    when ["accept", "details"]
-      accept_details_decision(input, @connection)
-    when ["repeat", "accept", "new_date"]
-      repeat_accept_new_date_decision(input, @connection)
-    end
+
+    call_flow(path, input)
   end
 
   private
@@ -95,11 +91,20 @@ class VoiceController < ApplicationController
           timeOut: 20,
           maxDigits: max_digits
       },
-      eventUrl: ["https://57c3-124-219-136-119.jp.ngrok.io/event?connection_id=#{@connection.id}#{call_paths_string}"]
+      eventUrl: ["https://ed65-124-219-136-119.jp.ngrok.io/event?connection_id=#{@connection.id}#{call_paths_string}"]
     }
   end
 
   # call paths
+
+  def call_flow(path, input)
+    case path
+    when ["accept", "details"]
+      accept_details_decision(input)
+    when ["repeat", "accept", "new_date"]
+      repeat_accept_new_date_decision(input)
+    end
+  end
 
   def greeting
     render json: [
@@ -109,10 +114,10 @@ class VoiceController < ApplicationController
     ]
   end
 
-  def accept_details_decision(input, connection)
+  def accept_details_decision(input)
     case input
     when 1
-      appt_details(connection)
+      appt_details
     when 2
       render json: [
         talk_json(accepted)
@@ -120,18 +125,18 @@ class VoiceController < ApplicationController
     end
   end
 
-  def appt_details(connection)
+  def appt_details
     render json: [
-      talk_json(appt_details_text(connection)),
+      talk_json(appt_details_text),
       input_json(appt_details_menu),
       event_json(1, ["repeat", "accept", "new_date"])
     ]
   end
 
-  def repeat_accept_new_date_decision(input, connection)
+  def repeat_accept_new_date_decision(input)
     case input
     when 1
-      appt_details(connection)
+      appt_details
     when 2
       render json: [
         talk_json(accepted)
@@ -150,27 +155,29 @@ class VoiceController < ApplicationController
   # text to speech
 
   def greeting_text
-    "こんにちは。「ヤサシイアプリ」からの予約の依頼でございます。これから、ガイダンスに従い、番号を押してください。"
+    # "こんにちは。「ヤサシイアプリ」からの予約の依頼でございます。これから、ガイダンスに従い、番号を押してください。"
+    "テスト"
   end
 
   def greeting_menu
     "予約の詳細をご確認の場合、「１」を。予約のご受諾の場合、「２」を押してください。"
   end
 
-  def appt_details_text(connection)
-    name = "#{connection.user.firstname} #{connection.user.lastname}"
-    appt_date = connection.appt_date.strftime("%Y年%m月%d日%H時%M分")
+  def appt_details_text
+    name = "#{@connection.user.firstname} #{@connection.user.lastname}"
+    appt_date = @connection.appt_date.strftime("%Y年%m月%d日%H時%M分")
     info = DeepL.translate @connection.info, 'EN', 'JA'
     symptoms = ""
     @connection.symptoms.each_with_index do |symptom, i|
-      if i + 1 == connection.symptoms.size
+      if i + 1 == @connection.symptoms.size
         symptoms += "#{DeepL.translate symptom, 'EN', 'JA'}"
       else
         symptoms += "#{DeepL.translate symptom, 'EN', 'JA'}、"
       end
     end
 
-    "予約者の名前は「#{name}」でございます。希望の日時は「#{appt_date}」でございます。現在、予約者の苦しんでいる症状は「#{symptoms}」でございます。最後に、予約者からのコメントをお伝えいたします。「#{info}」"
+    # "予約者の名前は「#{name}」でございます。希望の日時は「#{appt_date}」でございます。現在、予約者の苦しんでいる症状は「#{symptoms}」でございます。最後に、予約者からのコメントをお伝えいたします。「#{info}」"
+    "テスト"
   end
 
   def appt_details_menu
@@ -178,6 +185,7 @@ class VoiceController < ApplicationController
   end
 
   def accepted
-    "ご受諾いただき、ありがとうございました。予約者に「ヤサシイアプリ」で通知いたします。予約者のご手配のほど、よろしくお願い申し上げます。まもなく電話が終了いたします。失礼いたします。"
+    # "ご受諾いただき、ありがとうございました。予約者に「ヤサシイアプリ」で通知いたします。予約者のご手配のほど、よろしくお願い申し上げます。まもなく電話が終了いたします。失礼いたします。"
+    "テスト"
   end
 end
