@@ -18,7 +18,7 @@
       <i class="fa-regular fa-clock"></i>  <%= connection.appt_date.strftime("%-l:%M %p") %>
     </strong></p>
     <%# <% if connection.appt_date > Time.now %>
-      <%= link_to redirect_url do %>
+      <%= link_to redirect_url(connection_id: connection.id) do %>
         <button class="btn btn-primary">Add appointment to my Google calendar</button>
       <% end %>
     <%# <% end %>
