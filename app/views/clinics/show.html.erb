@@ -11,70 +11,82 @@
 
 
 <div class="container">
-  <nav class="nav nav-pills nav-fill mt-4">
-    <a class="nav-link active" aria-current="page" href="#">About Clinic</a>
-    <a class="nav-link" href="#">Book Appointment</a>
-  </nav>
-  <div class="my-4">
-    <h3>About This Clinic</h3>
-    <p><%= @clinic.description %></p>
+<div class="mt-4">
+  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">About Clinic</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Book Appointment</button>
+  </li>
+</ul>
+</div>
+<div class="tab-content" id="pills-tabContent">
+  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+  <div>
+    <div class="my-4">
+      <h3>About This Clinic</h3>
+      <p><%= @clinic.description %></p>
+    </div>
+
+    <div class="mb-2">
+      <% if @clinic.symptoms.present? %>
+        <p><strong>Treatment Available For</strong></p>
+          <% @clinic.symptoms.each do |symptom| %>
+            <p><%= symptom.symptom_en.capitalize %></p>
+          <% end %>
+      <% end %>
+        <%# <% @clinic.specialty_list.each do |specialty| %>
+          <%# <p><%= specialty %></p>
+        <%# <% end %>
+    </div>
+    <div class="my-4">
+      <h3>Contact Information</h3>
+      <div class="d-flex flex-row py-2">
+        <span class="fa-stack d-flex flex-col justify-content-center mx-1">
+          <i class="fa fa-circle fa-stack-2x icon-bg"></i>
+          <i class="fa-regular fa-clock fa-stack-1x icon-color"></i>
+        </span>
+        <p class="d-flex flex-col align-self-center m-0"> <%= @clinic.hours %><p>
+      </div>
+      <div class="d-flex flex-row py-2">
+        <span class="fa-stack d-flex flex-col justify-content-center mx-1">
+          <i class="fa fa-circle fa-stack-2x icon-bg"></i>
+          <i class="fa-solid fa-phone fa-stack-1x icon-color"></i>
+        </span>
+        <p class="d-flex flex-col align-self-center m-0"> <%= @clinic.phone_number %><p>
+      </div>
+      <div class="d-flex flex-row py-2">
+        <span class="fa-stack d-flex flex-col justify-content-center mx-1">
+          <i class="fa fa-circle fa-stack-2x icon-bg"></i>
+          <i class="fa-regular fa-envelope fa-stack-1x icon-color"></i>
+        </span>
+        <p class="d-flex flex-col align-self-center m-0"> <%= @clinic.email %><p>
+      </div>
+      <div class="d-flex flex-row py-2">
+        <span class="fa-stack d-flex flex-col justify-content-center fwidth mx-1">
+          <i class="fa fa-circle fa-stack-2x icon-bg"></i>
+          <i class="fa-solid fa-location-dot fa-stack-1x icon-color"></i>
+        </span>
+        <p class="d-flex flex-col align-self-center m-0"><%= @clinic.location %><p>
+      </div>
+    </div>
   </div>
 
-  <div class="mb-2">
-    <% if @clinic.symptoms.present? %>
-      <p><strong>Treatment Available For</strong></p>
-        <% @clinic.symptoms.each do |symptom| %>
-          <p><%= symptom.symptom_en.capitalize %></p>
-        <% end %>
-    <% end %>
-      <%# <% @clinic.specialty_list.each do |specialty| %>
-        <%# <p><%= specialty %></p>
-      <%# <% end %>
+    <div id="clinics-map" class="mt-4" style="width: 100%; height: 40vh;"
+    data-controller="show-map"
+    data-show-map-marker-value="<%= @marker.to_json %>"
+    data-show-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
   </div>
-  <div class="my-4">
-    <h3>Contact Information</h3>
-    <div class="d-flex flex-row py-2">
-      <span class="fa-stack d-flex flex-col justify-content-center mx-1">
-        <i class="fa fa-circle fa-stack-2x icon-bg"></i>
-        <i class="fa-regular fa-clock fa-stack-1x icon-color"></i>
-      </span>
-      <p class="d-flex flex-col align-self-center m-0"> <%= @clinic.hours %><p>
+  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+  <div class="my-5">
+      <h3>Make a phone call appointment with <strong><%= @clinic.name %></strong></h3>
     </div>
-    <div class="d-flex flex-row py-2">
-      <span class="fa-stack d-flex flex-col justify-content-center mx-1">
-        <i class="fa fa-circle fa-stack-2x icon-bg"></i>
-        <i class="fa-solid fa-phone fa-stack-1x icon-color"></i>
-      </span>
-      <p class="d-flex flex-col align-self-center m-0"> <%= @clinic.phone_number %><p>
-    </div>
-    <div class="d-flex flex-row py-2">
-      <span class="fa-stack d-flex flex-col justify-content-center mx-1">
-        <i class="fa fa-circle fa-stack-2x icon-bg"></i>
-        <i class="fa-regular fa-envelope fa-stack-1x icon-color"></i>
-      </span>
-      <p class="d-flex flex-col align-self-center m-0"> <%= @clinic.email %><p>
-    </div>
-    <div class="d-flex flex-row py-2">
-      <span class="fa-stack d-flex flex-col justify-content-center fwidth mx-1">
-        <i class="fa fa-circle fa-stack-2x icon-bg"></i>
-        <i class="fa-solid fa-location-dot fa-stack-1x icon-color"></i>
-      </span>
-      <p class="d-flex flex-col align-self-center m-0"><%= @clinic.location %><p>
-    </div>
+
+    <%= simple_form_for [@connection] do |f| %>
+      <%= render 'connections/form', article: [@connection, @clinic] %>
+    <% end %>
   </div>
 </div>
 
-  <div id="clinics-map" class="mt-4" style="width: 100%; height: 40vh;"
-  data-controller="show-map"
-  data-show-map-marker-value="<%= @marker.to_json %>"
-  data-show-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
-
-<div class="container">
-  <div class="my-5">
-    <h3>Make a phone call appointment with <strong><%= @clinic.name %></strong></h3>
-  </div>
-
-  <%= simple_form_for [@connection] do |f| %>
-    <%= render 'connections/form', article: [@connection, @clinic] %>
-  <% end %>
 </div>
