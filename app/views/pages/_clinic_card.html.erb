@@ -9,15 +9,13 @@
 
       <div class="p-3 pt-4 col-lg-9 col-md-9 col-sm-12">
         <h3><%= clinic.name %> <br></h3>
-        <p>
-          <small>
-            <span class="fa-stack">
-              <i class="fa fa-circle fa-stack-2x icon-bg"></i>
-              <i class="fa-solid fa-location-dot fa-stack-1x icon-color"></i>
-            </span>
-            <%= clinic.location %>
-          </small>
-        </p>
+        <div class="d-flex flex-row">
+          <span class="fa-stack d-flex flex-col justify-content-center fwidth mx-1">
+            <i class="fa fa-circle fa-stack-2x icon-bg"></i>
+            <i class="fa-solid fa-location-dot fa-stack-1x icon-color"></i>
+          </span>
+          <p class="d-flex flex-col align-self-center m-0"><%= clinic.location %></p>
+        </div>
       </div>
 
     </div>
