@@ -5,15 +5,18 @@ export default class extends Controller {
   static targets = ["appt", "button"]
 
   connect() {
-    // console.log("connected")
+    console.log("connected")
+    console.log(this.hasButtonTarget)
   }
 
   reveal() {
-    console.log(this.hasApptTarget)
     this.apptTarget.classList.toggle("hide");
   }
 
   disable() {
-    this.buttonTarget.setAttribute("disabled", "")
+    console.log("hello")
+    this.buttonTargets.forEach((btn) => {
+      btn.disabled = true
+    })
   }
 }

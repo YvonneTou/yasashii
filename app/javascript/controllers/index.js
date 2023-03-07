@@ -10,9 +10,6 @@ application.register("clinic-toggle", ClinicToggleController)
 import ConnectionSubscriptionController from "./connection_subscription_controller"
 application.register("connection-subscription", ConnectionSubscriptionController)
 
-import ConnectionsController from "./connections_controller"
-application.register("connections", ConnectionsController)
-
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
