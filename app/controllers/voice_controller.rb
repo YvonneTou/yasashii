@@ -7,12 +7,7 @@ class VoiceController < ApplicationController
   def answer
     @connection.uuid = params['uuid']
     @connection.save
-    ConnectionChannel.broadcast_to(
-      @connection,
-      head: 302,
-      path: "#{connection_path(@connection)}",
-      params: "?no_call=true"
-    )
+    create_message("hi")
     # greeting
   end
 
@@ -22,7 +17,7 @@ class VoiceController < ApplicationController
     status = params['status'] if params['status']
     path = params['call_paths'] if params['call_paths']
 
-    end_call if status == "completed"
+    # end_call if status == "completed"
     return unless params['call_paths']
 
     call_flow(path, input)
@@ -39,18 +34,19 @@ class VoiceController < ApplicationController
   end
 
   def create_message(message_content)
-    @message = Message.create!({
+    @message = Message.create!(
+      {
       connection: @connection,
       sender: @connection.clinic,
       sender_type: "Clinic",
       content: message_content
-    })
+      }
+    )
 
     ConnectionChannel.broadcast_to(
       @connection,
-      head: 302,
-      path: "#{connection_path(@connection)}",
-      params: "?no_call=true"
+      # (render "connections/_message", message: @message, style: "msg-clinic float-start").to_s
+      (render partial: "connections/message", locals: { message: @message, style: "msg-clinic float-start" }).to_s
     )
   end
 
@@ -98,23 +94,6 @@ class VoiceController < ApplicationController
       },
       eventUrl: ["https://ed65-124-219-136-119.jp.ngrok.io/event?connection_id=#{@connection.id}#{call_paths_string}"]
     }
-  end
-
-  def confirm_new_appt_date_message # might need updating
-    "<div class='msg-clinic rounded-4 p-3 w-80 mt-2'>
-    <p>The clinic has requested a new date for your appointment:</p>
-    <p><strong>#{@connection.appt_date.strftime('%A, %B %e at %R')}</strong></p>
-    <form class='simple_form edit_connection' data-controller='connection' id='edit_connection_#{@connection.id}' novalidate='novalidate' action='/connections/#{@connection.id}' accept-charset='UTF-8' method='post'><input type='hidden' name='_method' value='patch' autocomplete='off'><input type='hidden' name='authenticity_token' value='eyyFhVbSDwwfqcLKh-wis6x96ygmHH4jOJMaIyPHYjX0EPR47e1GlyDiBteXOOlhkteqqnu15hef2s3JkHod3g' autocomplete='off'>
-      <div>
-      <input type='submit' name='commit' value='Accept' class='btn col-sm-6 col-lg-2 btn btn-primary' data-turbo-confirm='Are you sure?' data-disable-with='Accept'>
-      <button name='button' type='button' class='btn col-sm-6 col-lg-2 btn btn-light ms-2' data-action='click->connection#reveal'>Propose new date</button>
-      </div>
-      <div class='appt hide' data-connection-target='appt'>
-      <div class='mb-3 datetime optional connection_appt_date'><label class='form-label datetime optional col-sm-12 col-lg-12 mt-3' for='connection_appt_date'>New appointment date and time</label><div class='d-flex flex-row justify-content-between align-items-center'><input class='form-select mx-1 is-valid datetime optional' value='#{@connection.appt_date.strftime('%y-%m-%dT%T')}' type='datetime-local' name='connection[appt_date]' id='connection_appt_date'></div></div>
-      <input type='hidden' name='new_appt_date' id='new_appt_date' value='true' autocomplete='off'>
-      <input type='submit' name='commit' value='Submit' class='btn col-sm-12 col-lg-3 btn btn-primary mb-3' data-turbo-confirm='Propose this new date?' data-disable-with='Submit'>
-      </div>
-</form>      </div>"
   end
 
   # call paths
@@ -232,7 +211,7 @@ class VoiceController < ApplicationController
     when 1
       ConnectionChannel.broadcast_to(
         @connection,
-        confirm_new_appt_date_message
+        (render partial: "connections/new_date_form", locals: { connection: @connection }).to_s
       )
       render json: [
         talk_json(data_to_user),

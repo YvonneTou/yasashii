@@ -1,4 +1,4 @@
-<div class="clinic-info sticky mt-4">
+<div class="clinic-info mt-4">
   <div class="card-appt">
     <div class="p-3 pt-4">
       <h3><%= @connection.clinic.name %> <br></h3>
@@ -25,18 +25,6 @@
         <%= render "connections/message", message: message, style: "msg-user float-end" %>
       <% end %>
     <% end %>
+  <%= render partial: "connections/appointment_confirmation", locals: { message: @message, style: "msg-clinic float-start" } %>
   </div>
 </div>
-
-    <div class="row">
-      <%= simple_form_for [@connection, @message],
-        html: {class: "d-flex"} do |f|
-      %>
-        <%= f.input :content,
-          label: false,
-          placeholder: "Message #{@connection.appt_date}",
-          wrapper_html: {class: "flex-grow-1"}
-        %>
-        <%= f.submit "Send", class: "btn btn-primary mb-3" %>
-      <% end %>
-    </div>

@@ -23,6 +23,7 @@ class ConnectionsController < ApplicationController
     @connection.symptoms.delete_at(0)
     authorize @connection
     if @connection.save
+      create_form_message
       redirect_to connection_path(@connection)
     else
       render "clinics/show", status: :unprocessable_entity
@@ -56,6 +57,15 @@ class ConnectionsController < ApplicationController
 
   def connection_params
     params.require(:connection).permit(:appt_date, { symptoms: [] }, :info, :clinic_id)
+  end
+
+  def create_form_message
+    Message.create!({
+      connection: @connection,
+      sender: @connection.user,
+      sender_type: "User",
+      content: "#{@connection.user.firstname} #{@connection.user.lastname} has requested an appointment on <strong>#{@connection.appt_date.strftime('%A, %B %e at %R')}</strong>."
+    })
   end
 
   def create_client
