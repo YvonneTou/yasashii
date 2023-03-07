@@ -120,9 +120,14 @@
 
 .modal-content {
   padding: 16px;
+  height: 100vh;
 }
 .modal-title img {
   width: 40px;
+}
+
+.modal-body {
+  margin-bottom: 0px;
 }
 
 .modal.fade.modal-left .modal-dialog {
@@ -150,7 +155,7 @@
 }
 
 .page-container {
-  margin-top: 80px;
+  margin-top: 60px;
   position: relative;
   min-height: 100vh;
 }

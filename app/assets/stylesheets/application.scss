@@ -127,6 +127,18 @@ a {
   color: $pink;
 }
 
+.text-glow {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.box-glow {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.white-bg {
+  background-color: white;
+}
+
 @media (max-width: 768px) {
   h3 {
     font-size: 21px !important;
@@ -136,8 +148,8 @@ a {
     width: 100%;
   }
   .popups {
-    bottom: -40px !important;
-    transform: scale(0.95, 0.75) !important;
+    bottom: -30px !important;
+    transform: scale(0.95, 0.80) !important;
   }
 }
 @media (max-width: 320px) {
@@ -149,8 +161,8 @@ a {
     width: 100%;
   }
   .popups {
-    bottom: -40px !important;
-    transform: scale(0.95, 0.75) !important;
+    bottom: -30px !important;
+    transform: scale(0.95, 0.80) !important;
   }
 }
 

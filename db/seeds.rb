@@ -5,6 +5,25 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+require "nokogiri"
+require "open-uri"
+
+# scraping locations (70 total) and names (70 total) of clinics
+# limited amount of clinics to 30
+url_one = "https://www.alljapanrelocation.com/living-guides/hospitals/"
+html_one = URI.open(url_one)
+doc_one = Nokogiri::HTML.parse(html_one)
+
+elements_names = doc_one.search('.hospital-info h3').take(30)
+elements_locations = doc_one.search('.fa-map-marker + a').take(30)
+
+names = elements_names.map do |element|
+  element.text.strip
+end
+
+locations = elements_locations.map do |element|
+  element.text.strip
+end
 
 SYMPTOMS = [
   "back pain",
@@ -52,7 +71,7 @@ Clinic.destroy_all
 User.destroy_all
 puts "Done deletion"
 
-puts "Creating 4 new Users..."
+puts "Creating 6 new Users..."
 
 sarah = {
   file: "https://res.cloudinary.com/df7gbyhfx/image/upload/v1677485847/wdvks78cnylhnmuic7ox.png",
@@ -90,7 +109,24 @@ yvonne = {
   firstname: "Yvonne"
 }
 
-users = [yvonne, sarah, dani, tanner]
+dani_demo = {
+  file: "https://res.cloudinary.com/df7gbyhfx/image/upload/v1677984960/rtsvp2gdwmvhn3u72u3d.jpg",
+  username: "Danielle",
+  email: "danielle.m13579@gmail.com",
+  password: "123456",
+  lastname: "Matsumoto",
+  firstname: "Danielle"
+}
+
+test_acct = {
+  file: "https://res.cloudinary.com/df7gbyhfx/image/upload/v1675342051/hfrgkexj32egcd8qjq2g.jpg",
+  username: "test.calendar.acct",
+  email: "test.calendar.y@gmail.com",
+  password: "123456",
+  lastname: "Account",
+  firstname: "Test"
+}
+users = [yvonne, sarah, dani, tanner, dani_demo, test_acct]
 
 def create_users(user)
   file = URI.open(user[:file])
@@ -117,7 +153,7 @@ end
 
 puts "Done creating users"
 
-puts "Creating 10 new Clinics..."
+puts "Creating 11 new Clinics..."
 
 derm = {
   file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098274/f8ohtzopvp39syrgiurl.jpg",
@@ -270,9 +306,9 @@ clinics.each_with_index do |clinic, index|
   puts "Created #{index + 1} clinic#{index.zero? ? '' : 's'}"
 end
 
-puts 'Done creating 10 clinics'
+puts 'Done creating 11 clinics'
 
-puts 'Creating more clinics for Mapbox map'
+puts 'Creating 30 more clinics for Mapbox map'
 
 clinic_photos = ["http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098393/zquhpwiksc8zt3rwoifi.jpg",
                  "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098682/fz8jcbrtkxsdsvxhonrp.jpg",
@@ -295,16 +331,40 @@ clinic_desc = ["We are an organized medical team offering diagnostic, therapeuti
   referral system. Please bring your referral from a clinic or doctor's office when you visit.", "We are an
   interdisciplinary practice that has been providing healthcare to our community since 1995"]
 
-puts "Creating three connections per user (#{User.all.count * 3} connections)..."
+def create_clinics_map(a_name, a_location, hours, phone, mail, desc, photo)
+  file = URI.open(photo.sample)
+
+  new_clinic = Clinic.new(
+    {
+      name: a_name,
+      location: a_location,
+      hours: hours.sample,
+      phone_number: phone.sample,
+      email: mail.sample,
+      description: desc.sample
+    }
+  )
+
+  new_clinic.photo.attach(io: file, filename: "#{a_name}.jpg", content_type: "image/jpg")
+  new_clinic.save
+end
+
+names.zip(locations).each do |name, location|
+  create_clinics_map(name, location, clinic_hours, clinic_phone_num, clinic_email, clinic_desc, clinic_photos)
+end
+
+puts 'Done creating clinics for Mapbox map'
+
+puts "Creating 2 connections per user (#{User.all.count * 2} connections)..."
 
 User.all.each do |user|
   Connection.create!(
     {
       user: user,
-      clinic: Clinic.all.sample,
-      appt_date: DateTime.new(2023, 2, 14, 11, 0, 0),
-      symptoms: ["dizziness", "shortness of breath", "fatigue"],
-      info: "I require wheelchair access.",
+      clinic: Clinic.find_by(name: 'KEI Acupuncture'),
+      appt_date: DateTime.new(2023, 3, 13, 14, 0, 0, "+09:00"),
+      symptoms: ["back pain", "Trouble sleeping"],
+      info: "First timer",
       status: 1
     }
   )
@@ -312,21 +372,10 @@ User.all.each do |user|
   Connection.create!(
     {
       user: user,
-      clinic: Clinic.all.sample,
-      appt_date: DateTime.new(2023, 2, 2, 8, 30, 0),
-      symptoms: ["cough", "fever", "loss of taste"],
-      info: "I might have the Rona.",
-      status: 3
-    }
-  )
-
-  Connection.create!(
-    {
-      user: user,
-      clinic: Clinic.all.sample,
-      appt_date: DateTime.new(2023, 1, 8, 8, 30, 0),
+      clinic: Clinic.find_by(name: 'Shinagawa Dermatology'),
+      appt_date: DateTime.new(2023, 3, 8, 16, 30, 0, "+09:00"),
       symptoms: ["itchiness", "acne", "oozing"],
-      info: "I require ointment.",
+      info: "I changed to a new facial wash recently",
       status: 3
     }
   )
@@ -385,31 +434,147 @@ end
 
 puts "Done creating messages"
 
-puts "Adding specialties for clinics"
+puts "Adding symptoms and specialties for clinics"
 
-def specialty(clinic, symptom)
-  clinic = Clinic.find_by(name: clinic).id
-  Specialty.create!(
-    symptom_id: symptom,
-    clinic_id: clinic
+def add_symptoms(symptom)
+  Symptom.create!(
+    location: symptom[:location],
+    symptom_en: symptom[:symptom_en],
+    symptom_jp: symptom[:symptom_jp]
   )
 end
 
-# clinics = [derm, mirai, ladies, ear, sakurai, mental, sakoda, hira, utaan, kei]
+symptoms = [
+  head1 = {
+    location: 'head',
+    symptom_en: 'headache',
+    symptom_jp: '頭痛'
+  },
+  head2 = {
+    location: 'head',
+    symptom_en: 'hair loss',
+    symptom_jp: '髪の毛が抜けてきている'
+  },
+  head3 = {
+    location: 'head',
+    symptom_en: 'dizzines',
+    symptom_jp: '立ちくらみがする'
+  },
+  ear1 = {
+    location: 'ear',
+    symptom_en: 'tinnitus',
+    symptom_jp: '耳鳴りがする'
+  },
+  ear2 = {
+    location: 'ear',
+    symptom_en: 'stuffy ears',
+    symptom_jp:'耳が詰まった感じがする'
+  },
+  neck1 = {
+    location: 'neck',
+    symptom_en: 'neck swelling',
+    symptom_jp: '首の周りが腫れている'
+  },
+  neck2 = {
+    location: 'neck',
+    symptom_en: 'stiff neck',
+    symptom_jp: '首こりがある'
+  },
+  mouth1 = {
+    location: 'mouth',
+    symptom_en: 'toothache',
+    symptom_jp: '歯の痛みがある'
+  },
+  mouth2 = {
+    location: 'mouth',
+    symptom_en: 'cavity',
+    symptom_jp: '虫歯'
+  },
+  throat = {
+    location: 'throat',
+    symptom_en: 'sore throat',
+    symptom_jp: 'のどの痛みがある'
+  },
+  allergy1 = {
+    location: 'allergy',
+    symptom_en: 'allergic rhinitis',
+    symptom_jp: 'アレルギー性鼻炎'
+  },
+  allergy2 = {
+    location: 'allergy',
+    symptom_en: 'coughing and sneezing',
+    symptom_jp: '咳とくしゃみ'
+  },
+  nose1 = {
+    location: 'nose',
+    symptom_en: 'runny nose',
+    symptom_jp: '鼻水が出る'
+  },
+  nose2 = {
+    location: 'nose',
+    symptom_en: 'nose bleed',
+    symptom_jp: '鼻血が出ている'
+  },
+  eye = {
+    location: 'eye',
+    symptom_en: 'eyeball popped out',
+    symptom_jp: '目玉が飛び出している'
+  },
+  stomach1 = {
+    location: 'stomach',
+    symptom_en: 'diarrhea',
+    symptom_jp: '下痢'
+  },
+  stomach2 = {
+    location: 'stomach',
+    symptom_en: 'constipation',
+    symptom_jp: '便秘'
+  },
+  uterus1 = {
+    location: 'uterus',
+    symptom_en: 'inconsistent period',
+    symptom_jp: '生理周期がおかしい'
+  },
+  vagina = {
+    location: 'vagina',
+    symptom_en: 'vaginal pain',
+    symptom_jp: '女性器の痛み'
+  },
+  lung = {
+    location: 'lung',
+    symptom_en: 'dry cough',
+    symptom_jp: '空咳が出る'
+  }
+]
 
-specialty('Meguro Ear', 7)
-specialty('Meguro Ear', 8)
-specialty('Sakurai Orthopedic Surgical Clinic', 10)
-specialty('Shinagawa Ekimae Mental Clinic', 1)
-specialty('Shinagawa Ekimae Mental Clinic', 5)
-specialty('Meguro Sakoda Orthopedics', 8)
-specialty('Shinagawa Dermatology', 4)
-specialty('Shinagawa Mirai Internal Medicine Clinic', 10)
-specialty('Meguro Ladies Clinic', 5)
-specialty('Utaan Acupuncture Orthopedic Clinic', 8)
-specialty('KEI Acupuncture', 1)
-specialty('Nagakura Jibika Allergy Clinic', 13)
-specialty('Nagakura Jibika Allergy Clinic', 24)
-specialty('Nagakura Jibika Allergy Clinic', 14)
+symptoms.each do |symptom|
+  add_symptoms(symptom)
+end
+
+# clinics = [derm, mirai, ladies, ear, sakurai, mental, sakoda, hira, utaan, kei, nagakura]
+
+def specialty(clinic, symptom)
+  # clinic_id = Clinic.find_by(name: clinic[:name]).id
+  # symptom_id = Symptom.find_by(symptom_en: symptom[:symptom_en]).id
+  Specialty.create!(
+    clinic_id: Clinic.find_by(name: clinic[:name]).id,
+    symptom_id: Symptom.find_by(symptom_en: symptom[:symptom_en]).id
+  )
+end
+
+specialty(ear, ear1)
+specialty(ear, ear2)
+specialty(sakurai, neck2)
+specialty(mental, head1)
+specialty(mental, head3)
+specialty(sakoda, neck1)
+specialty(derm, head2)
+specialty(mirai, throat)
+specialty(ladies, head3)
+specialty(utaan, neck1)
+specialty(kei, head1)
+specialty(nagakura, allergy1)
+specialty(nagakura, allergy2)
+specialty(nagakura, nose1)
 
 puts "Done adding specialties to clinics!"
