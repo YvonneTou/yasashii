@@ -1,11 +1,11 @@
 <%= form_with url: clinics_path, method: :get do %>
   <%= text_field_tag :query,
     params[:query],
-    class: "form-control my-3",
+    class: "form-control my-3 box-glow white-bg",
     placeholder: "Location",
     required: true
   %>
-  <%= button_tag type: 'submit', class: "btn btn-primary w-100 mb-3" do %>
+  <%= button_tag type: 'submit', class: "btn btn-primary w-100 mb-3 box-glow" do %>
     Search
   <% end %>
 <% end %>
