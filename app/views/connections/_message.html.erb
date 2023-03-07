@@ -1,3 +1,4 @@
-<div class="<%= style %> rounded-4 p-3 w-80 mt-2">
-  <%= message.content %>
+<div class="<%= style %> rounded-4 p-3 mt-2 row col-11 d-flex">
+  <p class="m-0"><%= message.content %></p>
+  <p class="m-0"><small><%= message.created_at.in_time_zone("Japan").strftime("%k:%M") %></small></p>
 </div>

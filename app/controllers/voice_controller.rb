@@ -7,7 +7,13 @@ class VoiceController < ApplicationController
   def answer
     @connection.uuid = params['uuid']
     @connection.save
-    greeting
+    ConnectionChannel.broadcast_to(
+      @connection,
+      head: 302,
+      path: "#{connection_path(@connection)}",
+      params: "?no_call=true"
+    )
+    # greeting
   end
 
   def event

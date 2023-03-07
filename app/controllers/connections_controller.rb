@@ -38,7 +38,7 @@ class ConnectionsController < ApplicationController
           connection: @connection,
           sender: current_user,
           sender_type: "User",
-          content: "Requested a new appointment date on #{@connection.appt_date.strftime('%A, %B %e at %R')}."
+          content: "Requested a new appointment date on #{@connection.appt_date.in_time_zone("Japan").strftime('%A, %B %e at %R')}."
         })
         update_ncco
       end
@@ -94,7 +94,7 @@ class ConnectionsController < ApplicationController
       "ncco": [
         {
           action: "talk",
-          text: @connection.appt_date.strftime("%m月%d日%H時%M分"),
+          text: @connection.appt_date.in_time_zone("Japan").strftime("%m月%d日%H時%M分"),
           language: "ja-JP",
           style: 0,
           bargeIn: true

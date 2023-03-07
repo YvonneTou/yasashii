@@ -1,31 +1,33 @@
-<div class="clinic-info mt-0">
+<div class="clinic-info sticky mt-4">
   <div class="card-appt">
     <div class="p-3 pt-4">
       <h3><%= @connection.clinic.name %> <br></h3>
-      <p>
+        <div class="d-flex">
         <small>
           <span class="fa-stack">
             <i class="fa fa-circle fa-stack-2x icon-bg"></i>
             <i class="fa-solid fa-location-dot fa-stack-1x icon-color"></i>
           </span>
-          <%= @connection.clinic.location %>
+          <p><%= @connection.clinic.location %></p>
         </small>
-      </p>
+        </div>
     </div>
   </div>
 </div>
 
-<div class="container mt-0">
-  <div class="chatroom" data-controller="connection-subscription" data-connection-subscription-connection-id-value="<%= @connection.id %>">
-    <div class="messages container row" data-connection-subscription-target="messages">
-      <% @connection.messages.each do |message| %>
-        <% if message.sender_type == "Clinic" %>
-          <%= render "connections/message", message: message, style: "msg-clinic" %>
-        <% elsif message.sender_type == "User" %>
-          <%= render "connections/message", message: message, style: "msg-user" %>
-        <% end %>
+
+<div class="container overflow-scroll chatroom" data-controller="connection-subscription" data-connection-subscription-connection-id-value="<%= @connection.id %>">
+  <div class="messages container" data-connection-subscription-target="messages">
+    <% @connection.messages.each do |message| %>
+      <% if message.sender_type == "Clinic" %>
+        <%= render "connections/message", message: message, style: "msg-clinic float-start" %>
+      <% elsif message.sender_type == "User" %>
+        <%= render "connections/message", message: message, style: "msg-user float-end" %>
       <% end %>
-    </div>
+    <% end %>
+  </div>
+</div>
+
     <div class="row">
       <%= simple_form_for [@connection, @message],
         html: {class: "d-flex"} do |f|
@@ -38,4 +40,3 @@
         <%= f.submit "Send", class: "btn btn-primary mb-3" %>
       <% end %>
     </div>
-</div>
