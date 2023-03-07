@@ -47,11 +47,7 @@ class VoiceController < ApplicationController
         "streamUrl": ["https://incompetech.com/music/royalty-free/mp3-royaltyfree/Gymnopedie%20No%201.mp3"],
         "bargeIn": "true"
       },
-      {
-        "action": "input",
-        "submitOnHash": "true",
-        "eventUrl": ["https://ed65-124-219-136-119.jp.ngrok.io/event?connection_id=#{@connection.id}"]
-      }
+      event_json(1, ["accept", "new_date"])
     ]
   end
 
@@ -253,7 +249,7 @@ class VoiceController < ApplicationController
     end
   end
 
-  def accept_new_date_decision
+  def accept_new_date_decision(input)
     case input
     when 1
       render json: [
