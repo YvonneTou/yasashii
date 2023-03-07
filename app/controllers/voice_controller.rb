@@ -7,8 +7,7 @@ class VoiceController < ApplicationController
   def answer
     @connection.uuid = params['uuid']
     @connection.save
-    create_message("hi")
-    # greeting
+    greeting
   end
 
   def event
@@ -17,7 +16,7 @@ class VoiceController < ApplicationController
     status = params['status'] if params['status']
     path = params['call_paths'] if params['call_paths']
 
-    # end_call if status == "completed"
+    end_call if status == "completed"
     return unless params['call_paths']
 
     call_flow(path, input)
@@ -53,8 +52,7 @@ class VoiceController < ApplicationController
   def end_call
     ConnectionChannel.broadcast_to(
       @connection,
-      head: 302,
-      path: dashboard_path
+      (render partial: "connections/appointment_confirmation", locals: { connection: @connection, style: "msg-user float-end" }).to_s
     )
   end
 
@@ -168,7 +166,7 @@ class VoiceController < ApplicationController
 
   def change_day(input)
     puts input
-    @connection.appt_date = @connection.appt_date.strftime("%d/#{input}/%Y/ %H:%M:00").to_datetime
+    @connection.appt_date = @connection.appt_date.strftime("%d/#{input}/%Y/ %H:%M:00 +0900").to_datetime
     @connection.save
     puts @connection.appt_date
 
@@ -182,7 +180,7 @@ class VoiceController < ApplicationController
 
   def change_time(input)
     puts input
-    @connection.appt_date = @connection.appt_date.strftime("#{input}/%m/%Y/ %H:%M:00").to_datetime
+    @connection.appt_date = @connection.appt_date.strftime("#{input}/%m/%Y/ %H:%M:00 +0900").to_datetime
     @connection.save
     puts @connection.appt_date
 
@@ -195,7 +193,7 @@ class VoiceController < ApplicationController
 
   def confirm_appt_date(input)
     puts input
-    @connection.appt_date = @connection.appt_date.strftime("%d/%m/%Y/ #{input.to_s[0..1]}:#{input.to_s[2..3]}:00").to_datetime
+    @connection.appt_date = @connection.appt_date.strftime("%d/%m/%Y/ #{input.to_s[0..1]}:#{input.to_s[2..3]}:00 +0900").to_datetime
     @connection.save
     puts @connection.appt_date
 
@@ -209,10 +207,10 @@ class VoiceController < ApplicationController
   def send_to_user_new_date_decision(input)
     case input
     when 1
-      ConnectionChannel.broadcast_to(
-        @connection,
-        (render partial: "connections/new_date_form", locals: { connection: @connection }).to_s
-      )
+      # ConnectionChannel.broadcast_to(
+      #   @connection,
+      #   (render partial: "connections/new_date_form", locals: { connection: @connection }).to_s
+      # )
       render json: [
         talk_json(data_to_user),
         hold_music
@@ -270,7 +268,7 @@ class VoiceController < ApplicationController
   end
 
   def appt_details_menu
-    "繰り返しは「１」を。受諾は「２」を。変更は「３」を。"
+    "詳細をもう一度お聞きになる場合、「１」を。受諾の場合、「２」を。変更は「３」を、押してください。"
   end
 
   def enter_month
@@ -278,11 +276,11 @@ class VoiceController < ApplicationController
   end
 
   def enter_day
-    "ご希望の日にちを数字で押してください。"
+    "ご希望の日を数字で押してください。"
   end
 
   def enter_time
-    "２４時間の形式で押してください。たとえ午後１時１５分だと、「１」「３」「１」「５」を押してください。"
+    "２４時間の形式で押してください。たとえ、午後１時１５分だと、「１」「３」「１」「５」を押してください。"
   end
 
   def check_new_date
@@ -294,7 +292,7 @@ class VoiceController < ApplicationController
   end
 
   def data_to_user
-    "予約者に通信します。"
+    "予約者に通信いたします。少々お待ちください。"
   end
 
   def hold_music

@@ -35,15 +35,18 @@ class ConnectionsController < ApplicationController
     authorize @connection
     if @connection.update(connection_params)
       if params[:new_appt_date]
-        Message.create!({
+        message = Message.create!({
           connection: @connection,
           sender: current_user,
           sender_type: "User",
-          content: "Requested a new appointment date on #{@connection.appt_date.in_time_zone("Japan").strftime('%A, %B %e at %R')}."
+          content: "I'd like to request a new appointment date on #{@connection.appt_date.in_time_zone("Japan").strftime('%A, %B %e at %R')}."
         })
         update_ncco
       end
-      redirect_to connection_path(@connection, no_call: true)
+      ConnectionChannel.broadcast_to(
+        @connection,
+        (render partial: "connections/message", locals: { message: message, style: "msg-user float-end" }).to_s
+      )
     else
       render "connections/show", status: :unprocessable_entity, no_call: true
     end

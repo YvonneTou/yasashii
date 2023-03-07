@@ -77,10 +77,10 @@ class CalendarController < ApplicationController
 
   def client_options(connection_id)
     {
-      # client_id: Rails.application.secrets.google_client_id,
-      # client_secret: Rails.application.secrets.google_client_secret,
-      client_id: ENV['google_client_id'],
-      client_secret: ENV['google_client_secret'],
+      client_id: Rails.application.secrets.google_client_id,
+      client_secret: Rails.application.secrets.google_client_secret,
+      # client_id: ENV['google_client_id'],
+      # client_secret: ENV['google_client_secret'],
       authorization_uri: 'https://accounts.google.com/o/oauth2/auth',
       token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
       scope: Google::Apis::CalendarV3::AUTH_CALENDAR,
