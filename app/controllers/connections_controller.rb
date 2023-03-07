@@ -67,7 +67,7 @@ class ConnectionsController < ApplicationController
       connection: @connection,
       sender: @connection.user,
       sender_type: "User",
-      content: "#{@connection.user.firstname} #{@connection.user.lastname} has requested an appointment on <strong>#{@connection.appt_date.strftime('%A, %B %e at %R')}</strong>."
+      content: "I'd like to request an appointment on #{@connection.appt_date.strftime('%A, %B %e at %R')}."
     })
   end
 

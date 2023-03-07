@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="new-date"
 export default class extends Controller {
-  static targets = ['appt', "footer"]
+  static targets = ["appt", "button"]
 
   connect() {
     // console.log("connected")
@@ -11,5 +11,9 @@ export default class extends Controller {
   reveal() {
     console.log(this.hasApptTarget)
     this.apptTarget.classList.toggle("hide");
+  }
+
+  disable() {
+    this.buttonTarget.setAttribute("disabled", "")
   }
 }

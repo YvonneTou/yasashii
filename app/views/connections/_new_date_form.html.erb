@@ -9,7 +9,7 @@
     <div class="appt hide" data-connection-target="appt">
       <%= f.input :appt_date, label: 'New appointment date and time', as: :datetime, class: "col-sm-12 col-lg-9", label_html: { class: "col-sm-12 col-lg-12 mt-3" }, html5: true %>
       <%= hidden_field_tag :new_appt_date, :true %>
-      <%= f.button :submit, 'Submit', class: "col-sm-12 col-lg-3 btn btn-primary mb-3", data: { turbo_confirm: 'Propose this new date?'} %>
+      <%= f.button :submit, 'Submit', class: "col-sm-12 col-lg-3 btn btn-primary mb-3", data: { turbo_confirm: 'Propose this new date?' } %>
     </div>
   <% end %>
   <p class="m-0"><small><%= Time.now.in_time_zone("Japan").strftime("%k:%M") %></small></p>

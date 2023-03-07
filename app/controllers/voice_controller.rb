@@ -7,6 +7,7 @@ class VoiceController < ApplicationController
   def answer
     @connection.uuid = params['uuid']
     @connection.save
+    create_message("Hello! Your call has been received by #{@connection.clinic.name}.")
     greeting
   end
 
@@ -44,15 +45,14 @@ class VoiceController < ApplicationController
 
     ConnectionChannel.broadcast_to(
       @connection,
-      # (render "connections/_message", message: @message, style: "msg-clinic float-start").to_s
-      (render partial: "connections/message", locals: { message: @message, style: "msg-clinic float-start" }).to_s
+      render_to_string(partial: "connections/message", locals: { message: @message, style: "msg-clinic float-start" })
     )
   end
 
   def end_call
     ConnectionChannel.broadcast_to(
       @connection,
-      (render partial: "connections/appointment_confirmation", locals: { connection: @connection, style: "msg-user float-end" }).to_s
+      render_to_string(partial: "connections/appointment_confirmation", locals: { connection: @connection, style: "msg-user float-end" })
     )
   end
 
@@ -151,6 +151,7 @@ class VoiceController < ApplicationController
         talk_json(accepted)
       ]
     when 3
+      create_message("We would like to request a different appointment date. Please wait a moment while we check our schedule.")
       change_month
     end
   end
@@ -207,10 +208,10 @@ class VoiceController < ApplicationController
   def send_to_user_new_date_decision(input)
     case input
     when 1
-      # ConnectionChannel.broadcast_to(
-      #   @connection,
-      #   (render partial: "connections/new_date_form", locals: { connection: @connection }).to_s
-      # )
+      ConnectionChannel.broadcast_to(
+        @connection,
+        render_to_string(partial: "connections/new_date_form", locals: { connection: @connection })
+      )
       render json: [
         talk_json(data_to_user),
         hold_music

@@ -19,7 +19,7 @@ export default class extends Controller {
           }
           else {
             this.messagesTarget.insertAdjacentHTML("beforeend", data)
-            channel.event.preventDefault()
+            this.messagesTarget.scrollTo(0, this.messagesTarget.scrollHeight)
           }
         }
       }
