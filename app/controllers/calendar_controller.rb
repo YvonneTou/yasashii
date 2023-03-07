@@ -14,7 +14,7 @@ class CalendarController < ApplicationController
     session[:authorization] = response
     connect_id = client.state
     new_event(connect_id)
-    redirect_to dashboard_url
+    redirect_to dashboard_url, notice: 'Appointment has been added to your Google Calendar'
   end
 
   def calendars
