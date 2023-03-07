@@ -13,8 +13,11 @@ application.register("hello", HelloController)
 import MapController from "./map_controller"
 application.register("map", MapController)
 
-import SymptomController from "./symptom_controller"
-application.register("symptom", SymptomController)
+import ConnectionController from "./connection_controller"
+application.register("connection", ConnectionController)
 
 import ShowMapController from "./show_map_controller"
 application.register("show-map", ShowMapController)
+
+import SymptomController from "./symptom_controller"
+application.register("symptom", SymptomController)

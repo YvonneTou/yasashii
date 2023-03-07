@@ -7,8 +7,7 @@ class VoiceController < ApplicationController
   def answer
     @connection.uuid = params['uuid']
     @connection.save
-    # greeting
-    music_test
+    greeting
   end
 
   def event
@@ -17,7 +16,7 @@ class VoiceController < ApplicationController
     status = params['status'] if params['status']
     path = params['call_paths'] if params['call_paths']
 
-    # end_call if status == "completed"
+    end_call if status == "completed"
     return unless params['call_paths']
 
     call_flow(path, input)
@@ -31,24 +30,6 @@ class VoiceController < ApplicationController
     else
       @connection = Connection.find_by(uuid: params['uuid'])
     end
-  end
-
-  def music_test
-    # create_message("answered #{Time.now.strftime("%h:%m")}")
-    # ConnectionChannel.broadcast_to(
-    #   @connection,
-    #   confirm_new_appt_date_message
-    # )
-
-    render json:
-    [
-      {
-        "action": "stream",
-        "streamUrl": ["https://incompetech.com/music/royalty-free/mp3-royaltyfree/Gymnopedie%20No%201.mp3"],
-        "bargeIn": "true"
-      },
-      event_json(1, ["accept", "new_date"])
-    ]
   end
 
   def create_message(message_content)
@@ -115,13 +96,15 @@ class VoiceController < ApplicationController
 
   def confirm_new_appt_date_message # might need updating
     "<div class='msg-clinic rounded-4 p-3 w-80 mt-2'>
-    <form class='simple_form edit_connection' id='edit_connection_#{@connection.id}' novalidate='novalidate' action='/connections/#{@connection.id}' accept-charset='UTF-8' method='post'><input type='hidden' name='_method' value='patch' autocomplete='off'><input type='hidden' name='authenticity_token' value='FtB9uEYfka668peRLy2I7_EOms2_O5XxM3IRxmoKZi01Ub0ygPCqner8CE4cKhEdHx5unHgnpwzrhPlnsbeqQg' autocomplete='off'>
-      <div class=''>
-      <input type='submit' name='commit' value='Yes' class='btn col-sm-6 col-lg-2 btn btn-primary' data-turbo-confirm='Are you sure?' data-disable-with='Yes'>
-      <input type='submit' name='commit' value='No' class='btn col-sm-6 col-lg-2 btn btn-light ms-2' data-disable-with='No'>
+    <p>The clinic has requested a new date for your appointment:</p>
+    <p><strong>#{@connection.appt_date.strftime('%A, %B %e at %R')}</strong></p>
+    <form class='simple_form edit_connection' data-controller='connection' id='edit_connection_#{@connection.id}' novalidate='novalidate' action='/connections/#{@connection.id}' accept-charset='UTF-8' method='post'><input type='hidden' name='_method' value='patch' autocomplete='off'><input type='hidden' name='authenticity_token' value='eyyFhVbSDwwfqcLKh-wis6x96ygmHH4jOJMaIyPHYjX0EPR47e1GlyDiBteXOOlhkteqqnu15hef2s3JkHod3g' autocomplete='off'>
+      <div>
+      <input type='submit' name='commit' value='Accept' class='btn col-sm-6 col-lg-2 btn btn-primary' data-turbo-confirm='Are you sure?' data-disable-with='Accept'>
+      <button name='button' type='button' class='btn col-sm-6 col-lg-2 btn btn-light ms-2' data-action='click->connection#reveal'>Propose new date</button>
       </div>
-      <div class=''>
-      <div class='mb-3 datetime optional connection_appt_date'><label class='form-label datetime optional col-sm-12 col-lg-12 mt-3' for='connection_appt_date'>New appointment date and time</label><div class='d-flex flex-row justify-content-between align-items-center'><input class='form-select mx-1 is-valid datetime optional' value='2023-03-23T01:24:00' type='datetime-local' name='connection[appt_date]' id='connection_appt_date'></div></div>
+      <div class='appt hide' data-connection-target='appt'>
+      <div class='mb-3 datetime optional connection_appt_date'><label class='form-label datetime optional col-sm-12 col-lg-12 mt-3' for='connection_appt_date'>New appointment date and time</label><div class='d-flex flex-row justify-content-between align-items-center'><input class='form-select mx-1 is-valid datetime optional' value='#{@connection.appt_date.strftime('%y-%m-%dT%T')}' type='datetime-local' name='connection[appt_date]' id='connection_appt_date'></div></div>
       <input type='hidden' name='new_appt_date' id='new_appt_date' value='true' autocomplete='off'>
       <input type='submit' name='commit' value='Submit' class='btn col-sm-12 col-lg-3 btn btn-primary mb-3' data-turbo-confirm='Propose this new date?' data-disable-with='Submit'>
       </div>
@@ -241,8 +224,13 @@ class VoiceController < ApplicationController
   def send_to_user_new_date_decision(input)
     case input
     when 1
+      ConnectionChannel.broadcast_to(
+        @connection,
+        confirm_new_appt_date_message
+      )
       render json: [
-        talk_json(accepted)
+        talk_json(data_to_user),
+        hold_music
       ]
     when 2
       change_day
@@ -317,7 +305,20 @@ class VoiceController < ApplicationController
   end
 
   def check_new_date_menu
-    "この日付を予約者に通信する場合、「１」を。再入力する場合、あ「２」を押してください。"
+    "この日付を予約者に通信する場合、「１」を。再入力する場合、「２」を押してください。"
+  end
+
+  def data_to_user
+    "予約者に通信します。"
+  end
+
+  def hold_music
+    {
+      "action": "stream",
+      "streamUrl": ["https://incompetech.com/music/royalty-free/mp3-royaltyfree/Gymnopedie%20No%201.mp3"],
+      "bargeIn": "false",
+      "loop": "0"
+    }
   end
 
   def rejected
