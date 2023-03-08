@@ -1,9 +1,9 @@
 <div class="msg-clinic float-start rounded-4 p-3 mb-2 row col-11 d-flex">
   <p>Your appointment is confirmed!</p>
-  <p><strong><%= @connection.appt_date.in_time_zone("Japan").strftime('%A, %B %e at %R') %></strong></p>
-  <%= link_to redirect_url(connection_id: @connection.id) do %>
-    <button class="btn btn-primary me-2 mb-2">Add to Google calendar</button>
-  <% end %>
+  <p><strong><%= connection.appt_date.in_time_zone("Japan").strftime('%A, %B %e at %R') %></strong></p>
+      <%= link_to redirect_url(connection_id: connection.id) do %>
+        <button class="btn btn-primary me-2 mb-2">Add to Google calendar</button>
+      <% end %>
   <%= link_to dashboard_path do %>
   <button class="btn btn-light mb-2">Exit call</button>
 <% end %>
