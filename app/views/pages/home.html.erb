@@ -1,26 +1,27 @@
 <div class="banner">
   <div class="container">
-      <h1>Fast & easy way to make your clinic appointment</h1>
-    <div class="mt-5">
-      <h2 class="text-glow">Find a clinic near you</h2>
+      <h1>No Japanese? No problem.</h1>
+      <h2 class="p-3">Book an appointment with a clinic through us. We'll translate everything.</h2>
+    <div class="mt-0">
       <%= render "search_form" %>
     </div>
   </div>
 </div>
 
 <div class="container spacing border-box">
-  <div class="row justify-content-center gray-txt mb-5 text-center">
-    <div class="col-xl-3 col-lg-12 col-md-12 col-sm-12">
-      <i class="fa-solid fa-language fa-4x m-4"></i>
-      <i class="fa-solid fa-phone-volume fa-4x m-4"></i>
+  <div class="row justify-content-center mb-5 text-center">
+    <div class="col-xl-3 col-lg-12 col-md-12 col-sm-12 gray-txt ">
+      <i class="fa-solid fa-language fa-3x m-4"></i>
+      <i class="fa-solid fa-phone-volume fa-3x m-4"></i>
     </div>
-    <h2 class="align-self-center col-xl-9 col-lg-12 col-md-12 col-sm-12">Automated call translation service for foreigners in Japan</h2>
+    <p class="align-self-center col-xl-9 col-lg-12 col-md-12 col-sm-12">Let us how you're feeling, and Yasashii will connect you with the right clinic instantly.</p>
   </div>
-
-  <div class="my-5">
-    <h3>Clinics you have visited recently (<%= @clinics.first(5).count %>)</h3>
+<% if current_user %>
+  <div class="my-3">
+    <h3 class="m-0">Recently viewed clinics (<%= @clinics.first(5).count %>)</h3>
     <% @clinics.first(5).each do |clinic| %>
       <%= render "clinic_card", clinic: clinic %>
     <% end %>
   </div>
+<% end %>
 </div>
