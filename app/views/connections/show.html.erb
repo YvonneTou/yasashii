@@ -1,42 +1,30 @@
-<div class="container mt-0">
-  <div class="clinic-info row sticky mt-0">
+<div class="container m-0">
+
+  <div class="clinic-info my-4">
     <div class="card-appt">
       <div class="p-3 pt-4">
         <h3><%= @connection.clinic.name %> <br></h3>
-        <p>
-          <small>
-            <span class="fa-stack">
+          <div class="d-flex flex-row">
+            <span class="fa-stack d-flex flex-col justify-content-center fwidth mx-1">
               <i class="fa fa-circle fa-stack-2x icon-bg"></i>
               <i class="fa-solid fa-location-dot fa-stack-1x icon-color"></i>
             </span>
-            <%= @connection.clinic.location %>
-          </small>
-        </p>
+            <p class="d-flex flex-col align-self-center m-0"><%= @connection.clinic.location %></p>
+          </div>
       </div>
     </div>
   </div>
-  <div class="row my-5">
-  </div>
-  <div class="row m-0 chatroom" data-controller="connection-subscription" data-connection-subscription-connection-id-value="<%= @connection.id %>">
-    <div class="messages container row" data-connection-subscription-target="messages">
+
+  <div class="chatroom" data-controller="connection-subscription" data-connection-subscription-connection-id-value="<%= @connection.id %>">
+    <div class="messages container" data-connection-subscription-target="messages">
       <% @connection.messages.each do |message| %>
         <% if message.sender_type == "Clinic" %>
-          <%= render "connections/message", message: message, style: "msg-clinic" %>
+          <%= render "connections/message", message: message, style: "msg-clinic float-start" %>
         <% elsif message.sender_type == "User" %>
-          <%= render "connections/message", message: message, style: "msg-user" %>
+          <%= render "connections/message", message: message, style: "msg-user float-end" %>
         <% end %>
       <% end %>
     </div>
-    <div class="row m-0 p-0">
-      <%= simple_form_for [@connection, @message],
-        html: {class: "d-flex"} do |f|
-      %>
-        <%= f.input :content,
-          label: false,
-          placeholder: "Message #{@connection.clinic.name}",
-          wrapper_html: {class: "flex-grow-1"}
-        %>
-        <%= f.submit "Send", class: "btn btn-primary mb-3" %>
-      <% end %>
-    </div>
+  </div>
+
 </div>

@@ -10,14 +10,14 @@ application.register("clinic-toggle", ClinicToggleController)
 import ConnectionSubscriptionController from "./connection_subscription_controller"
 application.register("connection-subscription", ConnectionSubscriptionController)
 
-import ConnectionsController from "./connections_controller"
-application.register("connections", ConnectionsController)
-
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
 import MapController from "./map_controller"
 application.register("map", MapController)
+
+import ConnectionController from "./connection_controller"
+application.register("connection", ConnectionController)
 
 import ShowMapController from "./show_map_controller"
 application.register("show-map", ShowMapController)
