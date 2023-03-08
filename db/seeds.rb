@@ -69,6 +69,7 @@ SYMPTOMS = [
 puts "Destroying existing records..."
 Clinic.destroy_all
 User.destroy_all
+Symptom.destroy_all
 puts "Done deletion"
 
 puts "Creating 6 new Users..."

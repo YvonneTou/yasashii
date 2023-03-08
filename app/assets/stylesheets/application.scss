@@ -178,3 +178,9 @@ a {
   grid-template-columns: 1fr 1fr;
   gap: 8px;
 }
+
+.index-search {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 8px;
+}
