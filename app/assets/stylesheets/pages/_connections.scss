@@ -10,9 +10,14 @@
 }
 
 .clinic-info {
-  top: 45px;
+  top: 60px;
+  position: sticky;
 }
 
 .hide {
   display: none;
+}
+
+.chatroom {
+  overflow: auto;
 }

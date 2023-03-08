@@ -5,8 +5,7 @@ export default class extends Controller {
   static targets = ["appt", "button"]
 
   connect() {
-    console.log("connected")
-    console.log(this.hasButtonTarget)
+    // console.log("connected")
   }
 
   reveal() {
