@@ -19,5 +19,9 @@
 }
 
 .chatroom {
-  overflow: auto;
+  overflow-y: scroll;
+}
+
+.content-wrap {
+  padding-bottom: 275px!important;
 }

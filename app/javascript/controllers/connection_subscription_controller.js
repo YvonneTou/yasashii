@@ -19,7 +19,11 @@ export default class extends Controller {
           }
           else {
             this.messagesTarget.insertAdjacentHTML("beforeend", data)
-            this.messagesTarget.scrollTo(0, this.messagesTarget.scrollHeight)
+            window.scrollTo({
+              top: this.messagesTarget.scrollHeight,
+              left: 0,
+              behavior: "smooth",
+            })
           }
         }
       }
