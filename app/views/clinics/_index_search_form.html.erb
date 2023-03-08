@@ -1,5 +1,6 @@
 <div data-controller="symptom">
   <%= form_with url: clinics_path, class: "mt-3" , method: :get do %>
+    <div class="index-search">
     <div class="d-flex" data-symptom-target="outer" data-action="click->symptom#close">
       <%= text_field_tag :query,
         params[:query],
@@ -16,6 +17,7 @@
             data-action="click->symptom#dropdown">
       +
     </button>
+    </div>
   <% end %>
   <%= form_with url: clinics_path, class: "mt-3" , method: :get do %>
     <div class="d-none my-2" id="symptom_select" data-symptom-target="list">
