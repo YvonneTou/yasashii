@@ -1,16 +1,28 @@
 .msg-clinic {
   background-color: $darkblue;
   color: white;
-  float: left;
   text-align: left;
 }
 
 .msg-user {
   background-color: white;
-  float: right;
   text-align: right;
 }
 
 .clinic-info {
-  top: 45px;
+  top: 60px;
+  position: sticky;
+  z-index: 1;
+}
+
+.hide {
+  display: none;
+}
+
+.chatroom {
+  overflow-y: scroll;
+}
+
+.content-wrap {
+  padding-bottom: 275px!important;
 }

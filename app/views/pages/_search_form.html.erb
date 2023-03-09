@@ -2,11 +2,11 @@
   <%= text_field_tag :query,
     params[:query],
     class: "form-control my-3 box-glow white-bg",
-    placeholder: "Symptoms",
+    placeholder: "How're you feeling today?",
     required: true
   %>
   <%= hidden_field_tag :coordinates, "", data: { geolocation_target: "search"} %>
   <%= button_tag type: 'submit', class: "btn btn-primary w-100 mb-3 box-glow", data: { action: "geolocation#search" } do %>
-    Find a clinic near you
+    Search nearby clinics
   <% end %>
 <% end %>

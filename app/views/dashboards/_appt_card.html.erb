@@ -1,26 +1,35 @@
 <div class="card-appt my-3">
-  <%= cl_image_tag connection.clinic.photo.key, height: 200, width: 366, crop: :fill, alt: connection.clinic.name %>
   <div class="p-3">
     <div>
-      <h3><%= connection.clinic.name %></h3>
-      <p><%= connection.appt_date.strftime("%m/%d/%Y") %></p>
-      <p class="d-inline"><strong>Symptoms:</strong></p>
-      <% connection.symptoms.each do |symptom| %>
-        <% if symptom != connection.symptoms.last %>
-          <p class="d-inline"><%= symptom %>, </p>
-          <% else %>
-          <p class="d-inline"><%= symptom %></p>
-        <% end %>
-      <% end %>
+      <div class="d-flex flex-row justify-content-between">
+        <h3><%= connection.appt_date.strftime("%a %m/%d/%Y") %></h3>
+        <h3><i class="fa-regular fa-clock"></i>  <%= connection.appt_date.strftime("%-l:%M %p") %></h3>
+      </div>
+
+      <div class="my-3">
+        <div class="d-flex flex-row justify-content-between">
+          <div class="flex-shrink-1">
+            <h5><%= connection.clinic.name %></h5>
+          </div>
+
+          <div class=" ">
+            <%= link_to "clinic info >", clinic_path(connection.clinic), class: "text-pink" %>
+          </div>
+        </div>
+      </div>
+      <p>Symptoms: <%= connection.symptoms.join(", ") %></p>
     </div>
 
     <p class="mt-1"><strong>
-      <i class="fa-regular fa-clock"></i>  <%= connection.appt_date.strftime("%-l:%M %p") %>
     </strong></p>
-    <%# <% if connection.appt_date > Time.now %>
+    <% if connection.appt_date >= DateTime.now %>
       <%= link_to redirect_url(connection_id: connection.id) do %>
-        <button class="btn btn-primary">Add appointment to my Google calendar</button>
+        <button class="btn btn-primary w-100">Add appointment to my Google calendar</button>
       <% end %>
-    <%# <% end %>
+    <% else %>
+      <%= link_to new_clinic_review_path(connection.clinic) do %>
+        <button class="btn btn-outline-primary w-100">Write a review</button>
+      <% end %>
+    <% end %>
   </div>
 </div>

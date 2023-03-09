@@ -11,6 +11,7 @@
 @import "components/index";
 @import "pages/connections";
 @import "pages/index";
+@import "pages/dashboard";
 
 body {
   font-weight: 300;
@@ -36,7 +37,7 @@ a {
 .btn-primary {
   color: rgb(255, 255, 255);
   font-weight: 500;
-  border-radius: 7px;
+  // border-radius: 7px;
 }
 
 .form-control {
@@ -106,8 +107,8 @@ a {
 }
 
 .img-full {
-  width: 100%;
-  height: 100%;
+  object-fit: cover;
+  object-position: 50%;
 }
 
 .text-sh {
@@ -176,4 +177,23 @@ a {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
+}
+
+.index-search {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+}
+
+#symptom-button {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.nav-item > .nav-link.active {
+  background: $darkblue;
+}
+
+.nav-item > .nav-link {
+  color: $darkblue;
 }

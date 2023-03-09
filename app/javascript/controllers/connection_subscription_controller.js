@@ -17,10 +17,18 @@ export default class extends Controller {
           else if (data.head == 302 && data.path) {
             window.location.pathname = data.path
           }
+          else {
+            this.messagesTarget.insertAdjacentHTML("beforeend", data)
+            window.scrollTo({
+              top: this.element.scrollHeight,
+              left: 0,
+              behavior: "smooth",
+            })
+          }
         }
       }
     )
 
-    console.log(`uhhSubscribed to the connection with the id ${this.connectionIdValue}.`)
+    // console.log(`Subscribed to the connection with the id ${this.connectionIdValue}.`)
   }
 }
