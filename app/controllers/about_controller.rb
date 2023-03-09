@@ -22,7 +22,7 @@ class AboutController < ApplicationController
         role: 'Backend Lead',
         gmail: 'tanner.ray.maxwell@gmail.com',
         github: 'https://github.com/tmxds',
-        linkedin: 'https://www.linkedin.com/in/???/'
+        linkedin: 'https://www.linkedin.com/in/tanner-maxwell-18052088'
       },
 
       sarah: {
