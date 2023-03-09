@@ -87,10 +87,10 @@ class VoiceController < ApplicationController
       type: ["dtmf"],
       dtmf: {
           submitOnHash: true,
-          timeOut: 20,
+          timeOut: 60,
           maxDigits: max_digits
       },
-      eventUrl: ["https://ed65-124-219-136-119.jp.ngrok.io/event?connection_id=#{@connection.id}#{call_paths_string}"]
+      eventUrl: ["https://www.yasashii.care/event?connection_id=#{@connection.id}#{call_paths_string}"]
     }
   end
 
@@ -158,8 +158,7 @@ class VoiceController < ApplicationController
 
   def change_month
     render json: [
-      # talk_json("予約の変更ですね。"),
-      talk_json("てすと"),
+      talk_json("予約のご変更ですね。"),
       input_json(enter_month),
       event_json(2, ["day"])
     ]
@@ -172,8 +171,8 @@ class VoiceController < ApplicationController
     puts @connection.appt_date
 
     render json: [
-      # talk_json("予約の変更ですね。"),
-      talk_json("てすと"),
+      talk_json("続きまして、"),
+      # talk_json("てすと"),
       input_json(enter_day),
       event_json(2, ["time"])
     ]
@@ -186,7 +185,7 @@ class VoiceController < ApplicationController
     puts @connection.appt_date
 
     render json: [
-      talk_json("ご希望の時間を、"),
+      talk_json("最後に、"),
       input_json(enter_time),
       event_json(4, ["confirm_appt_date"])
     ]
@@ -243,17 +242,16 @@ class VoiceController < ApplicationController
   # text to speech
 
   def greeting_text
-    # "こんにちは。「ヤサシイアプリ」からの予約の依頼でございます。これから、ガイダンスに従い、番号を押してください。"
-    "テスト"
+    "<speak><break time='5s' />こんにちは。「ヤサシイアプリ」からの予約の依頼でございます。これから、ガイダンスに従い、番号を押してください。</speak>"
   end
 
   def greeting_menu
-    "予約の詳細をご確認の場合、「１」を。予約のご受諾の場合、「２」を押してください。"
+    "予約の詳細をご確認の場合、「１」を。予約の受け付ける場合、「２」を、押してください。"
   end
 
   def appt_details_text
     name = "#{@connection.user.firstname} #{@connection.user.lastname}"
-    appt_date = @connection.appt_date.strftime("%m月%d日%H時%M分")
+    appt_date = @connection.appt_date.strftime("%m月%d日、%H時%M分")
     info = DeepL.translate @connection.info, 'EN', 'JA'
     symptoms = ""
     @connection.symptoms.each_with_index do |symptom, i|
@@ -264,12 +262,11 @@ class VoiceController < ApplicationController
       end
     end
 
-    # "予約者の名前は「#{name}」でございます。希望の日時は「#{appt_date}」でございます。現在、予約者の苦しんでいる症状は「#{symptoms}」でございます。最後に、予約者からのコメントをお伝えいたします。「#{info}」"
-    "テスト"
+    "予約者の名前は、「#{name}」、でございます。希望の日付は、「#{appt_date}」、でございます。現在、予約者の苦しんでいる症状は、「#{symptoms}」、でございます。最後に、予約者からのコメントを申し伝えます。「#{info}」"
   end
 
   def appt_details_menu
-    "詳細をもう一度お聞きになる場合、「１」を。受諾の場合、「２」を。変更は「３」を、押してください。"
+    "詳細をもう一度お聞きになる場合、「１」を。受け付ける場合、「２」を。ご変更は「３」を、押してください。"
   end
 
   def enter_month
@@ -281,11 +278,11 @@ class VoiceController < ApplicationController
   end
 
   def enter_time
-    "２４時間の形式で押してください。たとえ、午後１時１５分だと、「１」「３」「１」「５」を押してください。"
+    "ご希望の時間は、２４時制で押してください。たとえば、午後１時１５分だと、「１」「３」「１」「５」を押してください。"
   end
 
   def check_new_date
-    "ご希望の日付は「#{@connection.appt_date.strftime("%m月%d日%H時%M分")}」で間違いないでしょうか。"
+    "ご希望の日付は、「#{@connection.appt_date.strftime("%m月%d日%H時%M分")}」で、間違いないでしょうか。"
   end
 
   def check_new_date_menu
@@ -310,7 +307,6 @@ class VoiceController < ApplicationController
   end
 
   def accepted
-    # "ご受諾いただき、ありがとうございました。予約者に「ヤサシイアプリ」で通知いたします。予約者のご手配のほど、よろしくお願い申し上げます。まもなく電話が終了いたします。失礼いたします。"
-    "テスト"
+    "ご受付、ありがとうございました。予約者に「ヤサシイアプリ」で通知いたします。予約者のご手配のほど、よろしくお願い申し上げます。まもなく電話が終了いたします。"
   end
 end

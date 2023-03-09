@@ -181,6 +181,19 @@ a {
 
 .index-search {
   display: grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: 1fr auto;
   gap: 8px;
+}
+
+#symptom-button {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.nav-item > .nav-link.active {
+  background: $darkblue;
+}
+
+.nav-item > .nav-link {
+  color: $darkblue;
 }

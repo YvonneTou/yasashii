@@ -12,12 +12,13 @@
         <i class="fas fa-search"></i>
       <% end %>
     </div>
+    </div>
     <button class="btn btn-primary"
+            id="symptom-button"
             data-symptom-target="button"
             data-action="click->symptom#dropdown">
-      +
+      Search by symptom
     </button>
-    </div>
   <% end %>
   <%= form_with url: clinics_path, class: "mt-3" , method: :get do %>
     <div class="d-none my-2" id="symptom_select" data-symptom-target="list">

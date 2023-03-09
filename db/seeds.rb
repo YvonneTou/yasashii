@@ -127,7 +127,7 @@ test_acct = {
   lastname: "Account",
   firstname: "Test"
 }
-users = [yvonne, sarah, dani, tanner, dani_demo, test_acct]
+users = [yvonne, tanner, sarah, dani, dani_demo, test_acct]
 
 def create_users(user)
   file = URI.open(user[:file])
