@@ -90,7 +90,7 @@ class VoiceController < ApplicationController
           timeOut: 60,
           maxDigits: max_digits
       },
-      eventUrl: ["https://ed65-124-219-136-119.jp.ngrok.io/event?connection_id=#{@connection.id}#{call_paths_string}"]
+      eventUrl: ["https://www.yasashii.care/event?connection_id=#{@connection.id}#{call_paths_string}"]
     }
   end
 

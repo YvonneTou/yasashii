@@ -92,7 +92,7 @@ class ConnectionsController < ApplicationController
         number: "12013800657"
       },
       answer_url: [
-        "https://ed65-124-219-136-119.jp.ngrok.io/answer?connection_id=#{connection.id}"
+        "https://www.yasashii.care/answer?connection_id=#{connection.id}"
       ]
     })
   end
@@ -156,7 +156,7 @@ class ConnectionsController < ApplicationController
           timeOut:60,
           maxDigits: max_digits
       },
-      eventUrl: ["https://ed65-124-219-136-119.jp.ngrok.io/event?connection_id=#{@connection.id}#{call_paths_string}"]
+      eventUrl: ["https://www.yasashii.care/event?connection_id=#{@connection.id}#{call_paths_string}"]
     }
   end
 end
