@@ -1,0 +1,41 @@
+.about-intro {
+  font-weight: 300;
+}
+
+.member-card {
+  overflow: hidden;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.member-card-content {
+  padding-top: 0px;
+  padding-left: 16px;
+  padding-right: 16px;
+  // padding-bottom: 16px;
+}
+
+.member-card-avatar {
+  height: 100%;
+  width: 100px !important;
+  object-fit: scale-down;
+}
+
+.member-card-content h5 {
+  margin: 0px;
+}
+
+.member-card-content p {
+  margin: 0px;
+}
+
+.member-card-icons {
+  padding-top: 8px;
+  color: $medpink;
+  font-size: 20px;
+  display: inline-flex;
+  gap: 20px;
+}
