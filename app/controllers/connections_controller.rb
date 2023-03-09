@@ -117,7 +117,7 @@ class ConnectionsController < ApplicationController
         ]
       }
     end
-    puts ncco
+
     client.voice.transfer(@connection.uuid, destination: ncco)
   end
 
