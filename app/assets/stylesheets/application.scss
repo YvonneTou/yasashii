@@ -184,3 +184,11 @@ a {
   grid-template-columns: 1fr auto auto;
   gap: 8px;
 }
+
+.nav-item > .nav-link.active {
+  background: $darkblue;
+}
+
+.nav-item > .nav-link {
+  color: $darkblue;
+}
