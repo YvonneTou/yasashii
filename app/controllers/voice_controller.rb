@@ -159,7 +159,6 @@ class VoiceController < ApplicationController
   def change_month
     render json: [
       talk_json("予約のご変更ですね。"),
-      # talk_json("てすと"),
       input_json(enter_month),
       event_json(2, ["day"])
     ]
@@ -244,7 +243,6 @@ class VoiceController < ApplicationController
 
   def greeting_text
     "<speak><break time='5s' />こんにちは。「ヤサシイアプリ」からの予約の依頼でございます。これから、ガイダンスに従い、番号を押してください。</speak>"
-    # "テスト"
   end
 
   def greeting_menu
@@ -265,7 +263,6 @@ class VoiceController < ApplicationController
     end
 
     "予約者の名前は、「#{name}」、でございます。希望の日付は、「#{appt_date}」、でございます。現在、予約者の苦しんでいる症状は、「#{symptoms}」、でございます。最後に、予約者からのコメントを申し伝えます。「#{info}」"
-    # "テスト"
   end
 
   def appt_details_menu
@@ -311,6 +308,5 @@ class VoiceController < ApplicationController
 
   def accepted
     "ご受付、ありがとうございました。予約者に「ヤサシイアプリ」で通知いたします。予約者のご手配のほど、よろしくお願い申し上げます。まもなく電話が終了いたします。"
-    # "テスト"
   end
 end

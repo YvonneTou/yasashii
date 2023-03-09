@@ -23,7 +23,7 @@ class ConnectionsController < ApplicationController
     @connection.symptoms.delete_at(0)
     authorize @connection
     if @connection.save
-      create_form_message
+      create_form_message("I'd like to request an appointment on #{@connection.appt_date.strftime('%A, %B %e at %R')}.")
       redirect_to connection_path(@connection)
     else
       render "clinics/show", status: :unprocessable_entity
@@ -35,20 +35,10 @@ class ConnectionsController < ApplicationController
     authorize @connection
     if @connection.update(connection_params)
       if params[:Submit]
-        message = Message.create!({
-          connection: @connection,
-          sender: current_user,
-          sender_type: "User",
-          content: "I'd like to request a new appointment date on #{@connection.appt_date.in_time_zone("Japan").strftime('%A, %B %e at %R')}."
-        })
+        message = create_form_message("I'd like to request a new appointment date on #{@connection.appt_date.in_time_zone("Japan").strftime('%A, %B %e at %R')}.")
         update_ncco(params)
       elsif params[:Accept]
-        message = Message.create!({
-          connection: @connection,
-          sender: current_user,
-          sender_type: "User",
-          content: "That date works for me!"
-        })
+        message = create_form_message("That date works for me!")
         update_ncco(params)
       end
       ConnectionChannel.broadcast_to(
@@ -70,12 +60,12 @@ class ConnectionsController < ApplicationController
     params.require(:connection).permit(:appt_date, { symptoms: [] }, :info, :clinic_id)
   end
 
-  def create_form_message
+  def create_form_message(message)
     Message.create!({
       connection: @connection,
       sender: @connection.user,
       sender_type: "User",
-      content: "I'd like to request an appointment on #{@connection.appt_date.strftime('%A, %B %e at %R')}."
+      content: message
     })
   end
 
