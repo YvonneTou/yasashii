@@ -82,10 +82,9 @@
   <div class="my-5">
       <h3>Make a phone call appointment with <strong><%= @clinic.name %></strong></h3>
     </div>
-
-    <%= simple_form_for [@connection] do |f| %>
-      <%= render 'connections/form', article: [@connection, @clinic] %>
-    <% end %>
+      <%= simple_form_for [@connection] do |f| %>
+        <%= render 'connections/form', article: [@connection, @clinic] %>
+      <% end %>
   </div>
 </div>
 
