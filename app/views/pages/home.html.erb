@@ -16,12 +16,14 @@
     </div>
     <p class="align-self-center col-xl-9 col-lg-12 col-md-12 col-sm-12">Let us how you're feeling, and Yasashii will connect you with the right clinic instantly.</p>
   </div>
-<% if current_user %>
   <div class="my-3">
-    <h3 class="m-0">Recently viewed clinics (<%= @clinics.first(5).count %>)</h3>
+    <% if current_user %>
+      <h3 class="m-0">Recently viewed clinics (<%= @clinics.first(5).count %>)</h3>
+    <% else %>
+      <h3 class="m-0">Top-rated clinics (<%= @clinics.first(5).count %>)</h3>
+    <% end %>
     <% @clinics.first(5).each do |clinic| %>
       <%= render "clinic_card", clinic: clinic %>
     <% end %>
   </div>
-<% end %>
 </div>
