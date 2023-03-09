@@ -22,11 +22,16 @@
           <h5 class="text-pink"><%= member.firstname %> <%= member.lastname %></h5>
         </div>
         <p><strong><%= info[:role] %></strong></p>
-        <%# <p><%= info[:gmail] %>
-        <p class="member-card-icons">
-          <i class="fa-solid fa-envelope"></i>
-          <i class="fa-brands fa-github"></i>
-          <i class="fa-brands fa-linkedin"></i>
+          <p class="member-card-icons">
+          <%= mail_to info[:gmail], target: "_blank" do %>
+            <i class="fa-solid fa-envelope"></i>
+          <% end %>
+          <%= link_to info[:github], target: "_blank" do %>
+            <i class="fa-brands fa-github"></i>
+          <% end %>
+          <%= link_to info[:linkedin], target: "_blank" do %>
+            <i class="fa-brands fa-linkedin"></i>
+          <% end %>
         </p>
       </div>
     </div>
