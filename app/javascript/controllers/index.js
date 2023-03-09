@@ -13,6 +13,9 @@ application.register("connection-subscription", ConnectionSubscriptionController
 import ConnectionsController from "./connections_controller"
 application.register("connections", ConnectionsController)
 
+import GeolocationController from "./geolocation_controller"
+application.register("geolocation", GeolocationController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
