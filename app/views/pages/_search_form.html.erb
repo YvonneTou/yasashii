@@ -5,7 +5,8 @@
     placeholder: "How're you feeling today?",
     required: true
   %>
-  <%= button_tag type: 'submit', class: "btn btn-primary w-100 mb-3 box-glow" do %>
+  <%= hidden_field_tag :coordinates, "", data: { geolocation_target: "search"} %>
+  <%= button_tag type: 'submit', class: "btn btn-primary w-100 mb-3 box-glow", data: { action: "geolocation#search" } do %>
     Search nearby clinics
   <% end %>
 <% end %>

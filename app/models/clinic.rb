@@ -15,6 +15,6 @@ class Clinic < ApplicationRecord
       symptoms: [:symptom_en, :location]
     },
     using: {
-      tsearch: { prefix: true } # <-- now `superman batm` will return something!
+      tsearch: { prefix: true }
     }
 end
