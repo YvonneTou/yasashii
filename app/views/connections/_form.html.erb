@@ -1,13 +1,10 @@
 <%= simple_form_for [@connection] do |f| %>
-  <div class="input-group">
-    <span class="input-group-text">@</span>
-    <%= f.input :appt_date, label: 'Proposed Appointment Date and Time', as: :datetime, html5: true, class: "form-control" %>
-  </div>
+    <%= f.input :appt_date, label: 'Proposed Appointment Date and Time', as: :datetime, html5: true, input_html: {class: "datetime_style"} %>
   <p>What symptoms are you currently experiencing?</p>
   <div class="symptom_select mb-2">
     <%= f.collection_check_boxes :symptoms, Symptom.all, :id, :symptom_en, label: 'Symptoms' %>
   </div>
   <%= f.input :info, placeholder: 'Other information', label: false, as: :text %>
   <%= f.hidden_field :clinic_id, value: @clinic.id %>
-  <%= f.button :submit, 'Submit & start call', class: "btn btn-primary mb-3 w-100", data: { turbo_confirm: 'Confirm to start call?'} %>
+  <%= f.button :submit, 'Submit & start call', class: "btn btn-primary my-3 w-100", data: { turbo_confirm: 'Confirm to start call?'} %>
 <% end %>

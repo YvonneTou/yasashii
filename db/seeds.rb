@@ -503,7 +503,7 @@ symptoms = [
   },
   allergy2 = {
     location: 'allergy',
-    symptom_en: 'coughing and sneezing',
+    symptom_en: 'cough & sneeze',
     symptom_jp: '咳とくしゃみ'
   },
   nose1 = {
