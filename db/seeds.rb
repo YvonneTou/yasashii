@@ -154,7 +154,7 @@ end
 
 puts "Done creating users"
 
-puts "Creating 11 new Clinics..."
+puts "Creating 12 new Clinics..."
 
 derm = {
   file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098274/f8ohtzopvp39syrgiurl.jpg",
@@ -280,6 +280,18 @@ nagakura = {
   description: 'As an otolaryngologist, an allergy specialist, and a sports doctor, I would like to provide patients with sufficient explanations and information, create an environment where they can receive treatment with peace of mind, and work on medical treatment.'
 }
 
+shibuya = {
+  file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098571/b5pc0fz1xznoyjbf5c6n.png",
+  name: 'Medical Clinic Shibuya',
+  location: '〒150-0042 Tokyo, Shibuya City, Udagawacho, 20-17, Nmf Shibuya Koen-dori Building',
+  hours: '9:00-18:00',
+  phone_number: '818030161151',
+  email: 'info@shinagawa-clinic.net',
+  description: 'Regular internal medical issues starting from the common cold. Diabetes・Respiratory medicine COPD・
+  Bronchial asthma・Sleep apnea syndrome etc. High blood pressure, Dyslipidemia, Hyperuricemia, Fatty liver disease
+  and other lifestyle-related diseases/ illnesses'
+}
+
 gibika1 = {
   file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098393/zquhpwiksc8zt3rwoifi.jpg",
   name: 'Meguro Midori Jibika Hospital',
@@ -310,7 +322,7 @@ gibika3 = {
   description: 'As an otolaryngologist, an allergy specialist, and a sports doctor, I would like to provide patients with sufficient explanations and information, create an environment where they can receive treatment with peace of mind, and work on medical treatment.'
 }
 
-clinics = [derm, mirai, ladies, ear, sakurai, mental, sakoda, hira, utaan, kei, nagakura, gibika1, gibika2, gibika3]
+clinics = [derm, mirai, ladies, ear, sakurai, mental, sakoda, hira, utaan, kei, nagakura, shibuya, gibika1, gibika2, gibika3]
 
 def create_clinics(clinic)
   file = URI.open(clinic[:file])
@@ -488,7 +500,7 @@ symptoms = [
   },
   head3 = {
     location: 'head',
-    symptom_en: 'dizzines',
+    symptom_en: 'dizziness',
     symptom_jp: '立ちくらみがする'
   },
   ear1 = {
@@ -534,6 +546,11 @@ symptoms = [
   allergy2 = {
     location: 'allergy',
     symptom_en: 'cough & sneeze',
+    symptom_jp: '咳とくしゃみ'
+  },
+  allergy3 = {
+    location: 'allergy',
+    symptom_en: 'seasonal allergies',
     symptom_jp: '咳とくしゃみ'
   },
   nose1 = {
@@ -606,12 +623,18 @@ specialty(utaan, neck1)
 specialty(kei, head1)
 specialty(nagakura, allergy1)
 specialty(nagakura, allergy2)
+specialty(nagakura, allergy3)
 specialty(nagakura, nose1)
+specialty(shibuya, head1)
+specialty(shibuya, allergy3)
 specialty(gibika1, allergy1)
 specialty(gibika1, allergy2)
+specialty(gibika1, allergy3)
 specialty(gibika2, allergy1)
 specialty(gibika2, allergy2)
+specialty(gibika2, allergy3)
 specialty(gibika3, allergy1)
 specialty(gibika3, allergy2)
+specialty(gibika3, allergy3)
 
 puts "Done adding specialties to clinics!"

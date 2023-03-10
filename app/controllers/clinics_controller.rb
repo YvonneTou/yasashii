@@ -10,9 +10,11 @@ class ClinicsController < ApplicationController
 
     @symptoms = Symptom.all
     if place.present? && params[:query].present?
-      @clinics = Clinic.joins(:symptoms).where(symptoms: { symptom_en: params[:query] }).near(place, 2, order: :distance)
-    elsif place.present? && params[:symptoms].present?
-      @clinics = Clinic.joins(:symptoms).where(symptoms: { symptom_en: params[:symptoms] }).near(place, 2, order: :distance)
+      @clinics = Clinic.joins(:symptoms).where(symptoms: { symptom_en: params[:query] }).near(place, 15, order: :distance)
+    # elsif place.present? && params[:symptoms].present?
+    #   @clinics = Clinic.joins(:symptoms).where(symptoms: { symptom_en: params[:symptoms] }).near(place, 2, order: :distance)
+    elsif params[:query].present?
+      @clinics = Clinic.search_by_location_and_symptoms(params[:query])
     else
       @clinics = Clinic.all
     end
