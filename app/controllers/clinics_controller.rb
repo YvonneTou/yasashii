@@ -6,18 +6,9 @@ class ClinicsController < ApplicationController
   def index
     @symptoms = Symptom.all
     if params[:symptoms].present?
-      # raise
       @clinics = Clinic.joins(:symptoms).where(symptoms: { symptom_en: params[:symptoms].keys })
     elsif params[:query].present?
       @clinics = Clinic.search_by_location_and_symptoms(params[:query])
-      # @clinics.each do |clinic|
-      #   clinic.symptoms.map
-      # end
-
-      # symptoms = []
-      # params.each_key do |symptom|
-      #   symptoms << symptom if symptom == 1
-      # end
     else
       @clinics = Clinic.all
     end
