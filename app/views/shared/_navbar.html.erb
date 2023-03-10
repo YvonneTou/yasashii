@@ -156,6 +156,13 @@
             </div>
           </li>
 
+          <li class="dropdown-item menu-select">
+            <div class="d-flex flex-row align-items-center">
+              <i class="fa-solid fa-users icon-spacing"></i>
+              <%= link_to "About Yasashii", about_show_path, class: "nav-link" %>
+            </div>
+          </li>
+
           <% if user_signed_in? %>
             <li class="dropdown-item  menu-select">
               <div class="d-flex flex-row align-items-center">
