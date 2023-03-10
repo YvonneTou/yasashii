@@ -21,8 +21,8 @@ class ConnectionsController < ApplicationController
     @connection.clinic = @clinic
     @connection.user = current_user
     @connection.symptoms.delete_at(0)
-    @connection.symptoms.map! do |symptom|
-      Symptom.find(symptom.to_i)
+    @connection.symptoms = @connection.symptoms.map do |symptom|
+      Symptom.find(symptom.to_i).symptom_en
     end
     authorize @connection
     if @connection.save
@@ -88,7 +88,8 @@ class ConnectionsController < ApplicationController
       to: [{
         type: 'phone',
         # number: @connection.clinic.phone_number
-        number: '818034123827'
+        # number: '818034123827'
+        number: '818068285005'
       }],
       from: {
         type: 'phone',

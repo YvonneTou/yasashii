@@ -256,9 +256,9 @@ class VoiceController < ApplicationController
     symptoms = ""
     @connection.symptoms.each_with_index do |symptom, i|
       if i + 1 == @connection.symptoms.size
-        symptom.symptom_jp
+        symptoms += "#{DeepL.translate symptom, 'EN', 'JA'}"
       else
-        symptom.symptom_jp + "、"
+        symptoms += "#{DeepL.translate symptom, 'EN', 'JA'}、"
       end
     end
 
