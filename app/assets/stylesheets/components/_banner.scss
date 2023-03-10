@@ -26,12 +26,13 @@
 
 .about-banner {
   background-size: cover;
-  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4)), url(https://res.cloudinary.com/df7gbyhfx/image/upload/v1675158797/kpqrznglss959ybwwdrg.jpg);
-  background-position: 50% 50%;
+  background-image: url(http://res.cloudinary.com/df7gbyhfx/image/upload/v1678424568/sdrjyzbn1troblkref4t.jpg);
+  background-position: 50% 70%;
   padding: 80px 0;
   margin: -20px 0;
 }
 
 .about-banner h1{
-  color: $darkblue;
+  color: $lightpink;
+  text-shadow: 1px 1px 2px gray,;
 }

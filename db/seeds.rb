@@ -75,7 +75,7 @@ puts "Done deletion"
 puts "Creating 6 new Users..."
 
 sarah = {
-  file: "https://res.cloudinary.com/df7gbyhfx/image/upload/v1677485847/wdvks78cnylhnmuic7ox.png",
+  file: "https://res.cloudinary.com/df7gbyhfx/image/upload/v1678424542/xo6dfdew9a4aonhugpf0.jpg",
   username: "SarahR",
   email: "sarah@email.com",
   password: "123456",
@@ -93,7 +93,7 @@ tanner = {
 }
 
 dani = {
-  file: "https://res.cloudinary.com/df7gbyhfx/image/upload/v1677485861/eew9vywfuyfq4faoyev5.png",
+  file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1678425826/bxermgxfmatamjpdez2q.jpg",
   username: "Dani",
   email: "danielle@email.com",
   password: "123456",
@@ -283,8 +283,8 @@ nagakura = {
 shibuya = {
   file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098571/b5pc0fz1xznoyjbf5c6n.png",
   name: 'Medical Clinic Shibuya',
-  location: '〒150-0042 Tokyo, Shibuya City, Udagawacho, 20-17, Nmf Shibuya Koen-dori Building',
-  hours: '9:00-18:00',
+  location: '150-0042 Tokyo, Shibuya City, Udagawacho, 20-17, Nmf Shibuya Koen-dori Building',
+  hours: '9:00-21:00',
   phone_number: '818030161151',
   email: 'info@shinagawa-clinic.net',
   description: 'Regular internal medical issues starting from the common cold. Diabetes・Respiratory medicine COPD・
@@ -293,20 +293,20 @@ shibuya = {
 }
 
 gibika1 = {
-  file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098393/zquhpwiksc8zt3rwoifi.jpg",
+  file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098430/tqehxzorgix6eygvqnlj.jpg",
   name: 'Meguro Midori Jibika Hospital',
   location: '142-0062 Tokyo, Shinagwa CIty, 3 Chome-23-5 Koyama',
-  hours: '9:00-18:00',
+  hours: '9:00-21:00',
   phone_number: '818030161151',
   email: 'info@megurogreen-ah.com',
   description: 'As an otolaryngologist, an allergy specialist, and a sports doctor, I would like to provide patients with sufficient explanations and information, create an environment where they can receive treatment with peace of mind, and work on medical treatment.'
 }
 
 gibika2 = {
-  file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098682/fz8jcbrtkxsdsvxhonrp.jpg",
+  file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098620/aepj0yo0b2tndmspkjbc.jpg",
   name: 'Kurosu Allergy Clinic',
-  location: '153-051 Toky, Meguro CIty, 2 Chome-9-35 Kamimeguro',
-  hours: '9:00-18:00',
+  location: '141-0031 Tokyo, Shinagawa City, 5 Chome-1-14 Nishigotanda',
+  hours: '9:00-21:00',
   phone_number: '818030161151',
   email: 'info@megurogreen-ah.com',
   description: 'As an otolaryngologist, an allergy specialist, and a sports doctor, I would like to provide patients with sufficient explanations and information, create an environment where they can receive treatment with peace of mind, and work on medical treatment.'
@@ -316,7 +316,7 @@ gibika3 = {
   file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098571/b5pc0fz1xznoyjbf5c6n.png",
   name: 'Matsumoto Gibika Clinic',
   location: '153-051 Toky, Meguro CIty, 2 Chome-9-35 Kamimeguro',
-  hours: '9:00-18:00',
+  hours: '9:00-21:00',
   phone_number: '818030161151',
   email: 'info@megurogreen-ah.com',
   description: 'As an otolaryngologist, an allergy specialist, and a sports doctor, I would like to provide patients with sufficient explanations and information, create an environment where they can receive treatment with peace of mind, and work on medical treatment.'
@@ -405,7 +405,7 @@ User.all.each do |user|
     {
       user: user,
       clinic: Clinic.find_by(name: 'KEI Acupuncture'),
-      appt_date: DateTime.new(2023, 3, 13, 14, 0, 0, "+09:00"),
+      appt_date: DateTime.new(2023, 3, 9, 10, 0, 0, "+09:00"),
       symptoms: ["back pain", "Trouble sleeping"],
       info: "First timer",
       status: 1
