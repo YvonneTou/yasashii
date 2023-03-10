@@ -25,6 +25,7 @@ class ConnectionsController < ApplicationController
       Symptom.find(symptom.to_i)
     end
     authorize @connection
+    if @connection.save
       create_form_message("I'd like to request an appointment on #{@connection.appt_date.strftime('%A, %B %e at %R')}.")
       redirect_to connection_path(@connection)
     else
