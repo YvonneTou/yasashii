@@ -21,6 +21,9 @@ class ConnectionsController < ApplicationController
     @connection.clinic = @clinic
     @connection.user = current_user
     @connection.symptoms.delete_at(0)
+    @connection.symptoms = @connection.symptoms.map do |symptom|
+      Symptom.find(symptom.to_i)
+    end
     authorize @connection
     if @connection.save
       create_form_message("I'd like to request an appointment on #{@connection.appt_date.strftime('%A, %B %e at %R')}.")
