@@ -292,7 +292,37 @@ shibuya = {
   and other lifestyle-related diseases/ illnesses'
 }
 
-clinics = [derm, mirai, ladies, ear, sakurai, mental, sakoda, hira, utaan, kei, nagakura, shibuya]
+gibika1 = {
+  file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098393/zquhpwiksc8zt3rwoifi.jpg",
+  name: 'Meguro Midori Jibika Hospital',
+  location: '142-0062 Tokyo, Shinagwa CIty, 3 Chome-23-5 Koyama',
+  hours: '9:00-18:00',
+  phone_number: '818030161151',
+  email: 'info@megurogreen-ah.com',
+  description: 'As an otolaryngologist, an allergy specialist, and a sports doctor, I would like to provide patients with sufficient explanations and information, create an environment where they can receive treatment with peace of mind, and work on medical treatment.'
+}
+
+gibika2 = {
+  file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098682/fz8jcbrtkxsdsvxhonrp.jpg",
+  name: 'Kurosu Allergy Clinic',
+  location: '153-051 Toky, Meguro CIty, 2 Chome-9-35 Kamimeguro',
+  hours: '9:00-18:00',
+  phone_number: '818030161151',
+  email: 'info@megurogreen-ah.com',
+  description: 'As an otolaryngologist, an allergy specialist, and a sports doctor, I would like to provide patients with sufficient explanations and information, create an environment where they can receive treatment with peace of mind, and work on medical treatment.'
+}
+
+gibika3 = {
+  file: "http://res.cloudinary.com/df7gbyhfx/image/upload/v1676098571/b5pc0fz1xznoyjbf5c6n.png",
+  name: 'Matsumoto Gibika Clinic',
+  location: '153-051 Toky, Meguro CIty, 2 Chome-9-35 Kamimeguro',
+  hours: '9:00-18:00',
+  phone_number: '818030161151',
+  email: 'info@megurogreen-ah.com',
+  description: 'As an otolaryngologist, an allergy specialist, and a sports doctor, I would like to provide patients with sufficient explanations and information, create an environment where they can receive treatment with peace of mind, and work on medical treatment.'
+}
+
+clinics = [derm, mirai, ladies, ear, sakurai, mental, sakoda, hira, utaan, kei, nagakura, shibuya, gibika1, gibika2, gibika3]
 
 def create_clinics(clinic)
   file = URI.open(clinic[:file])
@@ -597,5 +627,14 @@ specialty(nagakura, allergy3)
 specialty(nagakura, nose1)
 specialty(shibuya, head1)
 specialty(shibuya, allergy3)
+specialty(gibika1, allergy1)
+specialty(gibika1, allergy2)
+specialty(gibika1, allergy3)
+specialty(gibika2, allergy1)
+specialty(gibika2, allergy2)
+specialty(gibika2, allergy3)
+specialty(gibika3, allergy1)
+specialty(gibika3, allergy2)
+specialty(gibika3, allergy3)
 
 puts "Done adding specialties to clinics!"
