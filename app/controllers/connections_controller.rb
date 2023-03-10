@@ -85,7 +85,7 @@ class ConnectionsController < ApplicationController
       to: [{
         type: 'phone',
         # number: @connection.clinic.phone_number
-        number: '818068285005'
+        number: '818034123827'
       }],
       from: {
         type: 'phone',

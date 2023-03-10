@@ -246,7 +246,7 @@ class VoiceController < ApplicationController
   end
 
   def greeting_menu
-    "予約の詳細をご確認の場合、「１」を。予約の受け付ける場合、「２」を、押してください。"
+    "予約の詳細をご確認の場合、「１」を。予約を拒否する場合、「２」を、押してください。"
   end
 
   def appt_details_text

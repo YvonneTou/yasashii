@@ -1,10 +1,15 @@
 <div class="banner">
   <div class="container">
+
       <h1>No Japanese? No problem.</h1>
       <h2 class="p-3">Book an appointment with a clinic through us. We'll translate everything.</h2>
-    <div class="mt-0">
+    <div class="mt-0" data-controller="geolocation">
       <%= render "search_form" %>
     </div>
+    <%# <div>
+      <button data-action="geolocation#search">Search near me</button>
+      <div data-geolocation-target="results"></div>
+    </div> %>
   </div>
 </div>
 
