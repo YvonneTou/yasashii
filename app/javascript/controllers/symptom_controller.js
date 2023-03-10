@@ -14,7 +14,7 @@ export default class extends Controller {
   }
 
   close() {
-    this.buttonTarget.innerText = "+"
+    this.buttonTarget.innerText = "Search by symptom"
     this.buttonTarget.removeAttribute("disabled")
     this.listTarget.classList.add("d-none")
   }

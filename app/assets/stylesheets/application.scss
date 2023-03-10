@@ -109,7 +109,8 @@ a {
 .img-full {
   object-fit: cover;
   object-position: 50%;
-  max-width: 100%
+  max-width: 100%;
+  height: 150px !important;
 }
 
 .text-sh {
@@ -150,7 +151,7 @@ a {
     width: 100%;
   }
   .popups {
-    bottom: -30px !important;
+    bottom: 0px !important;
     transform: scale(0.95, 0.80) !important;
   }
 }
@@ -163,7 +164,7 @@ a {
     width: 100%;
   }
   .popups {
-    bottom: -30px !important;
+    bottom: 0px !important;
     transform: scale(0.95, 0.80) !important;
   }
 }
