@@ -1,5 +1,5 @@
 # Yasashii
-Yasashii is an automated web translation service for booking clinic appointments in Japan.
+Yasashii is an automated web translation service for booking clinic appointments in Japan 🩺
 - Search by symptoms and location to find the right clinic in your area.
 - Call any clinic via automated phone call. 
 
