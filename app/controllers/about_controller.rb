@@ -29,14 +29,14 @@ class AboutController < ApplicationController
         role: 'Frontend Lead',
         gmail: 's.rollins751@gmail.com',
         github: 'https://github.com/srollins01',
-        linkedin: 'https://www.linkedin.com/in/touyvonne/'
+        linkedin: 'https://www.linkedin.com/in/sarah-rollins-sr/'
       },
 
       danielle: {
         role: 'Project Manager',
         gmail: 'danielle.a.smart@gmail.com',
         github: 'https://github.com/sumaatsu',
-        linkedin: 'https://www.linkedin.com/in/???/'
+        linkedin: 'https://www.linkedin.com/in/danielle-matsumoto/'
       }
     }
   end
