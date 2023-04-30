@@ -142,6 +142,12 @@ a {
   background-color: white;
 }
 
+@media screen and (min-width: 720px) and (min-height: 720px) {
+  .popups {
+    bottom: -80px !important;
+    transform: scale(0.95, 0.80) !important;
+  }
+}
 @media (max-width: 768px) {
   h3 {
     font-size: 21px !important;
@@ -163,8 +169,10 @@ a {
     height: 200px;
     width: 100%;
   }
+}
+@media (max-width: 375px) {
   .popups {
-    bottom: 0px !important;
+    bottom: 30px !important;
     transform: scale(0.95, 0.80) !important;
   }
 }
