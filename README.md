@@ -8,7 +8,7 @@ Yasashii is an automated web translation service for booking clinic appointments
 <img src="https://user-images.githubusercontent.com/114258514/225004389-c56d9630-8574-4d4f-9e5f-2b7ae8333107.jpg" width= "200">
 
 
-<a href="[https://www.yasashii.care/](https://yasashii.herokuapp.com/)">Yasashii Home Page</a>
+<a href="https://yasashii.herokuapp.com/">Yasashii Home Page</a>
 
 ## Built With
 - [Ruby on Rails](https://guides.rubyonrails.org/) - Back-end / Front-end
